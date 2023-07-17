@@ -1,0 +1,25 @@
+@mixin color-block($name)
+    .back-color-#{$name}
+        background-color: #{$name}
+        margin-top: 0.1rem
+        margin-bottom: 0.5rem
+        margin-right: 0.01rem
+        margin-left: 0.01rem
+
+@include color-block("black")
+@include color-block("blue")
+@include color-block("magenta")
+
+@mixin width-custom($name)
+    .parent-width-#{$name}
+        width: #{$name}rem
+
+@include width-custom("25")
+
+.parentDiv
+    max-height: 100vh
+
+.scrollDiv
+    max-height: 90vh
+    overflow: auto
+
