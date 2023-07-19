@@ -10,11 +10,11 @@ function Ticket(){
                 <h6>Daily</h6>
             </div>
             <div className="row">
-                <div className="col-9">
+                <div className="col-10">
                     <p>This is the header adsada adada adadasd add</p>
                 </div>
-                <div className="col-3">
-                    <i class="fa-solid fa-user-tie fa-2xl"></i>
+                <div className="col-2 container">
+                    <i class="img-fluid fa-solid fa-user-tie fa-2xl"></i>
                 </div>
             </div>
         </div>

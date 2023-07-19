@@ -5,7 +5,7 @@ import '../stylesheets/ticket.sass'
 
 function TicketListHolder(){
     return(
-        <div className="conteiner">
+        <div className="conteiner col-10">
             <div className="ticket-list-holder">
                 <div className="row scrollable">
                     <TicketList/>
