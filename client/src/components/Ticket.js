@@ -7,11 +7,11 @@ function Ticket(){
     return(
         <div className="container shadow bg-body-tertiary rounded border rounded">
             <div className="row back-color-magenta border rounded">
-                <p>Daily</p>
+                <h6>Daily</h6>
             </div>
             <div className="row">
                 <div className="col-9">
-                    <p>This is the header</p>
+                    <p>This is the header adsada adada adadasd add</p>
                 </div>
                 <div className="col-3">
                     <i class="fa-solid fa-user-tie fa-2xl"></i>

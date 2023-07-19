@@ -1,3 +1,7 @@
+
+p 
+    font-size: 0.8rem
+
 @mixin color-block($name)
     .back-color-#{$name}
         background-color: #{$name}
@@ -13,13 +17,23 @@
 @mixin width-custom($name)
     .parent-width-#{$name}
         width: #{$name}rem
+        position: relative
 
 @include width-custom("25")
+@include width-custom("20")
 
 .parentDiv
     max-height: 100vh
 
 .scrollDiv
     max-height: 90vh
-    overflow: auto
+    overflow-y: auto
 
+.ticket-list-holder
+    display: flex
+    flex-wrap: nowrap
+    overflow-x: auto
+
+.scrollable
+    flex: 0 0 auto
+    white-space: normal

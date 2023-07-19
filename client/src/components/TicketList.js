@@ -6,36 +6,42 @@ import '../stylesheets/ticket.sass'
 
 function TicketList(){
     return(
-        <div className="container parent-width-25 m-2 shadow bg-secondary-subtle">
+        <div className="container parent-width-25 m-4 shadow bg-secondary-subtle">
             <div className="container">
                 <h3>New Tickets</h3>
             </div>
              <div className="container scrollDiv">
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
-                <div className="row m-2">
+                <div className="row mx-1 my-2">
+                    <Ticket/>
+                </div>
+                <div className="row mx-1 my-2">
+                    <Ticket/>
+                </div>
+                <div className="row mx-1 my-2">
                     <Ticket/>
                 </div>
         </div>

@@ -1,10 +1,10 @@
 import React from "react";
 //import Ticket from './Ticket.js'
-import TicketList from './TicketList.js'
+import TicketListHolder from './TicketListHolder.js'
 
 function App(){
     return(
-        <TicketList/>
+        <TicketListHolder/>
     )
 }
 
