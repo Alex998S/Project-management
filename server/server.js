@@ -25,8 +25,12 @@ const connect = async() =>{
         console.log("Connection failed" + error)
     }
 }
-
 app.use(express.json());
+
+import ticketRouter from './routes/ticketsRoute.js'
+
+app.use('/', ticketRouter)
+
 
 app.listen(PORT, () => {
   connect()
