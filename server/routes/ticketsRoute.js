@@ -1,24 +1,25 @@
 import express from 'express'
-import Tickets from '../models/ticketModel.js'
+import tickets from '../models/ticketModel.js'
 
 const router = express()
 
 router.get("/", async(req, res)=>{
     try{
-        const tickets = await Tickets.find()
-        res.json(tickets)
-    }catch{err}{
+        const ticketsDB = await tickets.find()
+        res.json(ticketsDB)
+    }catch(err){
         res.status(500)
+        console.log(err)
     }
 })
 
 router.post("/", async(req,res)=>{
-    const ticket = new Tickets({
-        type: req.body.name,
-        stauts: req.body.status,
+    const ticket = new tickets({
+        type: req.body.type,
+        status: req.body.status,
         title: req.body.title,
         description: req.body.description,
-        createdBy: req.body.description,
+        createdBy: req.body.createdBy,
         assignedTo: req.body.assignedTo,
         contributors: req.body.contributors,
         createdDate: req.body.createdDate,
@@ -34,6 +35,7 @@ router.post("/", async(req,res)=>{
         res.status(200).json(newTicket)
     }catch(err){
         res.status(500)
+        console.log(err)
     }
 })
 

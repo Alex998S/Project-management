@@ -1,6 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 
 const ticketSchema = new mongoose.Schema({
+    // _id: new mongoose.Types.ObjectId().toHexString(),
     type: {
         type: String,
         required: true
@@ -41,4 +42,4 @@ const ticketSchema = new mongoose.Schema({
     ],
 })
 
-export default mongoose.model('Tickets', ticketSchema);
+export default mongoose.model('tickets', ticketSchema);
