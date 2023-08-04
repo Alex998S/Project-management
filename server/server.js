@@ -8,7 +8,7 @@ const PORT = 3001;
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3001'
+    origin: 'http://localhost:3000'
 }))
 
 // const con = await mongoose.connect('mongodb+srv://AlexGabor:<password>@firstdatabase.dzarh.mongodb.net/',{
