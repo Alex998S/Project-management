@@ -17,11 +17,13 @@ const QATickets = await filterTickets("QA")
 const doneTickets = await filterTickets("Done")
 const suspendedTickets = await filterTickets("Suspended")
 
+//returns tickets based on status
 function filterTickets(status){
     return allTickets.filter((word) => word.status === status)
 }
 
 function TicketListHolder(){
+
     return(
         <div className="container col-10">
             <div className="ticket-list-holder">
