@@ -1,4 +1,4 @@
-import React, {useState, userState} from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
@@ -6,19 +6,17 @@ import '../stylesheets/ticket.sass'
 
 function AddTicket(props){
 
-    let[show, setShow] = useState(props.props)
-
-    setShow = props.props
+    let show = props.props
 
     console.log("add ticket console", props.props)
 
-    if(setShow){
+    if(show){
         return(
-            <div style={{display:'block',position: 'absolute', margin: '300px'}}>Show ME</div>
+            <div style={{display:'block',position: 'absolute', margin: '300px', backgroundColor: 'blue', zIndex: '-10'}}>Show ME</div>
         );
     }else{
         return(
-            <div style={{display:'block',position: 'absolute', margin: '300px'}}>Not visible</div>
+            <div style={{display:'block',position: 'absolute', margin: '300px', backgroundColor: 'blue', zIndex: '-1'}}>Not visible</div>
         )
     }
 

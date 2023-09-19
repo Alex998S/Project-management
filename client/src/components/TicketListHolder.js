@@ -26,6 +26,9 @@ function TicketListHolder(){
 
     return(
         <div className="container col-10">
+            <div className="ticketHeader">
+                
+            </div>
             <div className="ticket-list-holder">
                 <div className="row scrollable">
                     <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">

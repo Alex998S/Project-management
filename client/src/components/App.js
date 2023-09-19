@@ -10,7 +10,7 @@ import TopNavigationBar from "./TopNavigationBar";
 function App(){
     return(
         <div>
-            <TopNavigationBar/>
+            {/* <TopNavigationBar/> */}
             <div className="main-container row border border-5">
                 <LeftSideMenu/>
                 <TicketListHolder/>
