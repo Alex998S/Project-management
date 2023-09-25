@@ -3,7 +3,8 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
 import '../stylesheets/ticket.sass'
-import Ticket from "./Ticket.js";
+import TopNavigationBar from "./TopNavigationBar.js";
+import AddTicket from "./AddTicket.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -25,11 +26,11 @@ function filterTickets(status){
 function TicketListHolder(){
 
     return(
-        <div className="container col-10">
-            <div className="ticketHeader">
-                
+        <div className="container col-10 row">
+            <div className="container ticketHeader col-12">
+                <TopNavigationBar/>
             </div>
-            <div className="ticket-list-holder">
+            <div className="ticket-list-holder col-12">
                 <div className="row scrollable">
                     <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
                         <div className="container">

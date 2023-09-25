@@ -15,14 +15,12 @@ function LeftSideMenu(){
         return(
             <div className="container col-2 border">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(true)}>Create Ticket</button>
-                <AddTicket props={pressed}/>
             </div>
         )
     }else{
         return(
             <div className="container col-2 border">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(false)}>Close Ticket</button>
-                <AddTicket props={pressed}/>
             </div>
         )
     }

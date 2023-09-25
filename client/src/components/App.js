@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 import TicketListHolder from './TicketListHolder.js'
 import LeftSideMenu from './LeftSideMenu.js'
-import TopNavigationBar from "./TopNavigationBar";
 
 function App(){
     return(
