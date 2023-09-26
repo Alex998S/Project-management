@@ -18,7 +18,7 @@ function TopNavigationBar(props){
         )
     }else{
         return(
-            <div className="container">
+            <div className="container mt-3">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(false)}>Close Ticket</button>
                 <AddTicket props={pressed}/>
             </div>
