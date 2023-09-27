@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { Schema, mongo } from "mongoose";
 
 const ticketSchema = new mongoose.Schema({
     // _id: new mongoose.Types.ObjectId().toHexString(),
@@ -40,6 +40,7 @@ const ticketSchema = new mongoose.Schema({
     comments:[
         String
     ],
-})
+    customFields:[Schema.Types.Mixed]
+},{strict: false})
 
 export default mongoose.model('tickets', ticketSchema);

@@ -27,7 +27,8 @@ router.post("/", async(req,res)=>{
         endDate:  req.body.endDate,
         eta: req.body.eta,
         eta2: req.body.eta2,
-        comments: req.body.comments
+        comments: req.body.comments,
+        customFields: req.body.customFields
     })
 
     try{

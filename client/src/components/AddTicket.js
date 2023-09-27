@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
+import Dropdown from "./Dropdown.js";
 
-function AddTicketForm(){
+function AddTicketForm(props){
 
     const[showList, setShowList] = useState(false)
     const[dropdownValue, setDropdownValue] = useState('Select type')
@@ -20,16 +21,9 @@ function AddTicketForm(){
                 {/* <span className="input-group-text">With textarea</span> */}
                 <textarea className="form-control" aria-label="With textarea"></textarea>
             </div>
-            <div className="dropdown">
-                <button onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {dropdownValue}
-                </button>
-                <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
-                    <li><button onClick={()=>{setDropdownValue('Bug fix'); setShowList(false)}} className="dropdown-item">Bug fix</button></li>
-                    <li><button onClick={()=>{setDropdownValue('Daily'); setShowList(false)}}  className="dropdown-item">Daily</button></li>
-                    <li><button onClick={()=>{setDropdownValue('Maintenance'); setShowList(false)}}  className="dropdown-item">Maintenance</button></li>
-                </ul>
-            </div>
+            <Dropdown props={{dropDownName: "Type", list:['Bug fix', 'Maintenance', 'Daily']}}/>
+            <Dropdown props={{dropDownName: "Status", list:['New', 'In Progress', 'QA', 'Done', 'Suspended']}}/>
+            {/* now added */}
         </div>
     )
 }
