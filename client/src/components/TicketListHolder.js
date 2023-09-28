@@ -10,7 +10,6 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 const response = await axios.get("/")
 const allTickets = response.data
-console.log(allTickets)
 
 const newTickets = await filterTickets("New")
 const inProgressTickets = await filterTickets("In progress")

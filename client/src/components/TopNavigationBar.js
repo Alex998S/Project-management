@@ -17,6 +17,7 @@ function TopNavigationBar(props){
             </div>
         )
     }else{
+        //window.history.replaceState(null, null, "/create-ticket")
         return(
             <div className="container mt-3">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(false)}>Close Ticket</button>

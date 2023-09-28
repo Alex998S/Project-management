@@ -1,46 +1,43 @@
 import React, {useState} from "react";
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
 import Dropdown from "./Dropdown.js";
+import TextArea from "./TextArea.js";
+
+axios.defaults.baseURL = "http://localhost:3001"
+
+const response = await axios.get("/create-ticket")
+const ticketModel = response.data[0].ticketModel
 
 function AddTicketForm(props){
 
-    const[showList, setShowList] = useState(false)
-    const[dropdownValue, setDropdownValue] = useState('Select type')
-
     return(
         <div className="add-ticket-form container border rounded">
-            <div>
-                <h4>Title</h4>
-                {/* <span className="input-group-text">With textarea</span> */}
-                <textarea className="form-control" aria-label="With textarea"></textarea>
-            </div>
-            <div>
-                <h4>Description</h4>
-                {/* <span className="input-group-text">With textarea</span> */}
-                <textarea className="form-control" aria-label="With textarea"></textarea>
-            </div>
-            <Dropdown props={{dropDownName: "Type", list:['Bug fix', 'Maintenance', 'Daily']}}/>
-            <Dropdown props={{dropDownName: "Status", list:['New', 'In Progress', 'QA', 'Done', 'Suspended']}}/>
-            {/* now added */}
+            {ticketModel.map(element =>{
+                switch(element.inputType){
+                    case "textArea":
+                        return(
+                            <TextArea props={element}/>
+                        )
+                        break;
+                    case "dropdown":
+                        return(
+                            <Dropdown props={element}/>
+                        )
+                        break;
+                    default:
+                        console.log("No match for input types")
+                }
+            })}
         </div>
     )
-}
-
-function dropdownVisible(parm){
-    if(parm){
-        return false
-    }else{
-        return true
-    }
 }
 
 function AddTicket(props){
 
     let show = props.props
-
-    console.log("add ticket console", props.props)
 
     if(show){
         return(

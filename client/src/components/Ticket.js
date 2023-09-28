@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 
 function Ticket(props){
-    console.log("ticket here")
     return(
         <div className="container shadow bg-body-tertiary rounded border rounded">
             <div className="row back-color-magenta border rounded">

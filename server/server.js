@@ -28,8 +28,11 @@ const connect = async() =>{
 app.use(express.json());
 
 import ticketRouter from './routes/ticketsRoute.js'
+import companyRouter from './routes/companyRoute.js'
 
 app.use('/', ticketRouter)
+
+app.use('/', companyRouter)
 
 
 app.listen(PORT, () => {

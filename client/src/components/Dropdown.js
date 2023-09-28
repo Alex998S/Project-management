@@ -5,10 +5,8 @@ import '../stylesheets/ticket.sass'
 
 function Dropdown({props:props}){
 
-    console.log(props.list)
-
     const[showList, setShowList] = useState(false)
-    const[dropdownValue, setDropdownValue] = useState(props.dropDownName)
+    const[dropdownValue, setDropdownValue] = useState(props.title)
 
     return(
         <div className="dropdown">
@@ -16,14 +14,14 @@ function Dropdown({props:props}){
                 {dropdownValue}
             </button>
             <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
-                {props.list.map(element =>{
+                {props.options.map(element =>{
                     return(
                         <li><button onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
                     )
                 })}
             </ul>
         </div>
-    )   
+    )
 }
 
 function dropdownVisible(parm){
