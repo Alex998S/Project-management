@@ -25,6 +25,16 @@ p
 .parentDiv
     max-height: 80%
 
+@mixin scroll-max-size-($size)
+    .scroll-size-#{$size}
+        max-height: #{$size}vh
+        overflow-y: auto
+
+@include scroll-max-size-("20")
+@include scroll-max-size-("60")
+@include scroll-max-size-("85")
+
+
 .scrollDiv
     max-height: 85vh
     overflow-y: auto
@@ -52,3 +62,6 @@ p
 
 .my-dropdown
     width: 25vh
+
+.dropdown-title
+    width: 15vh

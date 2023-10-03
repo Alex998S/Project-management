@@ -9,18 +9,24 @@ function Dropdown({props:props}){
     const[dropdownValue, setDropdownValue] = useState(props.title)
 
     return(
-        <div className="dropdown">
-            <button onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {dropdownValue}
-            </button>
-            <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
-                {props.options.map(element =>{
-                    return(
-                        <li><button onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
-                    )
-                })}
-            </ul>
+        <div className="mb-3">
+            <div class="input-group">
+                <span class="input-group-text dropdown-title" id="basic-addon3">{props.title}</span>
+                <div className="dropdown">
+                    <button onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {dropdownValue}
+                    </button>
+                    <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
+                        {props.options.map(element =>{
+                            return(
+                                <li><button onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
+                            )
+                        })}
+                    </ul>
+                </div>
+            </div>
         </div>
+        
     )
 }
 
