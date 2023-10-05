@@ -17,21 +17,24 @@ function AddTicketForm(props){
     return(
         <div className="container scrollable">
             <div className="add-ticket-form container border rounded scroll-size-60">
+                <button className="btn btn-success float-end mb-3">
+                    Save
+                </button>
                 {ticketModel.map(element =>{
                     switch(element.inputType){
                         case "textArea":
                             return(
-                                <TextArea props={element}/>
+                                <TextArea key={element.title} props={element}/>
                             )
                             break;
                         case "dropdown":
                             return(
-                                <Dropdown props={element}/>
+                                <Dropdown props={element} key={element.title}/>
                             )
                             break;
                         case "smallTextArea":
                             return(
-                                <SmallTextArea props={element}/>
+                                <SmallTextArea props={element} key={element.title}/>
                             )
                         default:
                             console.log("No match for input types")

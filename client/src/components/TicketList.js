@@ -12,10 +12,9 @@ function TicketList(props){
              {props.data.map(element =>{
                 return(
                     <div className="row mx-1 my-2">
-                        <Ticket data={element}/>
+                        <Ticket data={element} key={element._id}/>
                     </div>
                 )
-                
             })}
         </div>
            
