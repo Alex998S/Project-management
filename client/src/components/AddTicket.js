@@ -14,32 +14,41 @@ const ticketModel = response.data[0].ticketModel
 
 function AddTicketForm(props){
 
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        const data = new FormData(e.target)
+        console.log("this is the new ticket", Object.fromEntries(data.entries()))
+    }
+
     return(
         <div className="container scrollable">
             <div className="add-ticket-form container border rounded scroll-size-60">
-                <button className="btn btn-success float-end mb-3">
-                    Save
-                </button>
-                {ticketModel.map(element =>{
-                    switch(element.inputType){
-                        case "textArea":
-                            return(
-                                <TextArea key={element.title} props={element}/>
-                            )
-                            break;
-                        case "dropdown":
-                            return(
-                                <Dropdown props={element} key={element.title}/>
-                            )
-                            break;
-                        case "smallTextArea":
-                            return(
-                                <SmallTextArea props={element} key={element.title}/>
-                            )
-                        default:
-                            console.log("No match for input types")
-                    }
-                })}
+                <form onSubmit={handleSubmit}>
+                    <button className="btn btn-success float-end mb-3" type="submit">
+                        Save
+                    </button>
+                    {ticketModel.map(element =>{
+                        switch(element.inputType){
+                            case "textArea":
+                                return(
+                                    <TextArea name={element.title} key={element.title} props={element} value=""/>
+                                )
+                                break;
+                            case "dropdown":
+                                return(
+                                    <Dropdown name={element.title} props={element} key={element.title} value=""/>
+                                )
+                                break;
+                            case "smallTextArea":
+                                return(
+                                    <SmallTextArea name={element.title} props={element} key={element.title} value=""/>
+                                )
+                                break;
+                            default:
+                                console.log("No match for input types")
+                        }
+                    })}
+                </form>
             </div>
         </div>
     )

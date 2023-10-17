@@ -13,7 +13,10 @@ function Dropdown({props:props}){
             <div className="input-group">
                 <span className="input-group-text dropdown-title" id="basic-addon3">{props.title}</span>
                 <div className="dropdown">
-                    <button onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <input name={props.title} style={{display: "none"}}
+                        value={dropdownValue}
+                    />
+                    <button name={props.title} onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {dropdownValue}
                     </button>
                     <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
@@ -26,7 +29,6 @@ function Dropdown({props:props}){
                 </div>
             </div>
         </div>
-        
     )
 }
 

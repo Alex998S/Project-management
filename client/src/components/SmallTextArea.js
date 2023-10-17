@@ -9,7 +9,7 @@ function SmallTextArea({props:props}){
         <div className="mb-3">
             <div className="input-group">
                 <span className="input-group-text" id="basic-addon3">{props.title}</span>
-                <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"></input>
+                <input name={props.title} type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"></input>
             </div>
         </div>
     )
