@@ -6,7 +6,7 @@ function TextArea({props:props}){
     return(
         <div>
             <h4>{props.title}</h4>
-            <textarea name={props.title} className="form-control" aria-label="With textarea"></textarea>
+            <textarea name={props.title} className="form-control" inputType="textArea" aria-label="With textarea"></textarea>
         </div>
     )
 }

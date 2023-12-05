@@ -16,7 +16,7 @@ function Dropdown({props:props}){
                     <input name={props.title} style={{display: "none"}}
                         value={dropdownValue}
                     />
-                    <button name={props.title} onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button name={props.title} onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" inputType="dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {dropdownValue}
                     </button>
                     <ul className={"dropdown-menu" + (showList ? ' show' : '')}>

@@ -17,6 +17,8 @@ function AddTicketForm(props){
     const handleSubmit = (e) =>{
         e.preventDefault()
         const data = new FormData(e.target)
+        console.log(data)
+        console.log(e.target)
         console.log("this is the new ticket", Object.fromEntries(data.entries()))
     }
 
