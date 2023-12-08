@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from "mongoose";
 import cors from 'cors'
+import bodyParser from 'body-parser'
 
 const app = express()
 
@@ -26,6 +27,7 @@ const connect = async() =>{
     }
 }
 app.use(express.json());
+app.use(bodyParser.json());
 
 import ticketRouter from './routes/ticketsRoute.js'
 import companyRouter from './routes/companyRoute.js'

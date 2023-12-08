@@ -15,21 +15,10 @@ router.get("/", async(req, res)=>{
 
 router.post("/", async(req,res)=>{
     const ticket = new tickets({
-        type: req.body.type,
-        status: req.body.status,
-        title: req.body.title,
-        description: req.body.description,
-        createdBy: req.body.createdBy,
-        assignedTo: req.body.assignedTo,
-        contributors: req.body.contributors,
-        createdDate: req.body.createdDate,
-        startDate: req.body.startDate,
-        endDate:  req.body.endDate,
-        eta: req.body.eta,
-        eta2: req.body.eta2,
-        comments: req.body.comments,
-        customFields: req.body.customFields
+        ticketValues: req.body.ticketValues
     })
+
+    console.log(ticket)
 
     try{
         const newTicket = await ticket.save()

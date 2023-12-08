@@ -22,7 +22,7 @@ function Dropdown({props:props}){
                     <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
                         {props.options.map(element =>{
                             return(
-                                <li><button onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
+                                <li><button type="button" onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
                             )
                         })}
                     </ul>

@@ -6,20 +6,22 @@ import '../stylesheets/ticket.sass'
 
 
 function TicketList(props){
-    return(
-        // <React.Fragment>
-        <div>
-             {props.data.map(element =>{
-                return(
-                    <div className="row mx-1 my-2">
-                        <Ticket data={element} key={element._id}/>
-                    </div>
-                )
-            })}
-        </div>
-           
-        // </React.Fragment>    
-    )
+    if(props.data != []){
+        return(
+            // <React.Fragment>
+            <div>
+                 {props.data.map(element =>{
+                    return(
+                        <div className="row mx-1 my-2">
+                            <Ticket data={element} key={element._id}/>
+                        </div>
+                    )
+                })}
+            </div>
+               
+            // </React.Fragment>    
+        )
+    }
 }
 
 export default TicketList

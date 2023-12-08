@@ -11,15 +11,30 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 const response = await axios.get("/create-ticket")
 const ticketModel = response.data[0].ticketModel
+let ticketValues = []
 
 function AddTicketForm(props){
+
+    ticketValues =[]
 
     const handleSubmit = (e) =>{
         e.preventDefault()
         const data = new FormData(e.target)
-        console.log(data)
-        console.log(e.target)
-        console.log("this is the new ticket", Object.fromEntries(data.entries()))
+        const formTicket = Object.entries(Object.fromEntries(data.entries()));
+        ticketModel.map(element =>{
+            let value;
+            formTicket.map(key =>{
+                if(element.title == key[0]){
+                    value = key[1]
+                }
+            })
+            element.value = value
+            ticketValues.push(element)
+        })
+        console.log("ticket to be posted", ticketValues)
+        axios.post("/", {
+            ticketValues: ticketValues
+        })
     }
 
     return(

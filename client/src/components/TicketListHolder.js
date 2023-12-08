@@ -10,6 +10,8 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 const response = await axios.get("/")
 const allTickets = response.data
+let keep = "false"
+let filteredTickets = [];
 
 const newTickets = await filterTickets("New")
 const inProgressTickets = await filterTickets("In progress")
@@ -17,9 +19,20 @@ const QATickets = await filterTickets("QA")
 const doneTickets = await filterTickets("Done")
 const suspendedTickets = await filterTickets("Suspended")
 
+console.log("all tickets", allTickets)
 //returns tickets based on status
 function filterTickets(status){
-    return allTickets.filter((word) => word.status === status)
+    filteredTickets = []
+    allTickets.map(element=>{
+        const values = element.ticketValues
+        values.map(object=>{
+            if(object.title == "Status" && object.value == status){
+                filteredTickets.push(element)
+            }
+        })
+    })
+    return filteredTickets
+    //return allTickets.filter((word) => word.status === status)
 }
 
 function TicketListHolder(){
