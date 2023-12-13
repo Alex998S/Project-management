@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
@@ -13,14 +13,17 @@ const allTickets = response.data
 let keep = "false"
 let filteredTickets = [];
 
-const newTickets = await filterTickets("New")
-const inProgressTickets = await filterTickets("In progress")
-const QATickets = await filterTickets("QA")
-const doneTickets = await filterTickets("Done")
-const suspendedTickets = await filterTickets("Suspended")
+const newTickets = filterTickets("New")
+const inProgressTickets = filterTickets("In progress")
+const QATickets = filterTickets("QA")
+const doneTickets = filterTickets("Done")
+const suspendedTickets = filterTickets("Suspended")
 
-console.log("all tickets", allTickets)
+//console.log("all tickets", allTickets)
 //returns tickets based on status
+
+
+
 function filterTickets(status){
     filteredTickets = []
     allTickets.map(element=>{
@@ -37,10 +40,22 @@ function filterTickets(status){
 
 function TicketListHolder(){
 
+    const[ticketCount, setTicketCount]=useState("")
+
+    function updateTicketCount(newCount){
+        if(newCount != ticketCount){
+            console.log("why not changeeee")
+            setTicketCount("ticketCount+2")   
+        }
+             
+    }
+    console.log("ticketCount", ticketCount);
+    console.log("setTicketCount", setTicketCount);
+
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
-                <TopNavigationBar/>
+                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount}/>
             </div>
             <div className="ticket-list-holder col-12">
                 <div className="row scrollable">

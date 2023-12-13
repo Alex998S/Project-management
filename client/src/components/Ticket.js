@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 
 function Ticket(props){
-    console.log("the ticket", props.data.ticketValues)
+    //console.log("the ticket", props.data.ticketValues)
     const titleObject = props.data.ticketValues.find(object => object.title === "Add title")
     const typeObject = props.data.ticketValues.find(object => object.title === "Type")
     return(
