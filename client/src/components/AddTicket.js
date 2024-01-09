@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
@@ -12,23 +12,31 @@ axios.defaults.baseURL = "http://localhost:3001"
 const response = await axios.get("/create-ticket")
 const ticketModel = response.data[0].ticketModel
 let ticketValues = []
+let newCount
 
 function setNewState(oldCount){
     let newCount = oldCount + 1
     return newCount
 }
 
-function AddTicket(props){
+async function postTicket(ticketValues, props, newCount){
+    const response = await axios.post("/", {
+        ticketValues: ticketValues
+    })
+    const data = Promise.resolve(response)
+    data.then(result=>{
+        console.log("new count add ticket", newCount)
+        props.updateTicketCount(newCount.currentTickets)
+    })
+}
 
-    //console.log(props)
+function AddTicket(props){
 
     let show = props.props
 
     if(show){
-        // return(
-            
-        //     AddTicketForm(props.ticketCount, props)
-        // )
+
+        console.log("why not render")
         ticketValues =[]
 
         const handleSubmit = (e) =>{
@@ -45,15 +53,9 @@ function AddTicket(props){
                 element.value = value
                 ticketValues.push(element)
             })
-            //console.log("ticket to be posted", ticketValues)
-            axios.post("/", {
-                ticketValues: ticketValues
-            })
-
-            const newCount ={...props}
+            newCount ={...props}
             newCount.currentTickets = newCount.currentTickets + 1
-            //console.log("clone", clone);
-            props.updateTicketCount(newCount.currentTickets)
+            postTicket(ticketValues, props, newCount)
         }
 
         return(

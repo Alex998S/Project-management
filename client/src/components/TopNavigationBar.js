@@ -8,7 +8,7 @@ let showPopUp = false;
 function TopNavigationBar(props){
 
     const[pressed, setPressed] = useState(showPopUp)
-
+    
     //console.log("ticketCount in top navigation", rest)
 
     if(!pressed){

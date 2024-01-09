@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Ticket from "./Ticket";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
@@ -6,6 +6,13 @@ import '../stylesheets/ticket.sass'
 
 
 function TicketList(props){
+
+    const[tickets, setTickets] = useState(props.count)
+
+    useEffect(()=>{
+        setTickets(props.count)
+    }, [props.count])
+
     if(props.data != []){
         return(
             // <React.Fragment>

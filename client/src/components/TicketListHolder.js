@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
@@ -8,23 +8,18 @@ import AddTicket from "./AddTicket.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-const response = await axios.get("/")
-const allTickets = response.data
-let keep = "false"
+let allTickets = [];
+let newTickets;
+let inProgressTickets;
+let QATickets;
+let doneTickets;
+let suspendedTickets;
 let filteredTickets = [];
 
-const newTickets = filterTickets("New")
-const inProgressTickets = filterTickets("In progress")
-const QATickets = filterTickets("QA")
-const doneTickets = filterTickets("Done")
-const suspendedTickets = filterTickets("Suspended")
 
 //console.log("all tickets", allTickets)
 //returns tickets based on status
-
-
-
-function filterTickets(status){
+function filterTickets(allTickets, status){
     filteredTickets = []
     allTickets.map(element=>{
         const values = element.ticketValues
@@ -40,17 +35,42 @@ function filterTickets(status){
 
 function TicketListHolder(){
 
-    const[ticketCount, setTicketCount]=useState("")
+    const[ticketCount, setTicketCount]=useState(1)
+    const[loading, setLoading] = useState(true)
+    const[tickets, setTickets] = useState(0)
+    //fetchTickets(setLoading)
+
+    useEffect(()=>{
+        axios.get("/")
+            .then((response) => response.data)
+            .then((data) =>{
+                allTickets = data
+                setTickets(data)
+                setLoading(false)
+            })
+    },[ticketCount])
+
+    console.log("tickets state", tickets)
+
+    if(loading){
+        return <p>Loading</p>
+    }
+
+    //allTickets = fetchTickets();
+    //setLoading(true)
+    console.log("allTickets list holder", allTickets)
+    newTickets = filterTickets(allTickets,"New")
+    //console.log("newTickets", newTickets)
+    inProgressTickets = filterTickets(allTickets,"In Progress")
+    QATickets = filterTickets(allTickets,"QA")
+    doneTickets = filterTickets(allTickets,"Done")
+    suspendedTickets = filterTickets(allTickets,"Suspended")
 
     function updateTicketCount(newCount){
-        if(newCount != ticketCount){
-            console.log("why not changeeee")
-            setTicketCount("ticketCount+2")   
-        }
-             
+        setTicketCount(newCount)   
     }
-    console.log("ticketCount", ticketCount);
-    console.log("setTicketCount", setTicketCount);
+    console.log("ticketCount list holder", ticketCount);
+    //console.log("setTicketCount", setTicketCount);
 
     return(
         <div className="container col-10 row">
@@ -64,7 +84,7 @@ function TicketListHolder(){
                             <h3>New</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={newTickets}/>
+                            <TicketList data={newTickets} count={newTickets.length}/>
                         </div>
                     </div>
                 </div>
@@ -74,7 +94,7 @@ function TicketListHolder(){
                             <h3>In progress</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={inProgressTickets}/>
+                            <TicketList data={inProgressTickets} count={inProgressTickets.length}/>
                         </div>
                     </div>
                 </div>
@@ -84,7 +104,7 @@ function TicketListHolder(){
                             <h3>QA</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={QATickets}/>
+                            <TicketList data={QATickets} count={QATickets.length}/>
                         </div>
                     </div>
                 </div>
@@ -94,7 +114,7 @@ function TicketListHolder(){
                             <h3>Done</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={doneTickets}/>
+                            <TicketList data={doneTickets} count={doneTickets.length}/>
                         </div>
                     </div>
                 </div>
@@ -104,7 +124,7 @@ function TicketListHolder(){
                             <h3>Suspended</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={suspendedTickets}/>
+                            <TicketList data={suspendedTickets} count={suspendedTickets.length}/>
                         </div>
                     </div>
                 </div>
@@ -113,5 +133,7 @@ function TicketListHolder(){
         
     )
 }
+
+
 
 export default TicketListHolder
