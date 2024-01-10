@@ -9,8 +9,6 @@ import SmallTextArea from './SmallTextArea.js'
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-const response = await axios.get("/create-ticket")
-const ticketModel = response.data[0].ticketModel
 let ticketValues = []
 let newCount
 
@@ -25,8 +23,8 @@ async function postTicket(ticketValues, props, newCount){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("new count add ticket", newCount)
         props.updateTicketCount(newCount.currentTickets)
+        props.closeTheForm(false)
     })
 }
 
@@ -35,15 +33,13 @@ function AddTicket(props){
     let show = props.props
 
     if(show){
-
-        console.log("why not render")
         ticketValues =[]
 
         const handleSubmit = (e) =>{
             e.preventDefault()
             const data = new FormData(e.target)
             const formTicket = Object.entries(Object.fromEntries(data.entries()));
-            ticketModel.map(element =>{
+            props.ticketModel.map(element =>{
                 let value;
                 formTicket.map(key =>{
                     if(element.title == key[0]){
@@ -65,7 +61,7 @@ function AddTicket(props){
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
                         </button>
-                        {ticketModel.map(element =>{
+                        {props.ticketModel.map(element =>{
                             switch(element.inputType){
                                 case "textArea":
                                     return(

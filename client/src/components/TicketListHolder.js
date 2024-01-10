@@ -8,6 +8,8 @@ import AddTicket from "./AddTicket.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
+
+
 let allTickets = [];
 let newTickets;
 let inProgressTickets;
@@ -15,6 +17,7 @@ let QATickets;
 let doneTickets;
 let suspendedTickets;
 let filteredTickets = [];
+let ticketModel;
 
 
 //console.log("all tickets", allTickets)
@@ -30,7 +33,6 @@ function filterTickets(allTickets, status){
         })
     })
     return filteredTickets
-    //return allTickets.filter((word) => word.status === status)
 }
 
 function TicketListHolder(){
@@ -38,7 +40,15 @@ function TicketListHolder(){
     const[ticketCount, setTicketCount]=useState(1)
     const[loading, setLoading] = useState(true)
     const[tickets, setTickets] = useState(0)
-    //fetchTickets(setLoading)
+
+    useEffect(()=>{
+        console.log("called ticket model")
+        axios.get("/create-ticket")
+            .then((response) => response.data[0].ticketModel)
+            .then((data) =>{
+                ticketModel = data
+            })
+    },[])
 
     useEffect(()=>{
         axios.get("/")
@@ -49,18 +59,11 @@ function TicketListHolder(){
                 setLoading(false)
             })
     },[ticketCount])
-
-    console.log("tickets state", tickets)
-
     if(loading){
         return <p>Loading</p>
     }
 
-    //allTickets = fetchTickets();
-    //setLoading(true)
-    console.log("allTickets list holder", allTickets)
     newTickets = filterTickets(allTickets,"New")
-    //console.log("newTickets", newTickets)
     inProgressTickets = filterTickets(allTickets,"In Progress")
     QATickets = filterTickets(allTickets,"QA")
     doneTickets = filterTickets(allTickets,"Done")
@@ -69,13 +72,11 @@ function TicketListHolder(){
     function updateTicketCount(newCount){
         setTicketCount(newCount)   
     }
-    console.log("ticketCount list holder", ticketCount);
-    //console.log("setTicketCount", setTicketCount);
 
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
-                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount}/>
+                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel}/>
             </div>
             <div className="ticket-list-holder col-12">
                 <div className="row scrollable">
