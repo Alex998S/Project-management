@@ -42,11 +42,12 @@ function TicketListHolder(){
     const[tickets, setTickets] = useState(0)
 
     useEffect(()=>{
-        console.log("called ticket model")
+        
         axios.get("/create-ticket")
             .then((response) => response.data[0].ticketModel)
             .then((data) =>{
                 ticketModel = data
+                console.log("called ticket model", ticketModel)
             })
     },[])
 
@@ -59,6 +60,7 @@ function TicketListHolder(){
                 setLoading(false)
             })
     },[ticketCount])
+
     if(loading){
         return <p>Loading</p>
     }
@@ -85,7 +87,7 @@ function TicketListHolder(){
                             <h3>New</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={newTickets} count={newTickets.length}/>
+                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel}/>
                         </div>
                     </div>
                 </div>
@@ -95,7 +97,7 @@ function TicketListHolder(){
                             <h3>In progress</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={inProgressTickets} count={inProgressTickets.length}/>
+                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel}/>
                         </div>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ function TicketListHolder(){
                             <h3>QA</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={QATickets} count={QATickets.length}/>
+                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel}/>
                         </div>
                     </div>
                 </div>
@@ -115,7 +117,7 @@ function TicketListHolder(){
                             <h3>Done</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={doneTickets} count={doneTickets.length}/>
+                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel}/>
                         </div>
                     </div>
                 </div>
@@ -125,7 +127,7 @@ function TicketListHolder(){
                             <h3>Suspended</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={suspendedTickets} count={suspendedTickets.length}/>
+                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel}/>
                         </div>
                     </div>
                 </div>

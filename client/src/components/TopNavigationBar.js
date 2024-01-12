@@ -9,7 +9,7 @@ function TopNavigationBar(props){
 
     const[pressed, setPressed] = useState(showPopUp)
 
-    function closeTheForm(param){
+    function showTheForm(param){
         setPressed(param)
     }
     
@@ -19,7 +19,7 @@ function TopNavigationBar(props){
         return(
             <div className="container mt-3">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(true)}>Create Ticket</button>
-                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} closeTheForm={closeTheForm} ticketModel={props.ticketModel}/>
+                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
             </div>
         )
     }else{
@@ -27,7 +27,7 @@ function TopNavigationBar(props){
         return(
             <div className="container mt-3">
                 <button type="button" className="btn btn-primary" onClick={()=>setPressed(false)}>Close Ticket</button>
-                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} closeTheForm={closeTheForm} ticketModel={props.ticketModel}/>
+                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
             </div>
         )
     }

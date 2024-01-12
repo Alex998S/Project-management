@@ -28,11 +28,13 @@ async function postTicket(ticketValues, props, newCount){
     })
 }
 
-function AddTicket(props){
+function OpenTicket(props){
 
-    let show = props.props
+    let show = props.open
+    console.log("props", props)
 
     if(show){
+
         ticketValues =[]
 
         const handleSubmit = (e) =>{
@@ -90,4 +92,4 @@ function AddTicket(props){
     }
 }
 
-export default AddTicket
+export default OpenTicket

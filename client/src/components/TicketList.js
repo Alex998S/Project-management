@@ -7,11 +7,11 @@ import '../stylesheets/ticket.sass'
 
 function TicketList(props){
 
-    const[tickets, setTickets] = useState(props.count)
+    // const[tickets, setTickets] = useState(props.count)
 
-    useEffect(()=>{
-        setTickets(props.count)
-    }, [props.count])
+    // useEffect(()=>{
+    //     setTickets(props.count)
+    // }, [props.count])
 
     if(props.data != []){
         return(
@@ -20,7 +20,7 @@ function TicketList(props){
                  {props.data.map(element =>{
                     return(
                         <div className="row mx-1 my-2">
-                            <Ticket data={element} key={element._id}/>
+                            <Ticket data={element} key={element._id} ticketModel={props.ticketModel}/>
                         </div>
                     )
                 })}
