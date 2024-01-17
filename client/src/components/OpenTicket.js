@@ -11,6 +11,7 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 let ticketValues = []
 let newCount
+let ticketModelWithValues
 
 function setNewState(oldCount){
     let newCount = oldCount + 1
@@ -35,13 +36,28 @@ function OpenTicket(props){
 
     if(show){
 
+        function mergeTicketWithModel(ticketModel, ticketValues){
+            ticketModel.map(element=>{
+                ticketValues.map(value =>{
+                    if(element.title == value.title){
+                        element.value = value.value
+                    }
+                })
+            })
+            console.log("merged ticket model", ticketModel)
+            return ticketModel
+        }
+
         ticketValues =[]
+
+        ticketModelWithValues = mergeTicketWithModel(props.ticketModel, props.data.ticketValues)
+        console.log("mergeTicketWihtModel", ticketModelWithValues)
 
         const handleSubmit = (e) =>{
             e.preventDefault()
             const data = new FormData(e.target)
             const formTicket = Object.entries(Object.fromEntries(data.entries()));
-            props.ticketModel.map(element =>{
+            ticketModelWithValues.map(element =>{
                 let value;
                 formTicket.map(key =>{
                     if(element.title == key[0]){
@@ -64,21 +80,22 @@ function OpenTicket(props){
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
                         </button>
-                        {props.ticketModel.map(element =>{
+                        {ticketModelWithValues.map(element =>{
+                            console.log("i'm in the JXS")
                             switch(element.inputType){
                                 case "textArea":
                                     return(
-                                        <TextArea name={element.title} key={element.title} props={element} value=""/>
+                                        <TextArea name={element.title} key={element.title} data={element} value={element.value}/>
                                     )
                                     break;
                                 case "dropdown":
                                     return(
-                                        <Dropdown name={element.title} props={element} key={element.title} value=""/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value}/>
                                     )
                                     break;
                                 case "smallTextArea":
                                     return(
-                                        <SmallTextArea name={element.title} props={element} key={element.title} value=""/>
+                                        <SmallTextArea name={element.title} data={element} key={element.title} value={element.value}/>
                                     )
                                     break;
                                 default:

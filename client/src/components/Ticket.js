@@ -25,7 +25,7 @@ function Ticket(props){
                     <i className="img-fluid fa-solid fa-user-tie fa-2xl"></i>
                 </div>
             </div>
-            <OpenTicket data={props.data} key={props.key} ticketModel ={props.ticketModel} open={opened}/>
+            <OpenTicket data={props.data} key={props.key} ticketModel={props.ticketModel} open={opened}/>
         </div>
     )
 }
