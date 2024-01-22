@@ -25,16 +25,20 @@ async function postTicket(ticketValues, props, newCount){
     const data = Promise.resolve(response)
     data.then(result=>{
         props.updateTicketCount(newCount.currentTickets)
-        props.showTheForm(false)
     })
 }
 
 function OpenTicket(props){
 
-    let show = props.open
-    console.log("props", props)
+    console.log("OpenTicket", props)
 
-    if(show){
+    const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
+
+    useEffect(()=>{
+        setTicketToOpen(props.ticketToOpen)
+    },[props.ticketToOpen])
+
+    if(!(ticketToOpen == "")){
 
         function mergeTicketWithModel(ticketModel, ticketValues){
             ticketModel.map(element=>{
@@ -44,14 +48,14 @@ function OpenTicket(props){
                     }
                 })
             })
-            console.log("merged ticket model", ticketModel)
+            //console.log("merged ticket model", ticketModel)
             return ticketModel
         }
 
         ticketValues =[]
 
-        ticketModelWithValues = mergeTicketWithModel(props.ticketModel, props.data.ticketValues)
-        console.log("mergeTicketWihtModel", ticketModelWithValues)
+        ticketModelWithValues = mergeTicketWithModel(props.ticketModel, props.ticketToOpen)
+        //console.log("mergeTicketWihtModel", ticketModelWithValues)
 
         const handleSubmit = (e) =>{
             e.preventDefault()
@@ -79,6 +83,9 @@ function OpenTicket(props){
                     <form onSubmit={handleSubmit}>
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
+                        </button>
+                        <button className="btn btn-success float-end mb-3" onClick={()=>setTicketToOpen("")}>
+                            Close
                         </button>
                         {ticketModelWithValues.map(element =>{
                             console.log("i'm in the JXS")

@@ -8,12 +8,13 @@ function Ticket(props){
 
     const[opened, setOpened] = useState(false)
 
-    //console.log("the ticket", props)
     const titleObject = props.data.ticketValues.find(object => object.title === "Add title")
     const typeObject = props.data.ticketValues.find(object => object.title === "Type")
 
+    //console.log(props)
+
     return(
-        <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>setOpened(true)}>
+        <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>props.updateTicketToOpen(props.data.ticketValues)}>
             <div className="row back-color-magenta border rounded">
                 <h6>{typeObject.value}</h6>
             </div>
@@ -25,7 +26,6 @@ function Ticket(props){
                     <i className="img-fluid fa-solid fa-user-tie fa-2xl"></i>
                 </div>
             </div>
-            <OpenTicket data={props.data} key={props.key} ticketModel={props.ticketModel} open={opened}/>
         </div>
     )
 }

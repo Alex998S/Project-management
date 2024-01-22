@@ -11,7 +11,7 @@ function Dropdown(props){
     return(
         <div className="mb-3">
             <div className="input-group">
-                <span className="input-group-text dropdown-title" id="basic-addon3">{props.title}</span>
+                <span className="input-group-text dropdown-title" id="basic-addon3">{props.name}</span>
                 <div className="dropdown">
                     <input name={props.name} style={{display: "none"}}
                         value={dropdownValue}

@@ -40,6 +40,7 @@ function TicketListHolder(){
     const[ticketCount, setTicketCount]=useState(1)
     const[loading, setLoading] = useState(true)
     const[tickets, setTickets] = useState(0)
+    const[ticketToOpen, setTicketToOpen] = useState("")
 
     useEffect(()=>{
         
@@ -75,10 +76,14 @@ function TicketListHolder(){
         setTicketCount(newCount)   
     }
 
+    function updateTicketToOpen(newTicket){
+        setTicketToOpen(newTicket)
+    }
+
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
-                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel}/>
+                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen}/>
             </div>
             <div className="ticket-list-holder col-12">
                 <div className="row scrollable">
@@ -87,7 +92,7 @@ function TicketListHolder(){
                             <h3>New</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel}/>
+                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
                         </div>
                     </div>
                 </div>
@@ -97,7 +102,7 @@ function TicketListHolder(){
                             <h3>In progress</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel}/>
+                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
                         </div>
                     </div>
                 </div>
@@ -107,7 +112,7 @@ function TicketListHolder(){
                             <h3>QA</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel}/>
+                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
                         </div>
                     </div>
                 </div>
@@ -117,7 +122,7 @@ function TicketListHolder(){
                             <h3>Done</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel}/>
+                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
                         </div>
                     </div>
                 </div>
@@ -127,7 +132,7 @@ function TicketListHolder(){
                             <h3>Suspended</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel}/>
+                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
                         </div>
                     </div>
                 </div>

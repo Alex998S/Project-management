@@ -2,6 +2,7 @@ import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 import AddTicket from "./AddTicket";
+import OpenTicket from "./OpenTicket";
 
 let showPopUp = false;
 
@@ -13,24 +14,21 @@ function TopNavigationBar(props){
         setPressed(param)
     }
     
-    //console.log("ticketCount in top navigation", rest)
-
-    if(!pressed){
-        return(
-            <div className="container mt-3">
-                <button type="button" className="btn btn-primary" onClick={()=>setPressed(true)}>Create Ticket</button>
-                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
-            </div>
-        )
-    }else{
-        //window.history.replaceState(null, null, "/create-ticket")
-        return(
-            <div className="container mt-3">
-                <button type="button" className="btn btn-primary" onClick={()=>setPressed(false)}>Close Ticket</button>
-                <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
-            </div>
-        )
+    function setPressedState(){
+        if(pressed){
+            setPressed(false)
+        }else{
+            setPressed(true)
+        }
     }
+
+    return(
+        <div className="container mt-3">
+            <button type="button" className="btn btn-primary" onClick={setPressedState}>Create Ticket</button>
+            <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
+            <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen}/>
+        </div>
+    )
 }
 
 export default TopNavigationBar
