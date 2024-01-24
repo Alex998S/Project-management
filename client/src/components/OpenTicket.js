@@ -30,7 +30,7 @@ async function postTicket(ticketValues, props, newCount){
 
 function OpenTicket(props){
 
-    console.log("OpenTicket", props)
+    //console.log("OpenTicket", props)
 
     const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
 
@@ -84,7 +84,7 @@ function OpenTicket(props){
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
                         </button>
-                        <button className="btn btn-success float-end mb-3" onClick={()=>setTicketToOpen("")}>
+                        <button className="btn btn-success float-end mb-3" onClick={()=>{setTicketToOpen(""); props.updateTicketToOpen("")}}>
                             Close
                         </button>
                         {ticketModelWithValues.map(element =>{

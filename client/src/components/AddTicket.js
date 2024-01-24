@@ -31,12 +31,12 @@ async function postTicket(ticketValues, props, newCount){
 function AddTicket(props){
 
     let show = props.props
-
     if(show){
         ticketValues =[]
 
         const handleSubmit = (e) =>{
             e.preventDefault()
+            let aug;
             const data = new FormData(e.target)
             const formTicket = Object.entries(Object.fromEntries(data.entries()));
             props.ticketModel.map(element =>{
@@ -54,7 +54,6 @@ function AddTicket(props){
             newCount.currentTickets = newCount.currentTickets + 1
             postTicket(ticketValues, props, newCount)
         }
-
         return(
             <div className="container scrollable">
                 <div className="add-ticket-form container border rounded scroll-size-60">

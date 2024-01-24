@@ -17,7 +17,7 @@ let QATickets;
 let doneTickets;
 let suspendedTickets;
 let filteredTickets = [];
-let ticketModel;
+let receivedModel;
 
 
 //console.log("all tickets", allTickets)
@@ -47,10 +47,12 @@ function TicketListHolder(){
         axios.get("/create-ticket")
             .then((response) => response.data[0].ticketModel)
             .then((data) =>{
-                ticketModel = data
-                console.log("called ticket model", ticketModel)
+                receivedModel = data
+                console.log("called ticket model", receivedModel)
             })
     },[])
+
+    const ticketModel = structuredClone(receivedModel)
 
     useEffect(()=>{
         axios.get("/")
