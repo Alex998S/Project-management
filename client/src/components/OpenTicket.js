@@ -19,18 +19,32 @@ function setNewState(oldCount){
 }
 
 async function postTicket(ticketValues, props, newCount){
-    const response = await axios.post("/", {
-        ticketValues: ticketValues
-    })
-    const data = Promise.resolve(response)
-    data.then(result=>{
-        props.updateTicketCount(newCount.currentTickets)
-    })
+
+    try{
+        const response = await axios.put(`/${props.ticketToOpen._id}`, 
+            {ticketValues: ticketValues}
+        )
+        const data = Promise.resolve(response)
+        data.then(result=>{
+            props.updateTicketCount(newCount.currentTickets)
+            console.log("Axios put worked")
+        })
+    }catch(err){
+        console.log("update failed", err)
+    }
+    
+    // const response = await axios.post("/", {
+    //     ticketValues: ticketValues
+    // })
+    // const data = Promise.resolve(response)
+    // data.then(result=>{
+    //     props.updateTicketCount(newCount.currentTickets)
+    // })
 }
 
 function OpenTicket(props){
 
-    //console.log("OpenTicket", props)
+    console.log("openTicketProps", props)
 
     const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
 
@@ -54,7 +68,7 @@ function OpenTicket(props){
 
         ticketValues =[]
 
-        ticketModelWithValues = mergeTicketWithModel(props.ticketModel, props.ticketToOpen)
+        ticketModelWithValues = mergeTicketWithModel(props.ticketModel, props.ticketToOpen.ticketValues)
         //console.log("mergeTicketWihtModel", ticketModelWithValues)
 
         const handleSubmit = (e) =>{
@@ -79,12 +93,12 @@ function OpenTicket(props){
 
         return(
             <div className="container scrollable">
-                <div className="add-ticket-form container border rounded scroll-size-60">
+                <div className="add-ticket-form container border rounded scroll-size-70">
                     <form onSubmit={handleSubmit}>
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
                         </button>
-                        <button className="btn btn-success float-end mb-3" onClick={()=>{setTicketToOpen(""); props.updateTicketToOpen("")}}>
+                        <button className="btn btn-success float-end mb-3" type="button" onClick={()=>{setTicketToOpen(""); props.updateTicketToOpen("")}}>
                             Close
                         </button>
                         {ticketModelWithValues.map(element =>{

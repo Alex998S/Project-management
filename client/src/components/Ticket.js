@@ -15,7 +15,7 @@ function Ticket(props){
     // console.log("ticket values", props.data.ticketValues)
 
     return(
-        <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>props.updateTicketToOpen(props.data.ticketValues)}>
+        <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>props.updateTicketToOpen(props.data)}>
             <div className="row back-color-magenta border rounded">
                 <h6>{typeObject.value}</h6>
             </div>

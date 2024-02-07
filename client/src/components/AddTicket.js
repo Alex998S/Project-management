@@ -6,6 +6,7 @@ import '../stylesheets/ticket.sass'
 import Dropdown from "./Dropdown.js";
 import TextArea from "./TextArea.js";
 import SmallTextArea from './SmallTextArea.js'
+import DatePicker from "./DatePicker.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -56,10 +57,13 @@ function AddTicket(props){
         }
         return(
             <div className="container scrollable">
-                <div className="add-ticket-form container border rounded scroll-size-60">
+                <div className="add-ticket-form container border rounded scroll-size-70">
                     <form onSubmit={handleSubmit}>
                         <button className="btn btn-success float-end mb-3" type="submit">
                             Save
+                        </button>
+                        <button className="btn btn-success float-end mb-3" onClick={()=>props.showTheForm(false)}>
+                            Close
                         </button>
                         {props.ticketModel.map(element =>{
                             switch(element.inputType){
@@ -75,7 +79,7 @@ function AddTicket(props){
                                     break;
                                 case "smallTextArea":
                                     return(
-                                        <SmallTextArea name={element.title} data={element} key={element.title} value=""/>
+                                        <DatePicker name={element.title} data={element} key={element.title} value=""/>
                                     )
                                     break;
                                 default:
