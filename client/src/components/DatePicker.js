@@ -7,7 +7,7 @@ function DatePicker(props){
 
     return(
         <div className="mb-3">
-            <label className="form-label dropdown-title" id="basic-addon3" for={props.name}>{props.name}</label>
+            <label className="form-label dropdown-title" id="basic-addon3" htmlFor={props.name}>{props.name}</label>
             <input name={props.name} type="date" id={props.name}></input>
         </div>
     )

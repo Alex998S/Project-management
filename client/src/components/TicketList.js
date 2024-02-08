@@ -13,7 +13,7 @@ function TicketList(props){
             <div>
                  {props.data.map(element =>{
                     return(
-                        <div className="row mx-1 my-2">
+                        <div className="row mx-1 my-2" key={element._id}>
                             <Ticket data={element} key={element._id} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen}/>
                         </div>
                     )

@@ -51,8 +51,11 @@ function AddTicket(props){
                 delete element.options
                 ticketValues.push(element)
             })
+            
             newCount ={...props}
             newCount.currentTickets = newCount.currentTickets + 1
+            console.log("ticketvalues", ticketValues)
+            console.log("newCount", newCount.currentTickets)
             postTicket(ticketValues, props, newCount)
         }
         return(

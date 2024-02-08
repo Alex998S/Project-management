@@ -3,10 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 
 function TextArea(props){
+
     return(
         <div>
             <h4>{props.name}</h4>
-            <textarea name={props.name} className="form-control" inputType="textArea" aria-label="With textarea">{props.value}</textarea>
+            <textarea name={props.name} className="form-control" aria-label="With textarea" defaultValue={props.value}></textarea>
         </div>
     )
 }

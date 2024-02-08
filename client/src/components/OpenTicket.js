@@ -27,19 +27,12 @@ async function postTicket(ticketValues, props, newCount){
         const data = Promise.resolve(response)
         data.then(result=>{
             props.updateTicketCount(newCount.currentTickets)
+            props.updateTicketToOpen("")
             console.log("Axios put worked")
         })
     }catch(err){
         console.log("update failed", err)
     }
-    
-    // const response = await axios.post("/", {
-    //     ticketValues: ticketValues
-    // })
-    // const data = Promise.resolve(response)
-    // data.then(result=>{
-    //     props.updateTicketCount(newCount.currentTickets)
-    // })
 }
 
 function OpenTicket(props){
@@ -127,6 +120,8 @@ function OpenTicket(props){
                 </div>
             </div>
         )
+    }else{
+        console.log("form closed")
     }
 }
 
