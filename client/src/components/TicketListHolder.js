@@ -18,6 +18,7 @@ let doneTickets;
 let suspendedTickets;
 let filteredTickets = [];
 let receivedModel;
+let ticketsFilteredBySearchKey = []
 
 
 //console.log("all tickets", allTickets)
@@ -32,7 +33,26 @@ function filterTickets(allTickets, status){
             }
         })
     })
+    console.log("filtered tickets", filteredTickets)
     return filteredTickets
+}
+
+function filterBySearchKey(allTickets, searchKey){
+    ticketsFilteredBySearchKey = []
+    allTickets.map(element  =>{
+        const values = element.ticketValues
+        for(let i = 0; i < values.length; i++){
+            const objectValues = Object.values(values[i])
+            const lowerCaseValues = objectValues.map((objValue)=>{
+                return objValue.toLowerCase()
+            })
+            if(lowerCaseValues.includes(searchKey.toLowerCase())){
+                ticketsFilteredBySearchKey.push(element)
+                break;
+            }
+        }
+    })
+    return ticketsFilteredBySearchKey
 }
 
 function TicketListHolder(){
@@ -41,6 +61,7 @@ function TicketListHolder(){
     const[loading, setLoading] = useState(true)
     const[tickets, setTickets] = useState(0)
     const[ticketToOpen, setTicketToOpen] = useState("")
+    const[searchKey, setSearchKey] = useState("")
 
     useEffect(()=>{
         
@@ -68,11 +89,21 @@ function TicketListHolder(){
         return <p>Loading</p>
     }
 
+    console.log("all tickets", allTickets)
+    // useEffect(() => {
+    //     if(searchKey != "")
+    // }, [searchKey])
+
     newTickets = filterTickets(allTickets,"New")
     inProgressTickets = filterTickets(allTickets,"In Progress")
     QATickets = filterTickets(allTickets,"QA")
     doneTickets = filterTickets(allTickets,"Done")
     suspendedTickets = filterTickets(allTickets,"Suspended")
+
+
+    console.log("filtered by search", filterBySearchKey(allTickets, "in progress"))
+
+    
 
     function updateTicketCount(newCount){
         setTicketCount(newCount)   
@@ -82,10 +113,15 @@ function TicketListHolder(){
         setTicketToOpen(newTicket)
     }
 
+    
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
                 <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen}/>
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"></input>
+                    <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                </div>
             </div>
             <div className="ticket-list-holder col-12">
                 <div className="row scrollable">
