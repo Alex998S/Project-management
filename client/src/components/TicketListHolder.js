@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import axios from 'axios'
+import axios, { all } from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
 import '../stylesheets/ticket.sass'
@@ -11,11 +11,11 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 
 let allTickets = [];
-let newTickets;
-let inProgressTickets;
-let QATickets;
-let doneTickets;
-let suspendedTickets;
+let newTickets =[];
+let inProgressTickets =[];
+let QATickets = [];
+let doneTickets = [];
+let suspendedTickets = [];
 let filteredTickets = [];
 let receivedModel;
 let ticketsFilteredBySearchKey = []
@@ -33,26 +33,39 @@ function filterTickets(allTickets, status){
             }
         })
     })
-    console.log("filtered tickets", filteredTickets)
     return filteredTickets
 }
 
-function filterBySearchKey(allTickets, searchKey){
+function filterBySearchKey(allTickets, searchKey, status){
     ticketsFilteredBySearchKey = []
-    allTickets.map(element  =>{
-        const values = element.ticketValues
-        for(let i = 0; i < values.length; i++){
-            const objectValues = Object.values(values[i])
-            const lowerCaseValues = objectValues.map((objValue)=>{
-                return objValue.toLowerCase()
-            })
-            if(lowerCaseValues.includes(searchKey.toLowerCase())){
-                ticketsFilteredBySearchKey.push(element)
-                break;
+    let match = 0;
+    let oneMatch = false
+    if(searchKey != ""){
+        allTickets.map(element  =>{
+            const values = element.ticketValues
+            for(let i = 0; i < values.length; i++){
+                const objectValues = Object.values(values[i])
+                const lowerCaseValues = objectValues.map((objValue)=>{
+                    return objValue.toLowerCase()
+                    
+                })
+                for(let j = 0; j < lowerCaseValues.length; j++){
+                    if(lowerCaseValues[j].includes(searchKey.toLowerCase())){
+                        match++
+                        break;
+                    }
+                }
+                if(match>0){
+                    ticketsFilteredBySearchKey.push(element)
+                    match = 0
+                    break;
+                }
             }
-        }
-    })
-    return ticketsFilteredBySearchKey
+        })
+        return filterTickets(ticketsFilteredBySearchKey, status)
+    }else{
+        return filterTickets(allTickets, status)
+    }
 }
 
 function TicketListHolder(){
@@ -63,13 +76,15 @@ function TicketListHolder(){
     const[ticketToOpen, setTicketToOpen] = useState("")
     const[searchKey, setSearchKey] = useState("")
 
+    console.log("search key: '",searchKey,"'")
+
     useEffect(()=>{
         
         axios.get("/create-ticket")
             .then((response) => response.data[0].ticketModel)
             .then((data) =>{
                 receivedModel = data
-                console.log("called ticket model", receivedModel)
+                //console.log("called ticket model", receivedModel)
             })
     },[])
 
@@ -85,25 +100,19 @@ function TicketListHolder(){
             })
     },[ticketCount])
 
+    const handleChange = (e) =>{
+        setSearchKey(e.target.value)
+    }
+
+            inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
+            newTickets = filterBySearchKey(allTickets, searchKey, "New")
+            QATickets = filterBySearchKey(allTickets, searchKey, "QA")
+            doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
+            suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
+
     if(loading){
         return <p>Loading</p>
     }
-
-    console.log("all tickets", allTickets)
-    // useEffect(() => {
-    //     if(searchKey != "")
-    // }, [searchKey])
-
-    newTickets = filterTickets(allTickets,"New")
-    inProgressTickets = filterTickets(allTickets,"In Progress")
-    QATickets = filterTickets(allTickets,"QA")
-    doneTickets = filterTickets(allTickets,"Done")
-    suspendedTickets = filterTickets(allTickets,"Suspended")
-
-
-    console.log("filtered by search", filterBySearchKey(allTickets, "in progress"))
-
-    
 
     function updateTicketCount(newCount){
         setTicketCount(newCount)   
@@ -113,13 +122,19 @@ function TicketListHolder(){
         setTicketToOpen(newTicket)
     }
 
+        // inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
+        // newTickets = filterBySearchKey(allTickets, searchKey, "New")
+        // QATickets = filterBySearchKey(allTickets, searchKey, "QA")
+        // doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
+        // suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
+
     
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
                 <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen}/>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"></input>
+                    <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
                 </div>
             </div>

@@ -9,7 +9,6 @@ function TicketList(props){
 
     if(props.data != []){
         return(
-            // <React.Fragment>
             <div>
                  {props.data.map(element =>{
                     return(
@@ -18,9 +17,7 @@ function TicketList(props){
                         </div>
                     )
                 })}
-            </div>
-               
-            // </React.Fragment>    
+            </div>   
         )
     }
 }
