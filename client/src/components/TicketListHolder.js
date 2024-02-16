@@ -43,18 +43,16 @@ function filterBySearchKey(allTickets, searchKey, status){
     if(searchKey != ""){
         allTickets.map(element  =>{
             const values = element.ticketValues
+            console.log("tickets", values)
             for(let i = 0; i < values.length; i++){
-                const objectValues = Object.values(values[i])
-                const lowerCaseValues = objectValues.map((objValue)=>{
-                    return objValue.toLowerCase()
-                    
-                })
-                for(let j = 0; j < lowerCaseValues.length; j++){
-                    if(lowerCaseValues[j].includes(searchKey.toLowerCase())){
-                        match++
-                        break;
-                    }
+                console.log("objectValues", values)
+                
+                const ticketObjects = values[i].value
+                const lowerCaseValues = ticketObjects.toLowerCase()
+                if(lowerCaseValues.includes(searchKey.toLowerCase())){
+                            match++
                 }
+                console.log("lower case values", lowerCaseValues)
                 if(match>0){
                     ticketsFilteredBySearchKey.push(element)
                     match = 0
