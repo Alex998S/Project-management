@@ -45,7 +45,7 @@ function OpenTicket(props){
         setTicketToOpen(props.ticketToOpen)
     },[props.ticketToOpen])
 
-    if(!(ticketToOpen == "")){
+    if(props.ticketToOpen != ""){
 
         function mergeTicketWithModel(ticketModel, ticketValues){
             ticketModel.map(element=>{
