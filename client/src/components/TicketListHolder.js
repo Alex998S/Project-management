@@ -43,16 +43,12 @@ function filterBySearchKey(allTickets, searchKey, status){
     if(searchKey != ""){
         allTickets.map(element  =>{
             const values = element.ticketValues
-            console.log("tickets", values)
             for(let i = 0; i < values.length; i++){
-                console.log("objectValues", values)
-                
                 const ticketObjects = values[i].value
                 const lowerCaseValues = ticketObjects.toLowerCase()
                 if(lowerCaseValues.includes(searchKey.toLowerCase())){
                             match++
                 }
-                console.log("lower case values", lowerCaseValues)
                 if(match>0){
                     ticketsFilteredBySearchKey.push(element)
                     match = 0
@@ -73,8 +69,7 @@ function TicketListHolder(){
     const[tickets, setTickets] = useState(0)
     const[ticketToOpen, setTicketToOpen] = useState("")
     const[searchKey, setSearchKey] = useState("")
-
-    console.log("search key: '",searchKey,"'")
+    const[filteredTickets, setFilteredTickets] = useState(null)
 
     useEffect(()=>{
         
@@ -98,15 +93,27 @@ function TicketListHolder(){
             })
     },[ticketCount])
 
-    const handleChange = (e) =>{
-        setSearchKey(e.target.value)
-    }
+    
 
+    useEffect(()=>{
+        let timer = setTimeout(()=>{
             inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
             newTickets = filterBySearchKey(allTickets, searchKey, "New")
             QATickets = filterBySearchKey(allTickets, searchKey, "QA")
             doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
             suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
+            setFilteredTickets({
+                searchKey: searchKey,
+                ticketCount: ticketCount
+            })
+        }, 500)
+        return() => clearTimeout(timer)
+    }, [searchKey, ticketCount])
+
+    const handleChange = (e) =>{
+        setSearchKey(e.target.value)
+    }
+ 
 
     if(loading){
         return <p>Loading</p>

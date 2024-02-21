@@ -38,8 +38,6 @@ async function postTicket(ticketValues, props, newCount){
 
 function OpenTicket(props){
 
-    console.log("openTicketProps", props)
-
     const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
 
     useEffect(()=>{
@@ -121,8 +119,6 @@ function OpenTicket(props){
                 </div>
             </div>
         )
-    }else{
-        console.log("form closed")
     }
 }
 
