@@ -6,6 +6,7 @@ import '../stylesheets/ticket.sass'
 import Dropdown from "./Dropdown.js";
 import TextArea from "./TextArea.js";
 import SmallTextArea from './SmallTextArea.js'
+import DatePicker from "./DatePicker.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -66,7 +67,9 @@ function OpenTicket(props){
         const handleSubmit = (e) =>{
             e.preventDefault()
             const data = new FormData(e.target)
+            console.log("data", data)
             const formTicket = Object.entries(Object.fromEntries(data.entries()));
+            console.log("formTicket", formTicket)
             ticketModelWithValues.map(element =>{
                 let value;
                 formTicket.map(key =>{
@@ -108,7 +111,9 @@ function OpenTicket(props){
                                     break;
                                 case "smallTextArea":
                                     return(
-                                        <SmallTextArea name={element.title} data={element} key={element.title} value={element.value}/>
+                                        <DatePicker name={element.title} data={element} key={element.title} value={element.value}/>
+
+                                        // <SmallTextArea name={element.title} data={element} key={element.title} value={element.value}/>
                                     )
                                     break;
                                 default:
