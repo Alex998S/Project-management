@@ -39,6 +39,8 @@ async function postTicket(ticketValues, props, newCount){
 
 function OpenTicket(props){
 
+    console.log("Open ticket got rendered")
+
     const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
 
     useEffect(()=>{
@@ -97,7 +99,6 @@ function OpenTicket(props){
                             Close
                         </button>
                         {ticketModelWithValues.map(element =>{
-                            console.log("i'm in the JXS")
                             switch(element.inputType){
                                 case "textArea":
                                     return(

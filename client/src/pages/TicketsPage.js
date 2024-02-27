@@ -3,10 +3,10 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
-import TicketListHolder from './TicketListHolder.js'
-import LeftSideMenu from './LeftSideMenu.js'
+import TicketListHolder from '../components/TicketListHolder.js'
+import LeftSideMenu from '../components/LeftSideMenu.js'
 
-function App(){
+function TicketsPage(){
     return(
         <div>
             {/* <TopNavigationBar/> */}
@@ -19,4 +19,4 @@ function App(){
     )
 }
 
-export default App;
+export default TicketsPage;
