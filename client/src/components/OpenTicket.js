@@ -23,7 +23,7 @@ async function postTicket(ticketValues, props, newCount){
     console.log("ticket values from update", ticketValues)
 
     try{
-        const response = await axios.put(`/${props.ticketToOpen._id}`, 
+        const response = await axios.put(`/tickets/${props.ticketToOpen._id}`, 
             {ticketValues: ticketValues}
         )
         const data = Promise.resolve(response)

@@ -84,7 +84,7 @@ function TicketListHolder(){
     const ticketModel = structuredClone(receivedModel)
 
     useEffect(()=>{
-        axios.get("/")
+        axios.get("/tickets")
             .then((response) => response.data)
             .then((data) =>{
                 allTickets = data

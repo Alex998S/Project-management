@@ -19,7 +19,7 @@ function setNewState(oldCount){
 }
 
 async function postTicket(ticketValues, props, newCount){
-    const response = await axios.post("/", {
+    const response = await axios.post("/tickets", {
         ticketValues: ticketValues
     })
     const data = Promise.resolve(response)

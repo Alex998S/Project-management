@@ -1,7 +1,10 @@
+import 'dotenv/config.js'
 import express from 'express'
 import mongoose from "mongoose";
 import cors from 'cors'
 import bodyParser from 'body-parser'
+
+const databaseURL = process.env.DATABASE
 
 const app = express()
 
@@ -18,7 +21,7 @@ app.use(cors({
 
 const connect = async() =>{
     try{
-        await mongoose.connect('mongodb+srv://AlexGabor:AlexGabor998@firstdatabase.dzarh.mongodb.net/ProjectManagement',{
+        await mongoose.connect(databaseURL,{
             useNewUrlParser: true
         })
         console.log("Conected to database")
@@ -32,7 +35,7 @@ app.use(bodyParser.json());
 import ticketRouter from './routes/ticketsRoute.js'
 import companyRouter from './routes/companyRoute.js'
 
-app.use('/', ticketRouter)
+app.use('/tickets', ticketRouter)
 
 app.use('/', companyRouter)
 
