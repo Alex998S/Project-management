@@ -34,11 +34,13 @@ app.use(bodyParser.json());
 
 import ticketRouter from './routes/ticketsRoute.js'
 import companyRouter from './routes/companyRoute.js'
+import usersRouter from './routes/usersRoute.js'
 
 app.use('/tickets', ticketRouter)
 
 app.use('/', companyRouter)
 
+app.use('/users', usersRouter);
 
 app.listen(PORT, () => {
   connect()
