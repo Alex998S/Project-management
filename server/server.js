@@ -41,30 +41,42 @@ app.use('/tickets', ticketRouter)
 
 app.use('/', companyRouter)
 
-app.use('/users', authenticateToken, usersRouter);
+app.use('/users', usersRouter);
 
-function generateAccessToken(username) {
-    return jwt.sign(username, process.env.TOKEN_PASS, { expiresIn: '1800s' });
+function generateAccessToken(email) {
+    return jwt.sign(email, process.env.TOKEN_PASS, { expiresIn: '1800s' });
 }
 
 function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
+
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({ error: 'Access denied' });
+        try {
+            const decoded = jwt.verify(token, process.env.TOKEN_PASS);
+            req.body.email = decoded.body.email;
+            next();
+        } catch (error) {
+            res.status(401).json({ error: 'Invalid token' });
+    }
+    // const authHeader = req.headers['authorization']
+    // const token = authHeader && authHeader.split(' ')[1]
   
-    if (token == null) return res.sendStatus(401)
+    // if (token == null) return res.sendStatus(401)
   
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-      console.log(err)
+    // jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    //   console.log(err)
   
-      if (err) return res.sendStatus(403)
+    //   if (err) return res.sendStatus(403)
   
-      req.user = user
+    //   req.user = user
   
-      next()
-    })
+    //   next()
+    // })
   }
 
 app.listen(PORT, () => {
   connect()
   console.log(`Server listening on ${PORT}`);
 });
+
+export {generateAccessToken, authenticateToken}

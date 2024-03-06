@@ -1,6 +1,7 @@
 import express from 'express'
 import users from '../models/userModel.js'
 import bcrypt from 'bcrypt'
+import { generateAccessToken, authenticateToken } from '../server.js'
 
 const router = express()
 
@@ -15,6 +16,7 @@ router.post("/add-user", async(req,res)=>{
         })
         const newUser = await user.save()
         res.status(200).json(newUser)
+        generateAccessToken(req.body.email)
     }catch(err){
         res.status(500)
         console.log(err)
@@ -29,6 +31,7 @@ router.get("/login", async(req, res)=>{
         
             if(isValidPassword){
                 res.send("Login successful")
+                generateAccessToken(req.body.email)
             }else{
                 res.send("Incorrect password")
             }
