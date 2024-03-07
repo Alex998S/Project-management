@@ -13,6 +13,8 @@ async function addUser(user){
         last_name: user.last_name,
         email: user.email,
         password: user.password
+    },{
+        withCredentials: true
     })
     const data = Promise.resolve(response)
     data.then(result=>{

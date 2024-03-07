@@ -5,6 +5,7 @@ import TicketList from "./TicketList.js";
 import '../stylesheets/ticket.sass'
 import TopNavigationBar from "./TopNavigationBar.js";
 import AddTicket from "./AddTicket.js";
+import {Cookies} from 'react-cookie'
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -62,6 +63,22 @@ function filterBySearchKey(allTickets, searchKey, status){
     }
 }
 
+function readCookie(name) {
+      const cookieString = document.cookie;
+      const cookies = cookieString.split('; ');
+  
+      for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+          return cookieValue;
+        }
+      }
+  
+      return null; // Cookie not found
+}
+  
+    
+
 function TicketListHolder(){
 
     const[ticketCount, setTicketCount]=useState(1)
@@ -70,6 +87,8 @@ function TicketListHolder(){
     const[ticketToOpen, setTicketToOpen] = useState("")
     const[searchKey, setSearchKey] = useState("")
     const[filteredTickets, setFilteredTickets] = useState(null)
+
+    console.log("token ",readCookie('token'))
 
     useEffect(()=>{
         
@@ -84,7 +103,11 @@ function TicketListHolder(){
     const ticketModel = structuredClone(receivedModel)
 
     useEffect(()=>{
-        axios.get("/tickets")
+        axios.get("/tickets",{
+            headers:{
+                Authorization: readCookie('token')
+            }
+        })
             .then((response) => response.data)
             .then((data) =>{
                 allTickets = data

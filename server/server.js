@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser';
 
 const databaseURL = process.env.DATABASE
 
@@ -32,6 +33,7 @@ const connect = async() =>{
 }
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 import ticketRouter from './routes/ticketsRoute.js'
 import companyRouter from './routes/companyRoute.js'
@@ -44,19 +46,22 @@ app.use('/', companyRouter)
 app.use('/users', usersRouter);
 
 function generateAccessToken(email) {
-    return jwt.sign(email, process.env.TOKEN_PASS, { expiresIn: '1800s' });
+    return jwt.sign({email}, process.env.TOKEN_PASS, { expiresIn: '1h' });
 }
 
 function authenticateToken(req, res, next) {
 
     const token = req.header('Authorization');
-    if (!token) return res.status(401).json({ error: 'Access denied' });
-        try {
-            const decoded = jwt.verify(token, process.env.TOKEN_PASS);
-            req.body.email = decoded.body.email;
-            next();
-        } catch (error) {
-            res.status(401).json({ error: 'Invalid token' });
+    if (token == null || token == undefined) {
+        return res.status(401).json({ error: 'Access denied' })
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_PASS);
+        //req.body.email = decoded.body.email;
+        res.status(200)
+        next();
+    } catch (error) {
+        res.status(401).json({ error: 'Invalid token' });
     }
     // const authHeader = req.headers['authorization']
     // const token = authHeader && authHeader.split(' ')[1]

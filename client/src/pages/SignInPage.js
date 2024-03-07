@@ -9,13 +9,15 @@ import axios from 'axios'
 axios.defaults.baseURL = "http://localhost:3001"
 
 async function addUser(user){
-    const response = await axios.post("/users/add-user", {
+    const response = await axios.post("/users/login", {
         email: user.email,
         password: user.password
+    },{
+        withCredentials: true
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("user logged in")
+        console.log("data from login:", response)
     })
 }
 
@@ -33,16 +35,6 @@ function SignInPage(){
         })
         console.log("user that logged in", userObject)
         addUser(userObject);
-    }
-
-    const navigate = useNavigate()
-
-    function navigateToSignIn(){
-        navigate('/signin')
-    }
-    
-    function navigateToSignUp(){
-        navigate('/signup')
     }
 
     return(

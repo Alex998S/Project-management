@@ -1,10 +1,11 @@
 import express from 'express'
 import tickets from '../models/ticketModel.js'
 import mongoose from 'mongoose'
+import { authenticateToken } from '../server.js'
 
 const router = express()
 
-router.get("/", async(req, res)=>{
+router.get("/", authenticateToken, async(req, res)=>{
     try{
         const ticketsDB = await tickets.find()
         res.json(ticketsDB)
