@@ -17,8 +17,7 @@ router.post("/add-user", async(req,res)=>{
         const newUser = await user.save()
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
-        }))
-        res.status(200).json(newUser)
+        })).send("Logged in").status(200).json(newUser)
         generateAccessToken(req.body.email)
     }catch(err){
         res.status(500)

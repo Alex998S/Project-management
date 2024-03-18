@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from 'axios'
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-async function addUser(user){
+async function addUser(user, setLoggedIn){
     const response = await axios.post("/users/login", {
         email: user.email,
         password: user.password
@@ -18,11 +18,25 @@ async function addUser(user){
     const data = Promise.resolve(response)
     data.then(result=>{
         console.log("data from login:", response)
+        if(response.data == "Logged in"){
+            console.log('navigate')
+            setLoggedIn(true)
+        }
     })
 }
 
 
 function SignInPage(){
+
+    const[loggedIn, setLoggedIn] = useState(false)
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(loggedIn == true){
+            navigate('/tickets')
+        }
+    },[loggedIn])
 
     let userObject = {};
 
@@ -34,9 +48,10 @@ function SignInPage(){
             userObject[element[0]] = element[1]
         })
         console.log("user that logged in", userObject)
-        addUser(userObject);
+        addUser(userObject, setLoggedIn);
     }
 
+   
     return(
         <form onSubmit={handleSubmit}>
         <div className="mb-3">

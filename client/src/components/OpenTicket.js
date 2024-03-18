@@ -19,12 +19,30 @@ function setNewState(oldCount){
     return newCount
 }
 
+function readCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName === name) {
+        return cookieValue;
+      }
+    }
+
+    return null; // Cookie not found
+}
+
 async function postTicket(ticketValues, props, newCount){
     console.log("ticket values from update", ticketValues)
 
     try{
         const response = await axios.put(`/tickets/${props.ticketToOpen._id}`, 
-            {ticketValues: ticketValues}
+            {ticketValues: ticketValues},{
+                headers:{
+                    Authorization: readCookie('token')
+                }
+            }
         )
         const data = Promise.resolve(response)
         data.then(result=>{

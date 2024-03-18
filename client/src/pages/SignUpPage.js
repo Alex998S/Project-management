@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
@@ -7,7 +8,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-async function addUser(user){
+async function addUser(user, setLoggedIn){
     const response = await axios.post("/users/add-user", {
         first_name: user.first_name,
         last_name: user.last_name,
@@ -18,13 +19,26 @@ async function addUser(user){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("user added")
+        if(response.data == "Logged in"){
+            console.log('navigate')
+            setLoggedIn(true)
+        }
     })
 }
 
 function SignUpPage(){
+
+    const[loggedIn, setLoggedIn] = useState(false)
     
     let userObject = {};
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(loggedIn == true){
+            navigate('/tickets')
+        }
+    },[loggedIn])
 
     const handleSubmit = (e) =>{
         e.preventDefault()
@@ -34,7 +48,7 @@ function SignUpPage(){
             userObject[element[0]] = element[1]
         })
         console.log("new organization", userObject)
-        addUser(userObject);
+        addUser(userObject, setLoggedIn);
     }
 
     return(
