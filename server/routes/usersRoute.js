@@ -12,7 +12,12 @@ router.post("/add-user", async(req,res)=>{
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            workSpaces:[{
+                name: req.body.workSpaceName,
+                userLevel: req.body.workSpaceUserLevel,
+                departaments: req.body.workSpaceDepartaments
+            }]
         })
         const newUser = await user.save()
         res.cookie("token", generateAccessToken(req.body.email,{

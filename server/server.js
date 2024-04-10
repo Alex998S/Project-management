@@ -17,9 +17,6 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }))
 
-// const con = await mongoose.connect('mongodb+srv://AlexGabor:<password>@firstdatabase.dzarh.mongodb.net/',{
-//     useNewUrlParser: true
-// })
 
 const connect = async() =>{
     try{
@@ -63,20 +60,6 @@ function authenticateToken(req, res, next) {
     } catch (error) {
         res.status(401).json({ error: 'Invalid token' });
     }
-    // const authHeader = req.headers['authorization']
-    // const token = authHeader && authHeader.split(' ')[1]
-  
-    // if (token == null) return res.sendStatus(401)
-  
-    // jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-    //   console.log(err)
-  
-    //   if (err) return res.sendStatus(403)
-  
-    //   req.user = user
-  
-    //   next()
-    // })
   }
 
 app.listen(PORT, () => {

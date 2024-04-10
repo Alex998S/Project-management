@@ -54,11 +54,11 @@ function SignUpPage(){
     return(
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label for="exampleInputEmail1" className="form-label">First Name</label>
+                <label for="first-name" className="form-label">First Name</label>
                 <input className="form-control" id="first-name" name="first_name"></input>
             </div>
             <div className="mb-3">
-                <label for="exampleInputEmail1" className="form-label">Last name</label>
+                <label for="last-name" className="form-label">Last name</label>
                 <input className="form-control" id="last-name" name="last_name"></input>
             </div>
             <div className="mb-3">
@@ -67,7 +67,7 @@ function SignUpPage(){
                 <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div className="mb-3">
-                <label for="exampleInputPassword1" name="password" className="form-label">Password</label>
+                <label for="password" name="password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password" name="password"></input>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>

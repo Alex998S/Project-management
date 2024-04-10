@@ -17,7 +17,20 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    }
+    },
+    workSpaces:[{
+        name:{
+            type: String,
+            required: true
+        },
+        userLevel:{
+            type: String,
+            required: true
+        },
+        departaments:[{
+            type: String
+        }]
+    }]
 },{strict: false})
 
 export default mongoose.model('users', userSchema);
