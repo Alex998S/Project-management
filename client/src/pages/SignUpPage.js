@@ -9,28 +9,36 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001"
 
 async function addUser(user, setLoggedIn){
-    const response = await axios.post("/users/add-user", {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        password: user.password
-    },{
-        withCredentials: true
-    })
-    const data = Promise.resolve(response)
-    data.then(result=>{
-        if(response.data == "Logged in"){
-            console.log('navigate')
-            setLoggedIn(true)
-        }
-    })
+    if(user.hasOwnProperty('workSpaceName')){
+        const response = await axios.post("/users/add-user", {
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            password: user.password,
+            workSpaceName: user.workSpaceName,
+            workSpaceUserLevel: 'owner',
+            workSpaceDepartaments: []
+        },{
+            withCredentials: true
+        })
+        const data = Promise.resolve(response)
+        data.then(result=>{
+            if(response.data == "Logged in"){
+                console.log('navigate')
+                setLoggedIn(true)
+            }
+        })
+    }
 }
 
 function SignUpPage(){
 
     const[loggedIn, setLoggedIn] = useState(false)
+    const[showJoinWorkspace, setShowJoinWorkspace] = useState(false)
+    const[showCreateWorkspace, setShowCreateWorkspace]= useState(false)
     
     let userObject = {};
+    let inputField
 
     const navigate = useNavigate()
 
@@ -49,6 +57,38 @@ function SignUpPage(){
         })
         console.log("new organization", userObject)
         addUser(userObject, setLoggedIn);
+    }
+
+    function toggleJoinVisibility(){
+        if(!showJoinWorkspace && showCreateWorkspace){
+            setShowCreateWorkspace(false)
+            return true
+        }else if(!showJoinWorkspace && !showCreateWorkspace){
+            return true
+        }
+    }
+
+    function toggleCreateVisibility(){
+        if(!showCreateWorkspace && showJoinWorkspace){
+            setShowJoinWorkspace(false)
+            return true
+        }else if(!showJoinWorkspace && !showCreateWorkspace){
+            return true
+        }
+    }
+
+    if(showJoinWorkspace){
+        inputField = <div className="mb-3">
+                        <label for="join" className="form-label">Join</label>
+                        <input className="form-control" id="join" name="join"></input>
+                    </div>
+    }else if(showCreateWorkspace){
+        inputField = <div className="mb-3">
+                        <label for="create" className="form-label">Create</label>
+                        <input className="form-control" id="create" name="workSpaceName"></input>
+                    </div>
+    }else{
+        inputField = <div></div>
     }
 
     return(
@@ -70,6 +110,10 @@ function SignUpPage(){
                 <label for="password" name="password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password" name="password"></input>
             </div>
+            <h4>Join a workspace or create one</h4>
+            <button className="btn btn-primary" type="button" onClick={()=>setShowJoinWorkspace(toggleJoinVisibility())}>Join</button>
+            <button className="btn btn-primary" type="button"  onClick={()=>setShowCreateWorkspace(toggleCreateVisibility())}>Create</button>
+            {inputField}
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>
     )
