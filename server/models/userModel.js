@@ -27,8 +27,11 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        departaments:[{
-            type: String
+        departaments:[
+        {
+            departamentName:{
+                type: String
+            }
         }]
     }]
 },{strict: false})

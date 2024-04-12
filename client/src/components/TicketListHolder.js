@@ -92,7 +92,7 @@ function TicketListHolder(){
 
     useEffect(()=>{
         
-        axios.get("/create-ticket")
+        axios.get("/get-workspace")
             .then((response) => response.data[0].ticketModel)
             .then((data) =>{
                 receivedModel = data

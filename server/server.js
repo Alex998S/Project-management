@@ -33,12 +33,12 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 
 import ticketRouter from './routes/ticketsRoute.js'
-import companyRouter from './routes/companyRoute.js'
+import workspaceRouter from './routes/workspaceRoute.js'
 import usersRouter from './routes/usersRoute.js'
 
 app.use('/tickets', ticketRouter)
 
-app.use('/', companyRouter)
+app.use('/', workspaceRouter)
 
 app.use('/users', usersRouter);
 
