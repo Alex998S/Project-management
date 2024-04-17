@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
@@ -8,15 +9,38 @@ import axios from 'axios'
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-let signInResponse = {}
+let workspaceID = {}
+let receivedWorkspaces = {}
 
-function SignInPage(){
+function SelectWorkspace(){
 
-    const[loggedIn, setLoggedIn] = useState(false)
-
-    let userObject = {};
+    const[workspace, setWorkspace] = useState("")
 
     const navigate = useNavigate()
+
+    const userID = useParams().id
+
+    console.log("use params", useParams().id)
+    useEffect(()=>{
+        axios.get(`/select-workspace/${userID}`,{
+            headers:{
+                Authorization: readCookie('token')
+            }
+        })
+        .then((response) => response.data)
+        .then((data) =>{
+            receivedWorkspaces = data
+        })
+    })
+    
+    useEffect(()=>{
+        if(workspace != ""){
+            console.log("WorkspaceID: ", workspaceID)
+            navigate('/tickets')
+        }
+    },[workspace])
+
+    let userObject = {};
 
     const handleSubmit = (e) =>{
         e.preventDefault()
@@ -26,24 +50,10 @@ function SignInPage(){
             userObject[element[0]] = element[1]
         })
         console.log("user that logged in", userObject)
-        signInResponse = addUser(userObject, getResponse);
+        addUser(userObject);
     }
 
-    function getResponse(response){
-        console.log("response from getResponse", response)
-        signInResponse = response
-        if(typeof signInResponse.userID != "undefined"){
-            setLoggedIn(true)
-        }
-    }
-
-    useEffect(()=>{
-        if(loggedIn == true){
-            console.log("userID: ", signInResponse.userID)
-            navigate(`/select-workspace/${signInResponse.userID}`)
-        }
-    },[loggedIn])
-
+   
     return(
         <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -60,7 +70,7 @@ function SignInPage(){
     )
 }
 
-async function addUser(user, getResponse){
+async function addUser(user, setLoggedIn){
     const response = await axios.post("/users/login", {
         email: user.email,
         password: user.password
@@ -70,13 +80,24 @@ async function addUser(user, getResponse){
     const data = Promise.resolve(response)
     data.then(result=>{
         console.log("data from login:", response)
-        if(typeof response.data.userID != "undefined"){
-            console.log("API response", response.data)
-            getResponse(response.data)
-        }else{
-            getResponse({error: "Sign in failed"})
-        }
+        // if(typeof response.data.workspace != "undefined"){
+        //     setWorkspace(true)
+        // }
     })
 }
 
-export default SignInPage;
+function readCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName === name) {
+        return cookieValue;
+      }
+    }
+
+    return null; // Cookie not found
+}
+
+export default SelectWorkspace;

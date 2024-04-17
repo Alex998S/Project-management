@@ -138,7 +138,9 @@ router.post("/login", async(req, res)=>{
             if(isValidPassword){
                 res.cookie("token", generateAccessToken(req.body.email,{
                     httpOnly: true
-                })).send("Logged in").status(200)
+                })).json({
+                    userID: user._id
+                    }).status(200)
             }else{
                 res.send("Incorrect password")
             }

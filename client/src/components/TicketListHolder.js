@@ -92,11 +92,14 @@ function TicketListHolder(){
 
     useEffect(()=>{
         
-        axios.get("/get-workspace")
+        axios.get("/get-workspace",{
+            headers:{
+                Authorization: readCookie('token')
+            }
+        })
             .then((response) => response.data[0].ticketModel)
             .then((data) =>{
                 receivedModel = data
-                //console.log("called ticket model", receivedModel)
             })
     },[])
 
