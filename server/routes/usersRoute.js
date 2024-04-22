@@ -139,7 +139,8 @@ router.post("/login", async(req, res)=>{
                 res.cookie("token", generateAccessToken(req.body.email,{
                     httpOnly: true
                 })).json({
-                    userID: user._id
+                    userID: user._id,
+                    workSpaces: user.workSpaces
                     }).status(200)
             }else{
                 res.send("Incorrect password")

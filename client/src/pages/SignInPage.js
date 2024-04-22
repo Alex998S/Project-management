@@ -5,10 +5,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 import { useNavigate} from "react-router-dom";
 import axios from 'axios'
+import WorkspaceSelection from "../components/WorkspaceSelection.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
 let signInResponse = {}
+
+let workspaces = []
 
 function SignInPage(){
 
@@ -32,6 +35,7 @@ function SignInPage(){
     function getResponse(response){
         console.log("response from getResponse", response)
         signInResponse = response
+        workspaces = response.workSpaces
         if(typeof signInResponse.userID != "undefined"){
             setLoggedIn(true)
         }
@@ -40,23 +44,26 @@ function SignInPage(){
     useEffect(()=>{
         if(loggedIn == true){
             console.log("userID: ", signInResponse.userID)
-            navigate(`/select-workspace/${signInResponse.userID}`)
+            //navigate(`/select-workspace/${signInResponse.userID}`)
         }
     },[loggedIn])
 
     return(
-        <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Email address</label>
-            <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+        <div className="container">
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">Email address</label>
+                    <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div className="mb-3">
+                    <label for="exampleInputPassword1" name="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password" name="password"></input>
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+            <WorkspaceSelection workspaces={workspaces}/>
         </div>
-        <div className="mb-3">
-            <label for="exampleInputPassword1" name="password" className="form-label">Password</label>
-            <input type="password" className="form-control" id="password" name="password"></input>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-    </form>
     )
 }
 

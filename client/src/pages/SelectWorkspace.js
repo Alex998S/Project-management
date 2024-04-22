@@ -21,17 +21,17 @@ function SelectWorkspace(){
     const userID = useParams().id
 
     console.log("use params", useParams().id)
-    useEffect(()=>{
-        axios.get(`/select-workspace/${userID}`,{
-            headers:{
-                Authorization: readCookie('token')
-            }
-        })
-        .then((response) => response.data)
-        .then((data) =>{
-            receivedWorkspaces = data
-        })
-    })
+    // useEffect(()=>{
+    //     axios.get(`/select-workspace/${userID}`,{
+    //         headers:{
+    //             Authorization: readCookie('token')
+    //         }
+    //     })
+    //     .then((response) => response.data)
+    //     .then((data) =>{
+    //         receivedWorkspaces = data
+    //     })
+    // })
     
     useEffect(()=>{
         if(workspace != ""){
