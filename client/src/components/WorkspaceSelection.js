@@ -1,14 +1,29 @@
 import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
+import { useNavigate} from "react-router-dom";
 
 function WorkspaceSelection({workspaces}){
+
+    const navigate = useNavigate()
+
+    function goToPage(workspaceID){
+        navigate({
+            pathname: '/tickets',
+            search: `?workspace=${workspaceID}`
+        })
+        navigate(`/tickets/?workspace=${workspaceID}&justTest=random`)
+    }
 
     if(workspaces != undefined && workspaces.length !=0){
         console.log("show workspaces", workspaces)
         return(
-            <div>
-                <h4>{workspaces[0].name}</h4>
+            <div className="container">
+                {workspaces.map(element =>{
+                    return(
+                        <button type="button" name="workspace" onClick={()=>goToPage(element._id)}>{element.name}</button>
+                    )
+                })}
             </div>
         )
     }

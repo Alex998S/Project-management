@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios, { all } from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
@@ -87,6 +88,11 @@ function TicketListHolder(){
     const[ticketToOpen, setTicketToOpen] = useState("")
     const[searchKey, setSearchKey] = useState("")
     const[filteredTickets, setFilteredTickets] = useState(null)
+    const[searchParam, setSearchParam]= useSearchParams()
+
+    const myParam = searchParam.get('workspace')
+    console.log("workspaceParam", myParam)
+    console.log("justTest", searchParam.get('justTest'))
 
     console.log("token ",readCookie('token'))
 

@@ -9,7 +9,6 @@ import DashboardPage from "./DashboardPage.js";
 import WelcomePage from "./WelcomePage.js";
 import SignInPage from "./SignInPage.js";
 import SignUpPage from "./SignUpPage.js";
-import SelectWorkspace from "./SelectWorkspace.js";
 
 function App(){
     return(
@@ -19,7 +18,6 @@ function App(){
             <Route path="/" element={<WelcomePage/>}></Route>
             <Route path="/signin" element={<SignInPage/>}></Route>
             <Route path="/signup" element={<SignUpPage/>}></Route>
-            <Route path="/select-workspace/:id" element={<SelectWorkspace/>}></Route> 
         </Routes>
     )
 }
