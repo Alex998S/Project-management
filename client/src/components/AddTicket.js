@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useSearchParams } from "react-router-dom";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
@@ -32,8 +33,9 @@ function readCookie(name) {
     return null; // Cookie not found
 }
 
-async function postTicket(ticketValues, props, newCount){
-    const response = await axios.post("/tickets", {
+async function postTicket(ticketValues, props, newCount, workspaceID){
+    
+    const response = await axios.post(`/tickets/post-ticket/?workspace=${workspaceID}`, {
         ticketValues: ticketValues
     },{
         headers:{
@@ -49,7 +51,11 @@ async function postTicket(ticketValues, props, newCount){
 
 function AddTicket(props){
 
+    const[searchParam, setSearchParam]= useSearchParams()
+    const workspaceID = searchParam.get('workspace')
+
     let show = props.props
+
     if(show){
         ticketValues =[]
 
@@ -74,7 +80,7 @@ function AddTicket(props){
             newCount.currentTickets = newCount.currentTickets + 1
             console.log("ticketvalues", ticketValues)
             console.log("newCount", newCount.currentTickets)
-            postTicket(ticketValues, props, newCount)
+            postTicket(ticketValues, props, newCount, workspaceID)
         }
         return(
             <div className="container scrollable">

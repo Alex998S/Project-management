@@ -6,6 +6,10 @@ const workspaceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    _id: {
+        type: Schema.ObjectId,
+        required: true
+    },
     ticketModel:[Schema.Types.Mixed]
 },{strict: false, _id: false})
 

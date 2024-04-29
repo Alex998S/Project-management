@@ -1,12 +1,17 @@
 import express from 'express'
 import workspaces from '../models/workspaceModel.js'
+import mongoose from 'mongoose'
 
 const router = express()
 
 router.get("/get-workspace", async(req, res)=>{
+
+    var workspaceID = req.query.workspace
+    console.log("server workspace", workspaceID)
+
     try{
-        const workspacesDB = await workspaces.find()
-        res.json(workspacesDB)
+        const workspacesDB = await workspaces.findById(workspaceID)
+        res.json(workspacesDB).status(200)
     }catch(err){
         res.status(500)
         console.log(err)

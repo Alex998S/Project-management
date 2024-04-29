@@ -121,7 +121,7 @@ router.post("/add-user", async(req,res)=>{
         const newWorkspace = await workspace.save()
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
-        })).send("Logged in").status(200).json(newUser)
+        })).json(newUser.workSpaces).send("Logged in").status(200)
         //generateAccessToken(req.body.email)
     }catch(err){
         res.status(500)

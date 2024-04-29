@@ -5,9 +5,12 @@ import { authenticateToken } from '../server.js'
 
 const router = express()
 
+
+
 router.get("/", authenticateToken, async(req, res)=>{
+    var workspaceID = new mongoose.mongo.ObjectId(req.query.workspace)
     try{
-        const ticketsDB = await tickets.find()
+        const ticketsDB = await tickets.find({workspaceID: workspaceID})
         res.json(ticketsDB)
     }catch(err){
         res.status(500)
@@ -15,8 +18,10 @@ router.get("/", authenticateToken, async(req, res)=>{
     }
 })
 
-router.post("/", async(req,res)=>{
+router.post(`/post-ticket`, async(req,res)=>{
+    var workspaceID = new mongoose.mongo.ObjectId(req.query.workspace)
     const ticket = new tickets({
+        workspaceID: workspaceID,
         ticketValues: req.body.ticketValues
     })
 

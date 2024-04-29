@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import {useSearchParams } from "react-router-dom";
 import axios, { all } from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
@@ -90,20 +90,18 @@ function TicketListHolder(){
     const[filteredTickets, setFilteredTickets] = useState(null)
     const[searchParam, setSearchParam]= useSearchParams()
 
-    const myParam = searchParam.get('workspace')
-    console.log("workspaceParam", myParam)
-    console.log("justTest", searchParam.get('justTest'))
+    const workspaceID = searchParam.get('workspace')
 
     console.log("token ",readCookie('token'))
 
     useEffect(()=>{
         
-        axios.get("/get-workspace",{
+        axios.get(`/get-workspace/?workspace=${workspaceID}`,{
             headers:{
                 Authorization: readCookie('token')
             }
         })
-            .then((response) => response.data[0].ticketModel)
+            .then((response) => response.data.ticketModel)
             .then((data) =>{
                 receivedModel = data
             })
@@ -112,7 +110,7 @@ function TicketListHolder(){
     const ticketModel = structuredClone(receivedModel)
 
     useEffect(()=>{
-        axios.get("/tickets",{
+        axios.get(`/tickets/?workspace=${workspaceID}`,{
             headers:{
                 Authorization: readCookie('token')
             }

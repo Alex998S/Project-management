@@ -12,7 +12,6 @@ function WorkspaceSelection({workspaces}){
             pathname: '/tickets',
             search: `?workspace=${workspaceID}`
         })
-        navigate(`/tickets/?workspace=${workspaceID}&justTest=random`)
     }
 
     if(workspaces != undefined && workspaces.length !=0){

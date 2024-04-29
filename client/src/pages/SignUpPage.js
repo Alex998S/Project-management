@@ -8,7 +8,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-async function addUser(user, setLoggedIn){
+async function addUser(user, setLoggedIn, goToPage){
     if(user.hasOwnProperty('workSpaceName')){
         const response = await axios.post("/users/add-user", {
             first_name: user.first_name,
@@ -23,10 +23,15 @@ async function addUser(user, setLoggedIn){
         })
         const data = Promise.resolve(response)
         data.then(result=>{
-            if(response.data == "Logged in"){
-                console.log('navigate')
-                setLoggedIn(true)
+            console.log(response.data)
+            if(typeof response.data != "undefined"){
+                goToPage(response.data[0]._id)
             }
+            // if(response.data == "Logged in"){
+            //     console.log('navigate')
+            //     //setLoggedIn(true)
+                
+            // }
         })
     }
 }
@@ -42,9 +47,16 @@ function SignUpPage(){
 
     const navigate = useNavigate()
 
+    function goToPage(workspaceID){
+        navigate({
+            pathname: '/tickets',
+            search: `?workspace=${workspaceID}`
+        })
+    }
+
     useEffect(()=>{
         if(loggedIn == true){
-            navigate('/tickets')
+            navigate(`/tickets`)
         }
     },[loggedIn])
 
@@ -56,7 +68,7 @@ function SignUpPage(){
             userObject[element[0]] = element[1]
         })
         console.log("new organization", userObject)
-        addUser(userObject, setLoggedIn);
+        addUser(userObject, setLoggedIn, goToPage);
     }
 
     function toggleJoinVisibility(){
