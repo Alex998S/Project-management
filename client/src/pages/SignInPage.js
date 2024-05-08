@@ -12,6 +12,7 @@ axios.defaults.baseURL = "http://localhost:3001"
 let signInResponse = {}
 
 let workspaces = []
+let userID = ''
 
 function SignInPage(){
 
@@ -36,6 +37,7 @@ function SignInPage(){
         console.log("response from getResponse", response)
         signInResponse = response
         workspaces = response.workSpaces
+        userID = response.userID
         if(typeof signInResponse.userID != "undefined"){
             setLoggedIn(true)
         }
@@ -62,7 +64,7 @@ function SignInPage(){
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            <WorkspaceSelection workspaces={workspaces}/>
+            <WorkspaceSelection workspaces={workspaces} userID={userID}/>
         </div>
     )
 }

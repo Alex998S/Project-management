@@ -154,4 +154,14 @@ router.post("/login", async(req, res)=>{
     }
 })
 
+router.put("/add-user-workspace/:id", async (req, res)=>{
+    try{
+        const updatedUser = await tickets.findByIdAndUpdate(req.params.id, {$push:{workSpaces:req.body.workspaces}}, {new: true})
+        res.status(200).json(updatedUser)
+    }catch(err){
+        res.status(500)
+        console.log(err)
+    }
+})
+
 export default router
