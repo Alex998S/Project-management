@@ -120,4 +120,4 @@ function AddTicket(props){
     }
 }
 
-export default AddTicket
+export default (AddTicket, readCookie)

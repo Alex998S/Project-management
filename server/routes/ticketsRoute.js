@@ -18,7 +18,7 @@ router.get("/", authenticateToken, async(req, res)=>{
     }
 })
 
-router.post(`/post-ticket`, async(req,res)=>{
+router.post(`/post-ticket`, authenticateToken, async(req,res)=>{
     var workspaceID = new mongoose.mongo.ObjectId(req.query.workspace)
     const ticket = new tickets({
         workspaceID: workspaceID,
@@ -36,7 +36,7 @@ router.post(`/post-ticket`, async(req,res)=>{
     }
 })
 
-router.put("/:id", async (req, res)=>{
+router.put("/:id", authenticateToken, async (req, res)=>{
     try{
         const updatedTicket = await tickets.findByIdAndUpdate(req.params.id, {$set:{ticketValues:req.body.ticketValues}}, {new: true})
         res.status(200).json(updatedTicket)

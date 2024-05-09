@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import users from '../models/userModel.js'
 import workspaces from '../models/workspaceModel.js'
 import bcrypt from 'bcrypt'
-import { generateAccessToken } from '../server.js'
+import { authenticateToken, generateAccessToken } from '../server.js'
 
 const router = express()
 
@@ -154,14 +154,33 @@ router.post("/login", async(req, res)=>{
     }
 })
 
-router.put("/add-user-workspace/:id", async (req, res)=>{
+router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     try{
-        const updatedUser = await tickets.findByIdAndUpdate(req.params.id, {$push:{workSpaces:req.body.workspaces}}, {new: true})
-        res.status(200).json(updatedUser)
+        const workspace = await createNewWorkspace(req.params.id, req.body.name)
+        const updatedUser = await users.findByIdAndUpdate(req.params.id, {$push:{workSpaces:workspace}}, {new: true})
+        res.status(200).json(workspace._id)
     }catch(err){
         res.status(500)
         console.log(err)
     }
 })
+
+async function createNewWorkspace(userID, workspaceName){
+    const workspaceID = new mongoose.mongo.ObjectId()
+    const workspace = new workspaces({
+        _id: workspaceID,
+        name: workspaceName,
+        owner: userID,
+        ticketModel: ticketModel,
+        departaments: []
+    })
+    const newWorkspace = await workspace.save()
+    return {
+        _id: workspaceID,
+        name: workspaceName,
+        userLevel: "owner",
+        departaments: []
+    }
+}
 
 export default router
