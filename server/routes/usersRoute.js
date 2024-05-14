@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import users from '../models/userModel.js'
 import workspaces from '../models/workspaceModel.js'
+import invites from '../models/invitesSent.js'
 import bcrypt from 'bcrypt'
 import { authenticateToken, generateAccessToken } from '../server.js'
 
@@ -165,12 +166,39 @@ router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     }
 })
 
+router.post("/add-user-to-workspace/:workspaceID", authenticateToken, async(req, res)=>{
+    const randPassword = Math.random().toString(36).substring(2,7);
+    const hashedPassword = await bcrypt.hash(randPassword, 10)
+    const workspaceID = new mongoose.Types.ObjectId(req.params.workspaceID)
+    let level = ''
+    if(req.body.userLevel != undefined || req.body.userLevel != null){
+        level = req.body.userLevel
+    }else{
+        level = 'basic'
+    }
+    const invite = new invites({
+        email: req.body.email,
+        password: hashedPassword,
+        userLevel: level,
+        workspace: workspaceID
+    })
+    try{
+        const newInvite = await invite.save()
+        res.status(200).json(newInvite)
+    }catch(err){
+        res.status(500)
+        console.log(err)
+    }
+    
+})
+
 async function createNewWorkspace(userID, workspaceName){
     const workspaceID = new mongoose.mongo.ObjectId()
+    const objectID = new mongoose.Types.ObjectId(userID)
     const workspace = new workspaces({
         _id: workspaceID,
         name: workspaceName,
-        owner: userID,
+        owner: objectID,
         ticketModel: ticketModel,
         departaments: []
     })
