@@ -92,6 +92,8 @@ const ticketModel = [
     }
 ]
 
+// 
+
 router.post("/add-user", async(req,res)=>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -111,15 +113,8 @@ router.post("/add-user", async(req,res)=>{
             }]
         })
 
-        const workspace = new workspaces({
-            _id: workspaceID,
-            name: req.body.workSpaceName,
-            owner: userID,
-            ticketModel: ticketModel,
-            departaments: []
-        })
         const newUser = await user.save()
-        const newWorkspace = await workspace.save()
+        createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
         })).json(newUser.workSpaces).send("Logged in").status(200)
@@ -157,7 +152,9 @@ router.post("/login", async(req, res)=>{
 
 router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     try{
-        const workspace = await createNewWorkspace(req.params.id, req.body.name)
+        const userID = new mongoose.Types.ObjectId(req.params.id)
+        const workspaceID = new mongoose.mongo.ObjectId()
+        const workspace = await createNewWorkspace(userID, req.body.name, workspaceID)
         const updatedUser = await users.findByIdAndUpdate(req.params.id, {$push:{workSpaces:workspace}}, {new: true})
         res.status(200).json(workspace._id)
     }catch(err){
@@ -192,13 +189,11 @@ router.post("/add-user-to-workspace/:workspaceID", authenticateToken, async(req,
     
 })
 
-async function createNewWorkspace(userID, workspaceName){
-    const workspaceID = new mongoose.mongo.ObjectId()
-    const objectID = new mongoose.Types.ObjectId(userID)
+async function createNewWorkspace(userID, workspaceName, workspaceID){
     const workspace = new workspaces({
         _id: workspaceID,
         name: workspaceName,
-        owner: objectID,
+        owner: userID,
         ticketModel: ticketModel,
         departaments: []
     })
@@ -210,5 +205,31 @@ async function createNewWorkspace(userID, workspaceName){
         departaments: []
     }
 }
+
+router.post("/login-from-invite", async(req, res)=>{
+    try{
+        const invite = await invites.findOne({email: req.body.email})
+        if(invite){
+            const isValidPassword = req.body.password
+        
+            if(isValidPassword){
+                res.cookie("token", generateAccessToken(req.body.email,{
+                    httpOnly: true
+                })).json({
+                    userID: invite._id,
+                    workSpaces: invite.workspace,
+                    departaments: invite.departaments
+                    }).status(200)
+            }else{
+                res.send("Incorrect password")
+            }
+        }else{
+            res.send("Email not found")
+        }
+    }catch(err){
+        res.status(500)
+        console.log(err)
+    }
+})
 
 export default router

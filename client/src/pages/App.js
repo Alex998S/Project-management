@@ -9,6 +9,7 @@ import DashboardPage from "./DashboardPage.js";
 import WelcomePage from "./WelcomePage.js";
 import SignInPage from "./SignInPage.js";
 import SignUpPage from "./SignUpPage.js";
+import LoginFromInvite from "./LoginFromInvite.js";
 
 function App(){
     return(
@@ -18,6 +19,7 @@ function App(){
             <Route path="/" element={<WelcomePage/>}></Route>
             <Route path="/signin" element={<SignInPage/>}></Route>
             <Route path="/signup" element={<SignUpPage/>}></Route>
+            <Route path="/login-from-invite" element={<LoginFromInvite/>}></Route>
         </Routes>
     )
 }

@@ -100,8 +100,7 @@ function TicketListHolder(){
             headers:{
                 Authorization: readCookie('token')
             }
-        })
-            .then((response) => response.data.ticketModel)
+        }).then((response) => response.data.ticketModel)
             .then((data) =>{
                 receivedModel = data
             })
