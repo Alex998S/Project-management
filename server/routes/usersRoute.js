@@ -94,7 +94,7 @@ const ticketModel = [
 
 // 
 
-router.post("/add-user", async(req,res)=>{
+router.post("/add-user/?workspaceExists", async(req,res)=>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const workspaceID = new mongoose.mongo.ObjectId()
@@ -112,9 +112,11 @@ router.post("/add-user", async(req,res)=>{
                 departaments: req.body.workSpaceDepartaments
             }]
         })
-
+        
         const newUser = await user.save()
-        createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
+        if(!req.query.workspaceExists){
+            createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
+        }
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
         })).json(newUser.workSpaces).send("Logged in").status(200)
@@ -163,7 +165,7 @@ router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     }
 })
 
-router.post("/add-user-to-workspace/:workspaceID", authenticateToken, async(req, res)=>{
+router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     const randPassword = Math.random().toString(36).substring(2,7);
     const hashedPassword = await bcrypt.hash(randPassword, 10)
     const workspaceID = new mongoose.Types.ObjectId(req.params.workspaceID)

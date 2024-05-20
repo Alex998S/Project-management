@@ -14,14 +14,21 @@ let signInResponse = {}
 let departaments = []
 let workspaces = []
 let userID = ''
+let userInfo = {}
+let userObject = {};
 
 function LoginFromInvite(){
 
     const[loggedIn, setLoggedIn] = useState(false)
 
-    let userObject = {};
-
     const navigate = useNavigate()
+
+    function goToPage(workspaceID){
+        navigate({
+            pathname: '/tickets',
+            search: `?workspace=${workspaceID}`
+        })
+    }
 
     const handleSubmit = (e) =>{
         e.preventDefault()
@@ -30,12 +37,16 @@ function LoginFromInvite(){
         userArray.map(element=>{
             userObject[element[0]] = element[1]
         })
-        console.log("user that logged in", userObject)
-        signInResponse = addUser(userObject, getResponse);
+        console.log("userObject", userObject)
+        if(userObject.hasOwnProperty('first_name')){
+            addUser(userObject, setLoggedIn, goToPage);
+        }else{
+            signInResponse = loginUser(userObject, getResponse);
+        }
+        
     }
 
     function getResponse(response){
-        console.log("response from getResponse", response)
         signInResponse = response
         departaments = response.departaments
         workspaces = response.workSpaces
@@ -47,7 +58,8 @@ function LoginFromInvite(){
 
     useEffect(()=>{
         if(loggedIn == true){
-            console.log("userID: ", signInResponse.userID)
+           userInfo = userObject
+           console.log("logged In", userObject)
         }
     },[loggedIn])
 
@@ -69,6 +81,7 @@ function LoginFromInvite(){
             </div>
         )
     }else{
+        console.log(userInfo)
         return(
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -81,7 +94,7 @@ function LoginFromInvite(){
             </div>
             <div className="mb-3">
                 <label for="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                <input type="email" className="form-control" name="email" id="exampleInputEmail1" value={userObject.email} aria-describedby="emailHelp"></input>
                 <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div className="mb-3">
@@ -95,7 +108,7 @@ function LoginFromInvite(){
     
 }
 
-async function addUser(user, getResponse){
+async function loginUser(user, getResponse){
     const response = await axios.post("/users/login-from-invite", {
         email: user.email,
         password: user.password
@@ -106,12 +119,39 @@ async function addUser(user, getResponse){
     data.then(result=>{
         console.log("data from login:", response)
         if(typeof response.data.userID != "undefined"){
-            console.log("API response", response.data)
             getResponse(response.data)
         }else{
             getResponse({error: "Sign in failed"})
         }
     })
+}
+
+async function addUser(user, setLoggedIn, goToPage){
+    if(user.hasOwnProperty('workSpaceName')){
+        const response = await axios.post("/users/add-user/?workspaceExists=false", {
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            password: user.password,
+            workSpaceName: user.workSpaceName,
+            workSpaceUserLevel: 'owner',
+            workSpaceDepartaments: []
+        },{
+            withCredentials: true
+        })
+        const data = Promise.resolve(response)
+        data.then(result=>{
+            console.log(response.data)
+            if(typeof response.data != "undefined"){
+                goToPage(response.data[0]._id)
+            }
+            // if(response.data == "Logged in"){
+            //     console.log('navigate')
+            //     //setLoggedIn(true)
+                
+            // }
+        })
+    }
 }
 
 export default LoginFromInvite;

@@ -22,6 +22,9 @@ function TopNavigationBar(props){
         }
     }
 
+    console.log(`show "${pressed}"`)
+    console.log(`ticketToOpen "${props.ticketToOpen}"`)
+
     return(
         <div className="container mt-3">
             <button type="button" className="btn btn-primary" onClick={setPressedState}>Create Ticket</button>

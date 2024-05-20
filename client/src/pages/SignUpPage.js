@@ -67,7 +67,6 @@ function SignUpPage(){
         userArray.map(element=>{
             userObject[element[0]] = element[1]
         })
-        console.log("new organization", userObject)
         addUser(userObject, setLoggedIn, goToPage);
     }
 

@@ -23,8 +23,6 @@ let receivedModel;
 let ticketsFilteredBySearchKey = []
 
 
-//console.log("all tickets", allTickets)
-//returns tickets based on status
 function filterTickets(allTickets, status){
     filteredTickets = []
     allTickets.map(element=>{
@@ -91,8 +89,6 @@ function TicketListHolder(){
     const[searchParam, setSearchParam]= useSearchParams()
 
     const workspaceID = searchParam.get('workspace')
-
-    console.log("token ",readCookie('token'))
 
     useEffect(()=>{
         

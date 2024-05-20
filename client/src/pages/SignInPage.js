@@ -29,7 +29,6 @@ function SignInPage(){
         userArray.map(element=>{
             userObject[element[0]] = element[1]
         })
-        console.log("user that logged in", userObject)
         signInResponse = addUser(userObject, getResponse);
     }
 
@@ -43,12 +42,12 @@ function SignInPage(){
         }
     }
 
-    useEffect(()=>{
-        if(loggedIn == true){
-            console.log("userID: ", signInResponse.userID)
-            //navigate(`/select-workspace/${signInResponse.userID}`)
-        }
-    },[loggedIn])
+    // useEffect(()=>{
+    //     if(loggedIn == true){
+    //         console.log("userID: ", signInResponse.userID)
+    //         //navigate(`/select-workspace/${signInResponse.userID}`)
+    //     }
+    // },[loggedIn])
 
     return(
         <div className="container">
@@ -78,9 +77,7 @@ async function addUser(user, getResponse){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("data from login:", response)
         if(typeof response.data.userID != "undefined"){
-            console.log("API response", response.data)
             getResponse(response.data)
         }else{
             getResponse({error: "Sign in failed"})
