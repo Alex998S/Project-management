@@ -94,29 +94,47 @@ const ticketModel = [
 
 // 
 
-router.post("/add-user/?workspaceExists", async(req,res)=>{
+router.post("/add-user/", async(req,res)=>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const workspaceID = new mongoose.mongo.ObjectId()
         const userID = new mongoose.mongo.ObjectId()
-        const user = new users({
-            _id: userID,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: hashedPassword,
-            workSpaces:[{
-                _id: workspaceID,
-                name: req.body.workSpaceName,
-                userLevel: req.body.workSpaceUserLevel,
-                departaments: req.body.workSpaceDepartaments
-            }]
-        })
+
+        let user = {}
+        console.log("workspace query", req.query.workspace)
+        if(req.query.workspace != ''){
+            const workspaceID = new mongoose.Types.ObjectId(workspaceInfo._id)
+            user = new users({
+                _id: userID,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                password: hashedPassword,
+                workSpaces:[{
+                    _id: workspaceID,
+                    name: workspaceInfo.name,
+                    userLevel: req.body.userLevel,
+                    departaments: req.body.workSpaceDepartaments
+                }]
+            })
+        }else{
+            user = new users({
+                _id: userID,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                password: hashedPassword,
+                workSpaces:[{
+                    _id: workspaceID,
+                    name: req.body.workSpaceName,
+                    userLevel: req.body.workSpaceUserLevel,
+                    departaments: req.body.workSpaceDepartaments
+                }]
+            })
+        }
+       
         
         const newUser = await user.save()
-        if(!req.query.workspaceExists){
-            createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
-        }
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
         })).json(newUser.workSpaces).send("Logged in").status(200)
@@ -220,7 +238,8 @@ router.post("/login-from-invite", async(req, res)=>{
                 })).json({
                     userID: invite._id,
                     workSpaces: invite.workspace,
-                    departaments: invite.departaments
+                    departaments: invite.departaments,
+                    userLevel: invite.userLevel
                     }).status(200)
             }else{
                 res.send("Incorrect password")

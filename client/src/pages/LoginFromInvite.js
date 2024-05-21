@@ -39,7 +39,9 @@ function LoginFromInvite(){
         })
         console.log("userObject", userObject)
         if(userObject.hasOwnProperty('first_name')){
-            addUser(userObject, setLoggedIn, goToPage);
+            console.log("add user userObject", userObject)
+            console.log("signInResponse", signInResponse)
+            addUser(userObject, signInResponse, goToPage);
         }else{
             signInResponse = loginUser(userObject, getResponse);
         }
@@ -52,6 +54,7 @@ function LoginFromInvite(){
         workspaces = response.workSpaces
         userID = response.userID
         if(typeof signInResponse.userID != "undefined"){
+            console.log("login response", signInResponse)
             setLoggedIn(true)
         }
     }
@@ -126,32 +129,34 @@ async function loginUser(user, getResponse){
     })
 }
 
-async function addUser(user, setLoggedIn, goToPage){
-    if(user.hasOwnProperty('workSpaceName')){
-        const response = await axios.post("/users/add-user/?workspaceExists=false", {
-            first_name: user.first_name,
-            last_name: user.last_name,
-            email: user.email,
-            password: user.password,
-            workSpaceName: user.workSpaceName,
-            workSpaceUserLevel: 'owner',
-            workSpaceDepartaments: []
-        },{
-            withCredentials: true
-        })
-        const data = Promise.resolve(response)
-        data.then(result=>{
-            console.log(response.data)
-            if(typeof response.data != "undefined"){
-                goToPage(response.data[0]._id)
-            }
-            // if(response.data == "Logged in"){
-            //     console.log('navigate')
-            //     //setLoggedIn(true)
-                
-            // }
-        })
-    }
+async function addUser(user, signInResponse, goToPage){
+    const response = await axios.post(`/users/add-user/?workspace=${signInResponse.workSpaces}`, {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        password: user.password,
+        workSpaceName: user.workSpaceName,
+        workSpaceUserLevel: 'owner',
+        userLevel: signInResponse.userLevel,
+        workSpaceDepartaments: []
+    },{
+        withCredentials: true
+    })
+    const data = Promise.resolve(response)
+    data.then(result=>{
+        console.log(response.data)
+        if(typeof response.data != "undefined"){
+            goToPage(response.data[0]._id)
+        }
+        // if(response.data == "Logged in"){
+        //     console.log('navigate')
+        //     //setLoggedIn(true)
+            
+        // }
+    })
+    // if(user.hasOwnProperty('workSpaceName')){
+        
+    // }
 }
 
 export default LoginFromInvite;

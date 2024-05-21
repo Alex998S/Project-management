@@ -8,7 +8,6 @@ router.get("/get-workspace", async(req, res)=>{
 
     var workspaceID = req.query.workspace
     console.log("server workspace", workspaceID)
-
     try{
         const workspacesDB = await workspaces.findById(workspaceID)
         res.json(workspacesDB).status(200)
@@ -32,5 +31,7 @@ router.post("/add-workspace", async(req,res)=>{
         console.log(err)
     }
 })
+
+
 
 export default router
