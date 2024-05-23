@@ -102,22 +102,9 @@ router.post("/add-user/", async(req,res)=>{
 
         let user = {}
         console.log("workspace query", req.query.workspace)
-        if(req.query.workspace != ''){
-            const workspaceID = new mongoose.Types.ObjectId(workspaceInfo._id)
-            user = new users({
-                _id: userID,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                email: req.body.email,
-                password: hashedPassword,
-                workSpaces:[{
-                    _id: workspaceID,
-                    name: workspaceInfo.name,
-                    userLevel: req.body.userLevel,
-                    departaments: req.body.workSpaceDepartaments
-                }]
-            })
-        }else{
+        if(req.query.workspace != '' || req.query.workspace == 'undefined'){
+            console.log("workspace ID from url", req.query.workspace)
+            const workspaceID = new mongoose.Types.ObjectId(req.query.workspace)
             user = new users({
                 _id: userID,
                 first_name: req.body.first_name,
@@ -127,10 +114,26 @@ router.post("/add-user/", async(req,res)=>{
                 workSpaces:[{
                     _id: workspaceID,
                     name: req.body.workSpaceName,
-                    userLevel: req.body.workSpaceUserLevel,
+                    userLevel: req.body.userLevel,
                     departaments: req.body.workSpaceDepartaments
                 }]
             })
+        }else{
+            console.log("get herrree")
+            user = new users({
+                _id: userID,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                password: hashedPassword,
+                workSpaces:[{
+                    _id: workspaceID,
+                    name: req.body.workSpaceName,
+                    userLevel: "owner",
+                    departaments: req.body.workSpaceDepartaments
+                }]
+            })
+            createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
         }
        
         
@@ -184,9 +187,11 @@ router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
 })
 
 router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
+    
     const randPassword = Math.random().toString(36).substring(2,7);
     const hashedPassword = await bcrypt.hash(randPassword, 10)
     const workspaceID = new mongoose.Types.ObjectId(req.params.workspaceID)
+    console.log("workspaceID from invite", workspaceID)
     let level = ''
     if(req.body.userLevel != undefined || req.body.userLevel != null){
         level = req.body.userLevel
@@ -197,7 +202,8 @@ router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
         email: req.body.email,
         password: hashedPassword,
         userLevel: level,
-        workspace: workspaceID
+        workspace: workspaceID,
+        workspaceName: req.body.workspaceName
     })
     try{
         const newInvite = await invite.save()
@@ -208,6 +214,7 @@ router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     }
     
 })
+
 
 async function createNewWorkspace(userID, workspaceName, workspaceID){
     const workspace = new workspaces({
@@ -239,6 +246,7 @@ router.post("/login-from-invite", async(req, res)=>{
                     userID: invite._id,
                     workSpaces: invite.workspace,
                     departaments: invite.departaments,
+                    workspaceName: invite.workspaceName,
                     userLevel: invite.userLevel
                     }).status(200)
             }else{

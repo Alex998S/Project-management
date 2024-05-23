@@ -130,14 +130,15 @@ async function loginUser(user, getResponse){
 }
 
 async function addUser(user, signInResponse, goToPage){
+
     const response = await axios.post(`/users/add-user/?workspace=${signInResponse.workSpaces}`, {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
         password: user.password,
-        workSpaceName: user.workSpaceName,
-        workSpaceUserLevel: 'owner',
+        workSpaceName: signInResponse.workspaceName,
         userLevel: signInResponse.userLevel,
+        workSpaceUserLevel: signInResponse.userLevel,
         workSpaceDepartaments: []
     },{
         withCredentials: true

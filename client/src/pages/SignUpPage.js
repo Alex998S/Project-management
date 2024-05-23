@@ -10,7 +10,7 @@ axios.defaults.baseURL = "http://localhost:3001"
 
 async function addUser(user, setLoggedIn, goToPage){
     if(user.hasOwnProperty('workSpaceName')){
-        const response = await axios.post("/users/add-user", {
+        const response = await axios.post("/users/add-user/?workspace=", {
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
