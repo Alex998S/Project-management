@@ -23,6 +23,7 @@ function LoginFromInvite(){
 
     const navigate = useNavigate()
 
+    // navigation function
     function goToPage(workspaceID){
         navigate({
             pathname: '/tickets',
@@ -37,34 +38,15 @@ function LoginFromInvite(){
         userArray.map(element=>{
             userObject[element[0]] = element[1]
         })
-        console.log("userObject", userObject)
+
+        //if submited form has 'first_name' filed, creates a new user
         if(userObject.hasOwnProperty('first_name')){
-            console.log("add user userObject", userObject)
-            console.log("signInResponse", signInResponse)
             addUser(userObject, signInResponse, goToPage);
         }else{
-            signInResponse = loginUser(userObject, getResponse);
+            loginUser(userObject, setLoggedIn)
         }
         
     }
-
-    function getResponse(response){
-        signInResponse = response
-        departaments = response.departaments
-        workspaces = response.workSpaces
-        userID = response.userID
-        if(typeof signInResponse.userID != "undefined"){
-            console.log("login response", signInResponse)
-            setLoggedIn(true)
-        }
-    }
-
-    useEffect(()=>{
-        if(loggedIn == true){
-           userInfo = userObject
-           console.log("logged In", userObject)
-        }
-    },[loggedIn])
 
     if(!loggedIn){
         return(
@@ -84,7 +66,6 @@ function LoginFromInvite(){
             </div>
         )
     }else{
-        console.log(userInfo)
         return(
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -111,7 +92,8 @@ function LoginFromInvite(){
     
 }
 
-async function loginUser(user, getResponse){
+//logged in the user
+async function loginUser(user, setLoggedIn){
     const response = await axios.post("/users/login-from-invite", {
         email: user.email,
         password: user.password
@@ -120,15 +102,18 @@ async function loginUser(user, getResponse){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("data from login:", response)
         if(typeof response.data.userID != "undefined"){
-            getResponse(response.data)
+            signInResponse = response.data
+            if(typeof signInResponse.userID != "undefined"){
+                        setLoggedIn(true)
+                    }
         }else{
-            getResponse({error: "Sign in failed"})
+            console.log("Login failed")
         }
     })
 }
 
+//creating a new user
 async function addUser(user, signInResponse, goToPage){
 
     const response = await axios.post(`/users/add-user/?workspace=${signInResponse.workSpaces}`, {
@@ -149,15 +134,7 @@ async function addUser(user, signInResponse, goToPage){
         if(typeof response.data != "undefined"){
             goToPage(response.data[0]._id)
         }
-        // if(response.data == "Logged in"){
-        //     console.log('navigate')
-        //     //setLoggedIn(true)
-            
-        // }
     })
-    // if(user.hasOwnProperty('workSpaceName')){
-        
-    // }
 }
 
 export default LoginFromInvite;

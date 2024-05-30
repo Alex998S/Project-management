@@ -29,25 +29,8 @@ function SignInPage(){
         userArray.map(element=>{
             userObject[element[0]] = element[1]
         })
-        signInResponse = addUser(userObject, getResponse);
+        loginUser(userObject, setLoggedIn);
     }
-
-    function getResponse(response){
-        console.log("response from getResponse", response)
-        signInResponse = response
-        workspaces = response.workSpaces
-        userID = response.userID
-        if(typeof signInResponse.userID != "undefined"){
-            setLoggedIn(true)
-        }
-    }
-
-    // useEffect(()=>{
-    //     if(loggedIn == true){
-    //         console.log("userID: ", signInResponse.userID)
-    //         //navigate(`/select-workspace/${signInResponse.userID}`)
-    //     }
-    // },[loggedIn])
 
     return(
         <div className="container">
@@ -63,12 +46,13 @@ function SignInPage(){
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            <WorkspaceSelection workspaces={workspaces} userID={userID}/>
+            <WorkspaceSelection workspaces={signInResponse.workSpaces} userID={signInResponse.userID}/>
         </div>
     )
 }
 
-async function addUser(user, getResponse){
+//login the user
+async function loginUser(user, setLoggedIn){
     const response = await axios.post("/users/login", {
         email: user.email,
         password: user.password
@@ -77,10 +61,12 @@ async function addUser(user, getResponse){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
+        //check if login was successful
         if(typeof response.data.userID != "undefined"){
-            getResponse(response.data)
+            signInResponse = response.data
+            setLoggedIn(true)
         }else{
-            getResponse({error: "Sign in failed"})
+           console.log("Login failed")
         }
     })
 }

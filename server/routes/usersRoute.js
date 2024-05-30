@@ -101,8 +101,9 @@ router.post("/add-user/", async(req,res)=>{
         const userID = new mongoose.mongo.ObjectId()
 
         let user = {}
-        console.log("workspace query", req.query.workspace)
-        if(req.query.workspace != '' || req.query.workspace == 'undefined'){
+        
+        //creates new user without creating a new workspace
+        if(req.query.workspace != ''){
             console.log("workspace ID from url", req.query.workspace)
             const workspaceID = new mongoose.Types.ObjectId(req.query.workspace)
             user = new users({
@@ -118,8 +119,8 @@ router.post("/add-user/", async(req,res)=>{
                     departaments: req.body.workSpaceDepartaments
                 }]
             })
+        // creates a new user and a new workspace
         }else{
-            console.log("get herrree")
             user = new users({
                 _id: userID,
                 first_name: req.body.first_name,
@@ -133,21 +134,22 @@ router.post("/add-user/", async(req,res)=>{
                     departaments: req.body.workSpaceDepartaments
                 }]
             })
+            //create a new workspace
             createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
         }
        
-        
+        //save the user and ser the token cookie
         const newUser = await user.save()
         res.cookie("token", generateAccessToken(req.body.email,{
             httpOnly: true
         })).json(newUser.workSpaces).send("Logged in").status(200)
-        //generateAccessToken(req.body.email)
     }catch(err){
         res.status(500)
         console.log(err)
     }
 })
 
+//logging in a user, not includind invites
 router.post("/login", async(req, res)=>{
     try{
         const user = await users.findOne({email: req.body.email})
@@ -173,6 +175,7 @@ router.post("/login", async(req, res)=>{
     }
 })
 
+//adding a new workspace to an existing user
 router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     try{
         const userID = new mongoose.Types.ObjectId(req.params.id)
@@ -186,6 +189,7 @@ router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     }
 })
 
+//creating an invite
 router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     
     const randPassword = Math.random().toString(36).substring(2,7);
@@ -215,7 +219,7 @@ router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     
 })
 
-
+//creating a workspace and returning the object
 async function createNewWorkspace(userID, workspaceName, workspaceID){
     const workspace = new workspaces({
         _id: workspaceID,
@@ -233,6 +237,7 @@ async function createNewWorkspace(userID, workspaceName, workspaceID){
     }
 }
 
+//logging in user from invitation
 router.post("/login-from-invite", async(req, res)=>{
     try{
         const invite = await invites.findOne({email: req.body.email})

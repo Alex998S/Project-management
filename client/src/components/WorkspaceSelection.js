@@ -12,12 +12,16 @@ function WorkspaceSelection({userID, workspaces}){
     const [showWorkspaceInput, setShowWorkspaceInput] = useState(false)
     const[newWorkspaceName, setNewWorkspaceName] = useState('')
 
+    let createWorkspaceField
+
     const navigate = useNavigate()
 
+    //set the state = text from field
     const handleInputChange = (event) => {
         setNewWorkspaceName(event.target.value);
       };
 
+     //navigate to the tickets page 
     function goToPage(workspaceID){
         navigate({
             pathname: '/tickets',
@@ -25,6 +29,15 @@ function WorkspaceSelection({userID, workspaces}){
         })
     }
 
+    createWorkspaceField = 
+        <div className="mb-3">
+            <label for="create" className="form-label">Name</label>
+            <input className="form-control" id="create" name="add-workspace" value={newWorkspaceName} onChange={handleInputChange}></input>
+            <button type="button" onClick={()=>addWorkspace(newWorkspaceName, userID, goToPage)}>Add</button>
+        </div>
+    
+
+    //create html only when login response has workspaces
     if(workspaces != undefined && workspaces.length !=0){
         console.log("show workspaces", workspaces)
         return(
@@ -35,17 +48,13 @@ function WorkspaceSelection({userID, workspaces}){
                     )
                 })}
                 <button type="button" onClick={()=>setShowWorkspaceInput(true)} name="add-workspace">Create new workspace</button>
-                {showWorkspaceInput ? (
-                    <div className="mb-3">
-                        <label for="create" className="form-label">Name</label>
-                        <input className="form-control" id="create" name="add-workspace" value={newWorkspaceName} onChange={handleInputChange}></input>
-                        <button type="button" onClick={()=>addWorkspace(newWorkspaceName, userID, goToPage)}>Add</button>
-                    </div>): null}
+                {showWorkspaceInput ? createWorkspaceField: null}
             </div>
         )
     }
 }
 
+// creates a new workspace
 async function addWorkspace(newWorkspaceName, userID, goToPage){
     const response = await axios.put(`/users/add-user-workspace/${userID}`,{
         name: newWorkspaceName

@@ -8,6 +8,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
+// create new user
 async function addUser(user, setLoggedIn, goToPage){
     if(user.hasOwnProperty('workSpaceName')){
         const response = await axios.post("/users/add-user/?workspace=", {
@@ -27,11 +28,6 @@ async function addUser(user, setLoggedIn, goToPage){
             if(typeof response.data != "undefined"){
                 goToPage(response.data[0]._id)
             }
-            // if(response.data == "Logged in"){
-            //     console.log('navigate')
-            //     //setLoggedIn(true)
-                
-            // }
         })
     }
 }
@@ -47,6 +43,7 @@ function SignUpPage(){
 
     const navigate = useNavigate()
 
+    //navigate to the tickets page
     function goToPage(workspaceID){
         navigate({
             pathname: '/tickets',
@@ -70,6 +67,7 @@ function SignUpPage(){
         addUser(userObject, setLoggedIn, goToPage);
     }
 
+    //handling visibility for the join workspace field
     function toggleJoinVisibility(){
         if(!showJoinWorkspace && showCreateWorkspace){
             setShowCreateWorkspace(false)
@@ -79,6 +77,7 @@ function SignUpPage(){
         }
     }
 
+    //handling visibility for the create workspace field
     function toggleCreateVisibility(){
         if(!showCreateWorkspace && showJoinWorkspace){
             setShowJoinWorkspace(false)
@@ -88,6 +87,7 @@ function SignUpPage(){
         }
     }
 
+    // create html based on the respective field visibility
     if(showJoinWorkspace){
         inputField = <div className="mb-3">
                         <label for="join" className="form-label">Join</label>
