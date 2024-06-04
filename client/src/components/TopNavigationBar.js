@@ -1,7 +1,7 @@
 import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
-import AddTicket from "./AddTicket";
+import {AddTicket} from "./AddTicket";
 import OpenTicket from "./OpenTicket";
 
 let showPopUp = false;

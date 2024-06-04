@@ -35,11 +35,8 @@ async function addUser(user, setLoggedIn, goToPage){
 function SignUpPage(){
 
     const[loggedIn, setLoggedIn] = useState(false)
-    const[showJoinWorkspace, setShowJoinWorkspace] = useState(false)
-    const[showCreateWorkspace, setShowCreateWorkspace]= useState(false)
     
-    let userObject = {};
-    let inputField
+    let userObject = {}
 
     const navigate = useNavigate()
 
@@ -67,41 +64,6 @@ function SignUpPage(){
         addUser(userObject, setLoggedIn, goToPage);
     }
 
-    //handling visibility for the join workspace field
-    function toggleJoinVisibility(){
-        if(!showJoinWorkspace && showCreateWorkspace){
-            setShowCreateWorkspace(false)
-            return true
-        }else if(!showJoinWorkspace && !showCreateWorkspace){
-            return true
-        }
-    }
-
-    //handling visibility for the create workspace field
-    function toggleCreateVisibility(){
-        if(!showCreateWorkspace && showJoinWorkspace){
-            setShowJoinWorkspace(false)
-            return true
-        }else if(!showJoinWorkspace && !showCreateWorkspace){
-            return true
-        }
-    }
-
-    // create html based on the respective field visibility
-    if(showJoinWorkspace){
-        inputField = <div className="mb-3">
-                        <label for="join" className="form-label">Join</label>
-                        <input className="form-control" id="join" name="join"></input>
-                    </div>
-    }else if(showCreateWorkspace){
-        inputField = <div className="mb-3">
-                        <label for="create" className="form-label">Create</label>
-                        <input className="form-control" id="create" name="workSpaceName"></input>
-                    </div>
-    }else{
-        inputField = <div></div>
-    }
-
     return(
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -121,10 +83,10 @@ function SignUpPage(){
                 <label for="password" name="password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password" name="password"></input>
             </div>
-            <h4>Join a workspace or create one</h4>
-            <button className="btn btn-primary" type="button" onClick={()=>setShowJoinWorkspace(toggleJoinVisibility())}>Join</button>
-            <button className="btn btn-primary" type="button"  onClick={()=>setShowCreateWorkspace(toggleCreateVisibility())}>Create</button>
-            {inputField}
+            <div className="mb-3">
+                        <label for="create" className="form-label">Set your workspace name</label>
+                        <input className="form-control" id="create" name="workSpaceName"></input>
+                    </div>
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>
     )

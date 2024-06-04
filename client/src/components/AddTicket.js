@@ -56,8 +56,6 @@ function AddTicket(props){
 
     let show = props.props
 
-    console.log("add ticket", props)
-
     if(show){
         ticketValues =[]
 
@@ -122,4 +120,7 @@ function AddTicket(props){
     }
 }
 
-export default AddTicket
+export {
+    AddTicket,
+    readCookie
+}

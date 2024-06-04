@@ -176,7 +176,7 @@ router.post("/login", async(req, res)=>{
 })
 
 //adding a new workspace to an existing user
-router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
+router.put("/add-new-workspace/:id", authenticateToken, async (req, res)=>{
     try{
         const userID = new mongoose.Types.ObjectId(req.params.id)
         const workspaceID = new mongoose.mongo.ObjectId()
@@ -189,7 +189,28 @@ router.put("/add-user-workspace/:id", authenticateToken, async (req, res)=>{
     }
 })
 
-//creating an invite
+//adding an existing user to an existing workspace
+router.put("/add-user-to-workspace/", authenticateToken, async(req, res)=>{
+    try{
+        const workspaceObject = await workspaces.findById(req.body.workspaceID)
+        const workspaceID = new mongoose.Types.ObjectId(req.body.workspaceID)
+        const owner = new mongoose.Types.ObjectId(workspaceObject.owner)
+        const workspace = {
+            _id: workspaceID,
+            name: workspaceObject.name,
+            owner: owner,
+            userLevel: req.body.userLevel,
+            departaments: req.body.departaments
+        }
+        const updateUser = await users.findByIdAndUpdate(req.body.userToAdd, {$push:{workSpaces: workspace}}, {new: true})
+        res.status(200).json(workspace._id)
+    }catch(err){
+        res.status(500)
+        console.log(err)
+    }
+})
+
+//creating an invite for a new user
 router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     
     const randPassword = Math.random().toString(36).substring(2,7);
@@ -237,7 +258,7 @@ async function createNewWorkspace(userID, workspaceName, workspaceID){
     }
 }
 
-//logging in user from invitation
+// logging in a new user from invitation
 router.post("/login-from-invite", async(req, res)=>{
     try{
         const invite = await invites.findOne({email: req.body.email})
@@ -257,6 +278,7 @@ router.post("/login-from-invite", async(req, res)=>{
             }else{
                 res.send("Incorrect password")
             }
+            const deleted = await invites.findByIdAndDelete(invite._id)
         }else{
             res.send("Email not found")
         }

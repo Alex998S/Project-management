@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 import axios from 'axios'
 import { useNavigate} from "react-router-dom";
-import readCookie from './AddTicket.js'
+import {readCookie} from './AddTicket.js'
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -56,7 +56,7 @@ function WorkspaceSelection({userID, workspaces}){
 
 // creates a new workspace
 async function addWorkspace(newWorkspaceName, userID, goToPage){
-    const response = await axios.put(`/users/add-user-workspace/${userID}`,{
+    const response = await axios.put(`/users/add-new-workspace/${userID}`,{
         name: newWorkspaceName
     },{
         headers:{
