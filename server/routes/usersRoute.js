@@ -119,6 +119,9 @@ router.post("/add-user/", async(req,res)=>{
                     departaments: req.body.workSpaceDepartaments
                 }]
             })
+
+            //add the user to the existing workspace
+            updateWorkspaceWithNewUser(user, req.query.workspace, req.body.userLevel, [])
         // creates a new user and a new workspace
         }else{
             user = new users({
@@ -135,7 +138,7 @@ router.post("/add-user/", async(req,res)=>{
                 }]
             })
             //create a new workspace
-            createNewWorkspace(userID, req.body.workSpaceName, workspaceID)
+            createNewWorkspace(user, req.body.workSpaceName, workspaceID)
         }
        
         //save the user and ser the token cookie
@@ -178,9 +181,10 @@ router.post("/login", async(req, res)=>{
 //adding a new workspace to an existing user
 router.put("/add-new-workspace/:id", authenticateToken, async (req, res)=>{
     try{
-        const userID = new mongoose.Types.ObjectId(req.params.id)
+        const user = await users.findOne({_id: req.params.id})
+        //const userID = new mongoose.Types.ObjectId(req.params.id)
         const workspaceID = new mongoose.mongo.ObjectId()
-        const workspace = await createNewWorkspace(userID, req.body.name, workspaceID)
+        const workspace = await createNewWorkspace(user, req.body.name, workspaceID)
         const updatedUser = await users.findByIdAndUpdate(req.params.id, {$push:{workSpaces:workspace}}, {new: true})
         res.status(200).json(workspace._id)
     }catch(err){
@@ -198,11 +202,11 @@ router.put("/add-user-to-workspace/", authenticateToken, async(req, res)=>{
         const workspace = {
             _id: workspaceID,
             name: workspaceObject.name,
-            owner: owner,
             userLevel: req.body.userLevel,
             departaments: req.body.departaments
         }
         const updateUser = await users.findByIdAndUpdate(req.body.userToAdd, {$push:{workSpaces: workspace}}, {new: true})
+        updateWorkspaceWithNewUser(updateUser, req.body.workspaceID, req.body.userLevel, [])
         res.status(200).json(workspace._id)
     }catch(err){
         res.status(500)
@@ -240,24 +244,6 @@ router.post("/send-invite/:workspaceID", authenticateToken, async(req, res)=>{
     
 })
 
-//creating a workspace and returning the object
-async function createNewWorkspace(userID, workspaceName, workspaceID){
-    const workspace = new workspaces({
-        _id: workspaceID,
-        name: workspaceName,
-        owner: userID,
-        ticketModel: ticketModel,
-        departaments: []
-    })
-    const newWorkspace = await workspace.save()
-    return {
-        _id: workspaceID,
-        name: workspaceName,
-        userLevel: "owner",
-        departaments: []
-    }
-}
-
 // logging in a new user from invitation
 router.post("/login-from-invite", async(req, res)=>{
     try{
@@ -288,4 +274,42 @@ router.post("/login-from-invite", async(req, res)=>{
     }
 })
 
+//creating a workspace and returning the object
+async function createNewWorkspace(user, workspaceName, workspaceID){
+    const workspace = new workspaces({
+        _id: workspaceID,
+        name: workspaceName,
+        owner: user._id,
+        ticketModel: ticketModel,
+        departaments: [],
+        users:[{
+            _id: user._id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            userLevel: "owner",
+            departaments: []
+        }]
+    })
+    const newWorkspace = await workspace.save()
+    return {
+        _id: workspaceID,
+        name: workspaceName,
+        userLevel: "owner",
+        departaments: []
+    }
+}
+
+async function updateWorkspaceWithNewUser(user, workspaceID, userLevel, departaments){
+    const userSubset = (({
+        _id, first_name, last_name, email
+    }) => ({
+        _id, first_name, last_name, email
+    }))(user);
+
+    userSubset.userLevel = userLevel
+    userSubset.departaments = departaments 
+    
+    await workspaces.findByIdAndUpdate(workspaceID, {$push:{users: userSubset}}, {new: true})
+}
 export default router
