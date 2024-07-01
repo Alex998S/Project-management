@@ -19,7 +19,7 @@ let QATickets = [];
 let doneTickets = [];
 let suspendedTickets = [];
 let filteredTickets = [];
-let receivedModel;
+//let receivedModel;
 let ticketsFilteredBySearchKey = []
 
 
@@ -78,7 +78,9 @@ function readCookie(name) {
   
     
 
-function TicketListHolder(){
+function TicketListHolder({receivedModel}){
+
+    console.log("receivedModel", receivedModel)
 
     const[ticketCount, setTicketCount]=useState(1)
     const[loading, setLoading] = useState(true)
@@ -90,17 +92,17 @@ function TicketListHolder(){
 
     const workspaceID = searchParam.get('workspace')
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        axios.get(`/get-workspace/?workspace=${workspaceID}`,{
-            headers:{
-                Authorization: readCookie('token')
-            }
-        }).then((response) => response.data.ticketModel)
-            .then((data) =>{
-                receivedModel = data
-            })
-    },[])
+    //     axios.get(`/get-workspace/?workspace=${workspaceID}`,{
+    //         headers:{
+    //             Authorization: readCookie('token')
+    //         }
+    //     }).then((response) => response.data.ticketModel)
+    //         .then((data) =>{
+    //             receivedModel = data
+    //         })
+    // },[])
 
     const ticketModel = structuredClone(receivedModel)
 

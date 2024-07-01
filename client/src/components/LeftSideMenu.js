@@ -7,9 +7,11 @@ import AddTicket from "./AddTicket";
 
 let showPopUp = false;
 
-function LeftSideMenu(){
+function LeftSideMenu({workspace}){
 
     const[pressed, setPressed] = useState(showPopUp)
+
+    console.log(workspace)
 
     if(!pressed){
         return(
