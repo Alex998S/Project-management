@@ -6,15 +6,21 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 import './DropdownCustomization.js'
 import DropdownCustomization from "./DropdownCustomization.js";
+import TextAreaCustomisation from "./TextAreaCustomisation.js"
 import TicketPreview from "./TicketPreview.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-function renderSelectedType(selectedType){
-    switch(selectedType){
-        case "none":
+function renderSelectedType(selectedFieldType, ticketModel, updateTicketModel){
+    switch(selectedFieldType.inputType){
+        case "dropdown":
             return(
-                <DropdownCustomization/>
+                <DropdownCustomization ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType}/>
+            )
+            break;
+        case "textArea":
+            return(
+                <TextAreaCustomisation ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType}/>
             )
             break;
         default:
@@ -24,16 +30,26 @@ function renderSelectedType(selectedType){
 
 function CreateTicketModel({receivedWorkspace}){
 
-    const[selectedType, setSelectedType] = useState("none")
+    const[ticketModel, setTicketModel] = useState(receivedWorkspace.ticketModel)
+    const[selectedFieldType, setSelectedFieldType] = useState({
+        inputType: "dropdown",
+        title: ""
+    })
 
-    console.log("in create ticket model", receivedWorkspace)
+    function updateTicketModel(newModel){
+        setTicketModel(newModel)
+    }
+
+    function updateSelectedFieldType(newFieldType){
+        setSelectedFieldType(newFieldType)
+    }
 
     return(
         <div className="container">
             <h3>Here you select and customize every field</h3>
             <div className="container">
-                {renderSelectedType(selectedType)}
-                <TicketPreview ticketModel={receivedWorkspace.ticketModel}/>
+                {renderSelectedType(selectedFieldType, ticketModel, updateTicketModel)}
+                <TicketPreview ticketModel={ticketModel} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel}/>
             </div>
         </div>
     )

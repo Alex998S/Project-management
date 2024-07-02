@@ -31,7 +31,18 @@ function readCookie(name) {
 
 function TicketPreview(props){
 
-    
+    const currentFieldTypes = props.ticketModel
+
+    //const[currentFiledTypes, setCurrenctFiledTypes] = useState(props.ticketModel)
+
+    const handleDeleteField = (event) =>{
+        props.updateTicketModel(currentFieldTypes.filter(function(e){return e.title !== event.target.value}))
+        //setCurrenctFiledTypes(currentFiledTypes.filter(function(e){return e.title !== event.target.value}))
+    }
+
+    const handleEditField = (event) =>{
+        props.updateSelectedFieldType(currentFieldTypes.find(e => e.title === event.target.value))
+    }
 
     return(
         <div className="container scrollable">
@@ -43,12 +54,13 @@ function TicketPreview(props){
                     <button className="btn btn-success float-end mb-3" onClick={()=>props.showTheForm(false)}>
                         Close
                     </button>
-                    {props.ticketModel.map(element =>{
+                    {currentFieldTypes.map(element =>{
                         switch(element.inputType){
                             case "textArea":
                                 return(
                                     <div className="border border-primary">
-                                        <button type="button" class="btn-close" aria-label="Close"></button>
+                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
+                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <TextArea name={element.title} key={element.title} data={element} value=""/>
                                     </div>
                                     
@@ -57,6 +69,8 @@ function TicketPreview(props){
                             case "dropdown":
                                 return(
                                     <div className="border border-primary">
+                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
+                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <Dropdown name={element.title} data={element} key={element.title} value=""/>
                                     </div>
                                     
@@ -65,6 +79,8 @@ function TicketPreview(props){
                             case "smallTextArea":
                                 return(
                                     <div className="border border-primary">
+                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
+                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <DatePicker name={element.title} data={element} key={element.title} value=""/>
                                     </div>
                                     
