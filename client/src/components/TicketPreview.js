@@ -59,8 +59,8 @@ function TicketPreview(props){
                             case "textArea":
                                 return(
                                     <div className="border border-primary">
-                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
-                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
+                                        <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
+                                        <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <TextArea name={element.title} key={element.title} data={element} value=""/>
                                     </div>
                                     
@@ -69,8 +69,8 @@ function TicketPreview(props){
                             case "dropdown":
                                 return(
                                     <div className="border border-primary">
-                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
-                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
+                                       <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
+                                       <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <Dropdown name={element.title} data={element} key={element.title} value=""/>
                                     </div>
                                     
@@ -79,8 +79,8 @@ function TicketPreview(props){
                             case "smallTextArea":
                                 return(
                                     <div className="border border-primary">
-                                        <button value={element.title} type="button" class="btn-close" aria-label="Close" onClick={handleDeleteField}></button>
-                                        <button value={element.title} type="button" aria-label="Edit" onClick={handleEditField}>Edit</button>
+                                        <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
+                                        <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <DatePicker name={element.title} data={element} key={element.title} value=""/>
                                     </div>
                                     

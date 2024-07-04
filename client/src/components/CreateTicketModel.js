@@ -36,6 +36,9 @@ function CreateTicketModel({receivedWorkspace}){
         title: ""
     })
 
+    const ticketModelClone = structuredClone(ticketModel)
+    const selectedFieldTypeClone = structuredClone(selectedFieldType)
+
     function updateTicketModel(newModel){
         setTicketModel(newModel)
     }
@@ -44,12 +47,14 @@ function CreateTicketModel({receivedWorkspace}){
         setSelectedFieldType(newFieldType)
     }
 
+    console.log("ticketModel in create tiket model", ticketModelClone)
+
     return(
         <div className="container">
             <h3>Here you select and customize every field</h3>
             <div className="container">
-                {renderSelectedType(selectedFieldType, ticketModel, updateTicketModel)}
-                <TicketPreview ticketModel={ticketModel} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel}/>
+                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel)}
+                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel}/>
             </div>
         </div>
     )
