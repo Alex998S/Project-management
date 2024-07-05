@@ -23,27 +23,30 @@ function createNewTicketModel(ticketModel, newField, fieldToReplace){
 }
 
 function TextAreaCustomization({ticketModel, updateTicketModel, selectedFieldType}){
+    
 
     console.log("selectefField", selectedFieldType)
 
     if(selectedFieldType.title !== null){
         fieldToReplace = selectedFieldType.title
+        console.log("set title for new field to replace:", fieldToReplace)
     }
-    
+
     const updateFieldTitle = (event) =>{
         newField.title = event.target.value
-        console.log("new field title", newField)
+        console.log("new field", newField)
     }
 
     const updateFieldType = (event) =>{
         newField.inputType = event.target.value
-        console.log("new field title", newField)
+        console.log("new field", newField)
     }
 
     return(
         <div className="container">
+            {console.log("rendered", selectedFieldType.title)}
             <p>Title:</p>
-            <textarea type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" defaultValue={selectedFieldType.title} onChange={updateFieldTitle}></textarea>
+            <textarea type="text" name="title" key={selectedFieldType.title} defaultValue={selectedFieldType.title} className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateFieldTitle}></textarea>
             <p>Select input type</p>
             <button className="btn btn-primary float-end mb-3" type="submit" value="smallTextArea" onClick={updateFieldType}>Small</button>
             <button className="btn btn-primary float-end mb-3" type="submit" value="textArea" onClick={updateFieldType}>Large</button>

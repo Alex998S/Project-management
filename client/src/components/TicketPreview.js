@@ -31,7 +31,7 @@ function readCookie(name) {
 
 function TicketPreview(props){
 
-    const currentFieldTypes = props.ticketModel
+    const currentFieldTypes = structuredClone(props.ticketModel)
 
     //const[currentFiledTypes, setCurrenctFiledTypes] = useState(props.ticketModel)
 
