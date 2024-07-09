@@ -1,6 +1,7 @@
 import express from 'express'
 import workspaces from '../models/workspaceModel.js'
 import mongoose from 'mongoose'
+import { authenticateToken } from '../server.js'
 
 const router = express()
 
@@ -30,6 +31,17 @@ router.post("/add-workspace", async(req,res)=>{
         res.status(500)
         console.log(err)
     }
+})
+
+router.put("/update-workspace-model", authenticateToken, async(req,res)=>{
+    try{
+        const updatedModel = await workspaces.findByIdAndUpdate(req.query.workspace, {ticketModel: req.body.newTicketModel}, {new: true})
+        res.status(200).json(updatedModel)
+    }catch(err){
+        console.log(err)
+        res.status(500)
+    }
+    
 })
 
 

@@ -4,15 +4,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/ticket.sass'
 
 //let newField = {}
+let fieldToReplace = ""
 
 function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldType}){
 
     const[currentField, setCurrentField] = useState(selectedFieldType)
 
+    
+
     console.log("selected field at start", selectedFieldType)
     console.log("current field at start", currentField)
 
     let newField = structuredClone(currentField)
+
+    if(currentField.title !== null){
+        fieldToReplace = selectedFieldType.title
+        console.log("set title for new field to replace:", fieldToReplace)
+    }
 
     console.log("current field at start", currentField)
 
@@ -43,8 +51,26 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
         setCurrentField(newField)
     }
 
+    function createNewTicketModel(ticketModel, newField, fieldToReplace){
+
+        if(fieldToReplace !== ""){
+            ticketModel.map(element=>{
+                if(element.title === fieldToReplace){
+                    element.title = newField.title
+                    element.inputType = newField.inputType
+                    element.options = newField.options
+                }
+            })
+            return ticketModel
+        }else{
+            ticketModel.push(newField)
+            return ticketModel
+        }
+    }
+
     return(
         <div className="container">
+        <button className="btn btn-success float-end mb-3" type="submit" value="submit" onClick={()=>updateTicketModel(createNewTicketModel(ticketModel, newField, fieldToReplace))}>Save field</button>
             <div className="container">
                 <p>Title:</p>
                 <textarea type="text" name="title" key={newField.title} className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" defaultValue={newField.title} onChange={updateFieldTitle}></textarea>
