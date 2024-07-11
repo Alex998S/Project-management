@@ -12,11 +12,11 @@ import { readCookie } from "./AddTicket.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-function renderSelectedType(selectedFieldType, ticketModel, updateTicketModel){
+function renderSelectedType(selectedFieldType, ticketModel, updateTicketModel, users){
     switch(selectedFieldType.inputType){
         case "dropdown":
             return(
-                <DropdownCustomization ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType}/>
+                <DropdownCustomization ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType} users={users}/>
             )
             break;
         case "textArea":
@@ -49,12 +49,15 @@ function CreateTicketModel({receivedWorkspace}){
     const[searchParam, setSearchParam] = useSearchParams()
     const[ticketModel, setTicketModel] = useState(receivedWorkspace.ticketModel)
     const[selectedFieldType, setSelectedFieldType] = useState({
-        inputType: "dropdown",
-        title: ""
+        inputType: ""
     })
     const workspaceID = searchParam.get('workspace')
     const ticketModelClone = structuredClone(ticketModel)
     const selectedFieldTypeClone = structuredClone(selectedFieldType)
+
+    const users = receivedWorkspace.users.map(element=>{
+        return element = `${element.first_name} ${element.last_name}`
+    })
 
     function updateTicketModel(newModel){
         setTicketModel(newModel)
@@ -73,12 +76,11 @@ function CreateTicketModel({receivedWorkspace}){
             <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
             <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
             <div className="container">
-                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel)}
+                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, users)}
                 <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel}/>
             </div>
         </div>
     )
-    
 }
 
 export default CreateTicketModel

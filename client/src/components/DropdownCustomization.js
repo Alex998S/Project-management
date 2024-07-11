@@ -6,7 +6,7 @@ import '../stylesheets/ticket.sass'
 //let newField = {}
 let fieldToReplace = ""
 
-function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldType}){
+function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldType, users}){
 
     const[currentField, setCurrentField] = useState(selectedFieldType)
 
@@ -51,6 +51,11 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
         setCurrentField(newField)
     }
 
+    function addUserList(newField, users){
+        newField.options = users
+        setCurrentField(newField)
+    }
+
     function createNewTicketModel(ticketModel, newField, fieldToReplace){
 
         if(fieldToReplace !== ""){
@@ -75,6 +80,7 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
                 <p>Title:</p>
                 <textarea type="text" name="title" key={newField.title} className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" defaultValue={newField.title} onChange={updateFieldTitle}></textarea>
             </div>
+            <button className="btn btn-primary float-end mb-3" onClick={()=>{addUserList(newField, users)}}>User list</button>
             <div className="container">
                 <p>Add options</p>
                 <textarea type="text" className="form-control" defaultValue="" key="option" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateOptionToAdd}></textarea>
@@ -93,9 +99,6 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
             </div>
         </div>
     )
-
-    
-
 }
 
 export default DropdownCustomization
