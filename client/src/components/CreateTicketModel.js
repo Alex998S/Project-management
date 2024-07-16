@@ -39,7 +39,6 @@ async function saveModel(ticketModel, setTicketModel, workspaceID){
     })
     const data = Promise.resolve(response)
     data.then(result=>{
-        console.log("ticket model from response", response)
         setTicketModel(response.data.ticketModel)
     })
 }
@@ -66,8 +65,6 @@ function CreateTicketModel({receivedWorkspace}){
     function updateSelectedFieldType(newFieldType){
         setSelectedFieldType(newFieldType)
     }
-
-    console.log("ticketModel in create tiket model", ticketModelClone)
 
     return(
         <div className="container">

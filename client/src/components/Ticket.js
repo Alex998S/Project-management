@@ -8,11 +8,13 @@ function Ticket(props){
 
     const[opened, setOpened] = useState(false)
 
-    const titleObject = props.data.ticketValues.find(object => object.title === "Add title")
-    const typeObject = props.data.ticketValues.find(object => object.title === "Type")
+    console.log("[Ticket]==props", props)
 
-    // console.log("ticket props",props)
-    // console.log("ticket values", props.data.ticketValues)
+
+    const titleObject = props.data.ticketValues.find(object => object.hardcodedTitle === "title")
+    const typeObject = props.data.ticketValues.find(object => object.hardcodedTitle === "issue_type")
+
+    console.log("[Ticket]==titleObject", titleObject)
 
     return(
         <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>props.updateTicketToOpen(props.data)}>

@@ -22,14 +22,13 @@ function TopNavigationBar(props){
         }
     }
 
-    console.log(`show "${pressed}"`)
-    console.log(`ticketToOpen "${props.ticketToOpen}"`)
+    console.log("[TopNavigationBar]==props", props)
 
     return(
         <div className="container mt-3">
             <button type="button" className="btn btn-primary" onClick={setPressedState}>Create Ticket</button>
-            <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel}/>
-            <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen}/>
+            <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel} users={props.users}/>
+            <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} users={props.users}/>
         </div>
     )
 }

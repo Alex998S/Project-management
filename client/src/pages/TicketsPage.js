@@ -55,7 +55,7 @@ function TicketsPage(){
                 {/* <TopNavigationBar/> */}
                 <div className="main-container row border border-5">
                     <LeftSideMenu workspace={receivedWorkspace}/>
-                    <TicketListHolder receivedModel={receivedWorkspace.ticketModel}/>
+                    <TicketListHolder receivedWorkspace={receivedWorkspace}/>
                 </div>
             </div>
             

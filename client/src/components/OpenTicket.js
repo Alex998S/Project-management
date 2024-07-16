@@ -34,8 +34,6 @@ function readCookie(name) {
 }
 
 async function postTicket(ticketValues, props, newCount){
-    console.log("ticket values from update", ticketValues)
-
     try{
         const response = await axios.put(`/tickets/${props.ticketToOpen._id}`, 
             {ticketValues: ticketValues},{
@@ -57,7 +55,7 @@ async function postTicket(ticketValues, props, newCount){
 
 function OpenTicket(props){
 
-    console.log("Open ticket got rendered")
+    console.log("[OpenTicket]==props", props)
 
     const[ticketToOpen, setTicketToOpen] = useState(props.ticketToOpen)
 
@@ -125,7 +123,7 @@ function OpenTicket(props){
                                     break;
                                 case "dropdown":
                                     return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value}/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value} users={props.users}/>
                                     )
                                     break;
                                 case "smallTextArea":

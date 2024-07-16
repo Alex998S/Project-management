@@ -56,6 +56,8 @@ function AddTicket(props){
 
     let show = props.props
 
+    console.log("[AddTicket]==props", props)
+
     if(show){
         ticketValues =[]
 
@@ -101,7 +103,7 @@ function AddTicket(props){
                                     break;
                                 case "dropdown":
                                     return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value=""/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users}/>
                                     )
                                     break;
                                 case "smallTextArea":

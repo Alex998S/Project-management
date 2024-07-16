@@ -19,7 +19,7 @@ let QATickets = [];
 let doneTickets = [];
 let suspendedTickets = [];
 let filteredTickets = [];
-//let receivedModel;
+//let receivedWorkspace.ticketModel;
 let ticketsFilteredBySearchKey = []
 
 
@@ -78,9 +78,9 @@ function readCookie(name) {
   
     
 
-function TicketListHolder({receivedModel}){
+function TicketListHolder({receivedWorkspace}){
 
-    console.log("receivedModel", receivedModel)
+    console.log("[TicketListHolder]==receivedWorkspace", receivedWorkspace)
 
     const[ticketCount, setTicketCount]=useState(1)
     const[loading, setLoading] = useState(true)
@@ -100,11 +100,11 @@ function TicketListHolder({receivedModel}){
     //         }
     //     }).then((response) => response.data.ticketModel)
     //         .then((data) =>{
-    //             receivedModel = data
+    //             receivedWorkspace.ticketModel = data
     //         })
     // },[])
 
-    const ticketModel = structuredClone(receivedModel)
+    const ticketModel = structuredClone(receivedWorkspace.ticketModel)
 
     useEffect(()=>{
         axios.get(`/tickets/?workspace=${workspaceID}`,{
@@ -164,7 +164,7 @@ function TicketListHolder({receivedModel}){
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
-                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen}/>
+                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
@@ -177,7 +177,7 @@ function TicketListHolder({receivedModel}){
                             <h3>New</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
+                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@ function TicketListHolder({receivedModel}){
                             <h3>In progress</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
+                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ function TicketListHolder({receivedModel}){
                             <h3>QA</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
+                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
                 </div>
@@ -207,7 +207,7 @@ function TicketListHolder({receivedModel}){
                             <h3>Done</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
+                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ function TicketListHolder({receivedModel}){
                             <h3>Suspended</h3>
                         </div>
                         <div className="container scrollDiv">
-                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen}/>
+                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
                 </div>

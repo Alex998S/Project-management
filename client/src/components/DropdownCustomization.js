@@ -10,21 +10,11 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
 
     const[currentField, setCurrentField] = useState(selectedFieldType)
 
-    
-
-    console.log("selected field at start", selectedFieldType)
-    console.log("current field at start", currentField)
-
     let newField = structuredClone(currentField)
 
     if(currentField.title !== null){
         fieldToReplace = selectedFieldType.title
-        console.log("set title for new field to replace:", fieldToReplace)
     }
-
-    console.log("current field at start", currentField)
-
-    console.log("new field at start", newField)
 
     useEffect(()=>{
         setCurrentField(selectedFieldType)
@@ -36,18 +26,15 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
 
     const updateFieldTitle = (event) =>{
         newField.title = event.target.value
-        console.log("new field title", newField)
     }
 
     const updateOptionToAdd = (event) =>{
         newField.optionToAdd = event.target.value
-        console.log("new field title", newField)
     }
 
     function addOption(newField){
         newField.options.push(newField.optionToAdd)
         delete newField.optionToAdd
-        console.log("called new type")
         setCurrentField(newField)
     }
 

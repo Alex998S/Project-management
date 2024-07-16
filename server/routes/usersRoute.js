@@ -11,15 +11,27 @@ const router = express()
 const ticketModel = [
     {
         inputType: "textArea",
-        title: "Add title"
+        title: "Add title",
+        canBeRemoved: false,
+        static: true,
+        hardcodedTitle: "title",
+        dynamic: false
     },
     {
         inputType: "textArea",
-        title: "Add description"
+        title: "Add description",
+        canBeRemoved: false,
+        static: true,
+        hardcodedTitle: "description",
+        dynamic: false
     },
     {
         inputType: "dropdown",
         title: "Type",
+        canBeRemoved: false,
+        static: true,
+        hardcodedTitle: "issue_type",
+        dynamic: false,
         options: [
             "Maintenance",
             "Request",
@@ -32,6 +44,10 @@ const ticketModel = [
     {
         inputType: "dropdown",
         title: "Status",
+        canBeRemoved: false,
+        static: true,
+        hardcodedTitle: "issue_status",
+        dynamic: false,
         options: [
             "New",
             "QA",
@@ -39,56 +55,14 @@ const ticketModel = [
             "Done",
             "Suspended"
         ]
-    },
-    {
+    },{
         inputType: "dropdown",
-        title: "Created by",
-        options: [
-            "Alex",
-            "Mircea",
-            "Delia",
-            "Andrei"
-        ]
-    },
-    {
-        inputType: "dropdown",
-        title: "Assigned to",
-        options: [
-            "Alex",
-            "Mircea",
-            "Delia",
-            "Andrei"
-        ]
-    },
-    {
-        inputType: "dropdown",
-        title: "Contributors",
-        options: [
-            "Alex",
-            "Mircea",
-            "Delia",
-            "Andrei"
-        ]
-    },
-    {
-        inputType: "smallTextArea",
-        title: "Created date"
-    },
-    {
-        inputType: "smallTextArea",
-        title: "Start date"
-    },
-    {
-        inputType: "smallTextArea",
-        title: "ETA"
-    },
-    {
-        inputType: "smallTextArea",
-        title: "ETA 2"
-    },
-    {
-        inputType: "smallTextArea",
-        title: "End date"
+        title: "Users",
+        canBeRemoved: false,
+        static: false,
+        hardcodedTitle: "users",
+        dynamic: true,
+        options: "users"
     }
 ]
 
