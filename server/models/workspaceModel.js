@@ -10,7 +10,8 @@ const workspaceSchema = new mongoose.Schema({
         type: Schema.ObjectId,
         required: true
     },
-    ticketModel:[Schema.Types.Mixed]
+    ticketModel:[Schema.Types.Mixed],
+    ticketStateColumns:[Schema.Types.Mixed]
 },{strict: false, _id: false})
 
 export default mongoose.model('workspaces', workspaceSchema);

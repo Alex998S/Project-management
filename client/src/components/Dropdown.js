@@ -8,15 +8,24 @@ function displayOptions(props, showList, setDropdownValue, setShowList){
 
         let dynamicArrayName = props.data.options
 
-        let options = props[dynamicArrayName]
+        let options = props.dynamicFields[dynamicArrayName]
 
         console.log("[Dropdown]==options", options)
         return(
             <ul className={"dropdown-menu" + (showList ? ' show' : '')} >
                     {options.map(element =>{
-                        return(
-                            <li><button type="button" key={element._id} onClick={()=>{setDropdownValue(`${element.first_name} ${element.last_name}`); setShowList(false)}} className="dropdown-item">{`${element.first_name} ${element.last_name}`}</button></li>
-                        )
+                        if(Object.hasOwn(element, '_id')){
+                            console.log("with ID", element)
+                            return(
+                                <li><button type="button" key={element._id} onClick={()=>{setDropdownValue(`${element.first_name} ${element.last_name}`); setShowList(false)}} className="dropdown-item">{`${element.first_name} ${element.last_name}`}</button></li>
+                            )
+                        }else{
+                            console.log("without ID", element)
+                            return(
+                                <li><button type="button" key={element} onClick={()=>{setDropdownValue(element); setShowList(false)}} className="dropdown-item">{element}</button></li>
+                            )
+                        }
+                        
                     })}
             </ul>
         )

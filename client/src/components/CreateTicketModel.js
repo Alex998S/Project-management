@@ -54,9 +54,9 @@ function CreateTicketModel({receivedWorkspace}){
     const ticketModelClone = structuredClone(ticketModel)
     const selectedFieldTypeClone = structuredClone(selectedFieldType)
 
-    const users = receivedWorkspace.users.map(element=>{
-        return element = `${element.first_name} ${element.last_name}`
-    })
+    // const users = receivedWorkspace.users.map(element=>{
+    //     return element = `${element.first_name} ${element.last_name}`
+    // })
 
     function updateTicketModel(newModel){
         setTicketModel(newModel)
@@ -73,8 +73,8 @@ function CreateTicketModel({receivedWorkspace}){
             <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
             <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
             <div className="container">
-                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, users)}
-                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel}/>
+                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, receivedWorkspace.users)}
+                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users}/>
             </div>
         </div>
     )

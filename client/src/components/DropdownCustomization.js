@@ -8,6 +8,10 @@ let fieldToReplace = ""
 
 function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldType, users}){
 
+    console.log("[DropdownCustomisation]==ticketModel", ticketModel)
+    console.log("[DropdownCustomisation]==selectedFieldType", selectedFieldType)
+    console.log("[DropdownCustomisation]==users", users)
+
     const[currentField, setCurrentField] = useState(selectedFieldType)
 
     let newField = structuredClone(currentField)
@@ -58,6 +62,10 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
             ticketModel.push(newField)
             return ticketModel
         }
+    }
+
+    function displayOptions(){
+
     }
 
     return(

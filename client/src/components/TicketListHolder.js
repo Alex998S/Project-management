@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
 import '../stylesheets/ticket.sass'
 import TopNavigationBar from "./TopNavigationBar.js";
-import AddTicket from "./AddTicket.js";
 import {Cookies} from 'react-cookie'
 
 axios.defaults.baseURL = "http://localhost:3001"
@@ -18,13 +17,13 @@ let inProgressTickets =[];
 let QATickets = [];
 let doneTickets = [];
 let suspendedTickets = [];
-let filteredTickets = [];
-//let receivedWorkspace.ticketModel;
+
+let finalTickets = [];
 let ticketsFilteredBySearchKey = []
 
 
-function filterTickets(allTickets, status){
-    filteredTickets = []
+function filterTicketsByStatus(allTickets, status){
+    let filteredTickets = []
     allTickets.map(element=>{
         const values = element.ticketValues
         values.map(object=>{
@@ -37,7 +36,7 @@ function filterTickets(allTickets, status){
 }
 
 function filterBySearchKey(allTickets, searchKey, status){
-    ticketsFilteredBySearchKey = []
+    let filteredTickets = []
     let match = 0;
     let oneMatch = false
     if(searchKey != ""){
@@ -50,15 +49,17 @@ function filterBySearchKey(allTickets, searchKey, status){
                             match++
                 }
                 if(match>0){
-                    ticketsFilteredBySearchKey.push(element)
+                    filteredTickets.push(element)
                     match = 0
                     break;
                 }
             }
         })
-        return filterTickets(ticketsFilteredBySearchKey, status)
+        //return filterTicketsByStatus(filteredTickets, status)
+        return filteredTickets
     }else{
-        return filterTickets(allTickets, status)
+        //return filterTicketsByStatus(allTickets, status)
+        return allTickets
     }
 }
 
@@ -92,19 +93,10 @@ function TicketListHolder({receivedWorkspace}){
 
     const workspaceID = searchParam.get('workspace')
 
-    // useEffect(()=>{
-        
-    //     axios.get(`/get-workspace/?workspace=${workspaceID}`,{
-    //         headers:{
-    //             Authorization: readCookie('token')
-    //         }
-    //     }).then((response) => response.data.ticketModel)
-    //         .then((data) =>{
-    //             receivedWorkspace.ticketModel = data
-    //         })
-    // },[])
 
     const ticketModel = structuredClone(receivedWorkspace.ticketModel)
+
+    let dynamicFields = (({ users, ticketStateColumns }) => ({ users, ticketStateColumns }))(receivedWorkspace)
 
     useEffect(()=>{
         axios.get(`/tickets/?workspace=${workspaceID}`,{
@@ -124,11 +116,13 @@ function TicketListHolder({receivedWorkspace}){
 
     useEffect(()=>{
         let timer = setTimeout(()=>{
-            inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
-            newTickets = filterBySearchKey(allTickets, searchKey, "New")
-            QATickets = filterBySearchKey(allTickets, searchKey, "QA")
-            doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
-            suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
+            ticketsFilteredBySearchKey =filterBySearchKey(allTickets, searchKey, "In Progress")
+
+            // inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
+            // newTickets = filterBySearchKey(allTickets, searchKey, "New")
+            // QATickets = filterBySearchKey(allTickets, searchKey, "QA")
+            // doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
+            // suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
             setFilteredTickets({
                 searchKey: searchKey,
                 ticketCount: ticketCount
@@ -153,25 +147,33 @@ function TicketListHolder({receivedWorkspace}){
     function updateTicketToOpen(newTicket){
         setTicketToOpen(newTicket)
     }
-
-        // inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
-        // newTickets = filterBySearchKey(allTickets, searchKey, "New")
-        // QATickets = filterBySearchKey(allTickets, searchKey, "QA")
-        // doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
-        // suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
-
     
     return(
         <div className="container col-10 row">
             <div className="container ticketHeader col-12">
-                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
+                <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen} dynamicFields={dynamicFields}/>
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
                 </div>
             </div>
             <div className="ticket-list-holder col-12">
-                <div className="row scrollable">
+                {receivedWorkspace.ticketStateColumns.map(element=>{
+                    let ticketsFilteredByStatus = filterTicketsByStatus(ticketsFilteredBySearchKey, element)
+                    return(
+                        <div className="row scrollable">
+                            <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
+                                <div className="container">
+                                    <h3>{element}</h3>
+                                </div>
+                                <div className="container scrollDiv">
+                                    <TicketList data={ticketsFilteredByStatus} count={ticketsFilteredByStatus.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} dynamicFields={dynamicFields}/>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+                {/* <div className="row scrollable">
                     <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
                         <div className="container">
                             <h3>New</h3>
@@ -220,7 +222,7 @@ function TicketListHolder({receivedWorkspace}){
                             <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
         

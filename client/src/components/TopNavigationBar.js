@@ -27,8 +27,8 @@ function TopNavigationBar(props){
     return(
         <div className="container mt-3">
             <button type="button" className="btn btn-primary" onClick={setPressedState}>Create Ticket</button>
-            <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel} users={props.users}/>
-            <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} users={props.users}/>
+            <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel} dynamicFields={props.dynamicFields}/>
+            <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} dynamicFields={props.dynamicFields}/>
         </div>
     )
 }

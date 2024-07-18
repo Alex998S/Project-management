@@ -123,7 +123,7 @@ function OpenTicket(props){
                                     break;
                                 case "dropdown":
                                     return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value} users={props.users}/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value} dynamicFields={props.dynamicFields}/>
                                     )
                                     break;
                                 case "smallTextArea":

@@ -32,6 +32,7 @@ const ticketModel = [
         static: true,
         hardcodedTitle: "issue_type",
         dynamic: false,
+        modifiableOptions: true,
         options: [
             "Maintenance",
             "Request",
@@ -45,16 +46,11 @@ const ticketModel = [
         inputType: "dropdown",
         title: "Status",
         canBeRemoved: false,
-        static: true,
-        hardcodedTitle: "issue_status",
-        dynamic: false,
-        options: [
-            "New",
-            "QA",
-            "In Progress",
-            "Done",
-            "Suspended"
-        ]
+        static: false,
+        hardcodedTitle: "ticket_status",
+        dynamic: true,
+        modifiableOptions: false,
+        options: "ticketStateColumns"
     },{
         inputType: "dropdown",
         title: "Users",
@@ -62,10 +58,11 @@ const ticketModel = [
         static: false,
         hardcodedTitle: "users",
         dynamic: true,
+        modifiableOptions: false,
         options: "users"
     }
 ]
-
+const ticketStateColumns=["New", "In progress", "QA", "Done", "Suspended"]
 // 
 
 router.post("/add-user/", async(req,res)=>{
@@ -255,6 +252,7 @@ async function createNewWorkspace(user, workspaceName, workspaceID){
         name: workspaceName,
         owner: user._id,
         ticketModel: ticketModel,
+        ticketStateColumns: ticketStateColumns,
         departaments: [],
         users:[{
             _id: user._id,

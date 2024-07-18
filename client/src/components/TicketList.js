@@ -15,7 +15,7 @@ function TicketList(props){
                  {props.data.map(element =>{
                     return(
                         <div className="row mx-1 my-2" key={element._id}>
-                            <Ticket data={element} key={element._id} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} users={props.users}/>
+                            <Ticket data={element} key={element._id} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} dynamicFields={props.dynamicFields}/>
                         </div>
                     )
                 })}

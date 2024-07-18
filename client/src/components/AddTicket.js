@@ -103,7 +103,7 @@ function AddTicket(props){
                                     break;
                                 case "dropdown":
                                     return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users}/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value="" dynamicFields={props.dynamicFields}/>
                                     )
                                     break;
                                 case "smallTextArea":
