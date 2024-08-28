@@ -13,17 +13,13 @@ const ticketModel = [
         inputType: "textArea",
         title: "Add title",
         canBeRemoved: false,
-        static: true,
         hardcodedTitle: "title",
-        dynamic: false
     },
     {
         inputType: "textArea",
         title: "Add description",
         canBeRemoved: false,
-        static: true,
         hardcodedTitle: "description",
-        dynamic: false
     },
     {
         inputType: "dropdown",

@@ -71,7 +71,7 @@ function TicketPreview(props){
                                     <div className="border border-primary">
                                        <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                        <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
-                                        <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users}/>
+                                        <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users} dynamicFields={props.dynamicFields}/>
                                     </div>
                                     
                                 )

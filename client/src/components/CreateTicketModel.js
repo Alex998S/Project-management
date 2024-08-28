@@ -12,11 +12,11 @@ import { readCookie } from "./AddTicket.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
-function renderSelectedType(selectedFieldType, ticketModel, updateTicketModel, users){
+function renderSelectedType(selectedFieldType, ticketModel, updateTicketModel, dynamicFields){
     switch(selectedFieldType.inputType){
         case "dropdown":
             return(
-                <DropdownCustomization ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType} users={users}/>
+                <DropdownCustomization ticketModel={ticketModel} updateTicketModel={updateTicketModel} selectedFieldType={selectedFieldType} dynamicFields={dynamicFields}/>
             )
             break;
         case "textArea":
@@ -53,6 +53,7 @@ function CreateTicketModel({receivedWorkspace}){
     const workspaceID = searchParam.get('workspace')
     const ticketModelClone = structuredClone(ticketModel)
     const selectedFieldTypeClone = structuredClone(selectedFieldType)
+    let dynamicFields = (({ users, ticketStateColumns }) => ({ users, ticketStateColumns }))(receivedWorkspace)
 
     // const users = receivedWorkspace.users.map(element=>{
     //     return element = `${element.first_name} ${element.last_name}`
@@ -66,6 +67,8 @@ function CreateTicketModel({receivedWorkspace}){
         setSelectedFieldType(newFieldType)
     }
 
+    console.log("[CreateTicketModel]===props", receivedWorkspace)
+
     return(
         <div className="container">
             <h3>Here you select and customize every field</h3>
@@ -73,8 +76,8 @@ function CreateTicketModel({receivedWorkspace}){
             <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
             <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
             <div className="container">
-                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, receivedWorkspace.users)}
-                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users}/>
+                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}
+                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users} dynamicFields={dynamicFields}/>
             </div>
         </div>
     )

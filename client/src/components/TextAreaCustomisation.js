@@ -17,6 +17,8 @@ function createNewTicketModel(ticketModel, newField, fieldToReplace){
         })
         return ticketModel
     }else{
+        newField.canBeRemoved = true
+        newField.hardcodedTitle = ""
         ticketModel.push(newField)
         return ticketModel
     }
