@@ -45,15 +45,9 @@ function TicketPreview(props){
     }
 
     return(
-        <div className="container scrollable">
+        <div className="container scrollable col-12">
             <div className="add-ticket-form container border rounded scroll-size-70">
                 <form>
-                    <button className="btn btn-success float-end mb-3" type="submit">
-                        Save
-                    </button>
-                    <button className="btn btn-success float-end mb-3" onClick={()=>props.showTheForm(false)}>
-                        Close
-                    </button>
                     {currentFieldTypes.map(element =>{
                         switch(element.inputType){
                             case "textArea":

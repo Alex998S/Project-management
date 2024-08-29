@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
 import '../stylesheets/ticket.sass'
 import CreateTicketModel from "../components/CreateTicketModel.js";
+import DashboardLeftMenu from "../components/DashboardLeftMenu.js";
 
 axios.defaults.baseURL = "http://localhost:3001"
 
@@ -52,9 +53,12 @@ function DashboardPage(){
     else{
         console.log("in dashboard page", receivedWorkspace)
         return(
-            <div>
-                <h1>You are on the dashboard page</h1>
-                <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
+            <div className="main-container row border border-5">
+                <DashboardLeftMenu/>
+                <div className="right-side-window col-10 row">
+                    <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
+                </div>
+                
             </div>
         )
     }
