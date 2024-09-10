@@ -70,14 +70,16 @@ function CreateTicketModel({receivedWorkspace}){
     console.log("[CreateTicketModel]===props", receivedWorkspace)
 
     return(
-        <div className="container">
-            <h3>Here you select and customize every field</h3>
-            <button onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>Save model</button>
-            <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
-            <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
-            <div className="container">
-                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}
-                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users} dynamicFields={dynamicFields}/>
+        <div className="container col-10 row ticketPreview">
+            <div className="container ticketHeader col-12">
+                <h3>Here you select and customize every field</h3>
+                <button onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>Save model</button>
+                <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
+                <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
+                <div className="container">
+                    {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}
+                    <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users} dynamicFields={dynamicFields}/>
+                </div>
             </div>
         </div>
     )

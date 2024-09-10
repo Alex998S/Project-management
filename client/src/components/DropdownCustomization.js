@@ -146,7 +146,7 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
 
 
     return(
-        <div className="container">
+        <div className="container mt-3">
         <button className="btn btn-success float-end mb-3" type="submit" value="submit" onClick={()=>updateTicketModel(createNewTicketModel(ticketModel, newField, fieldToReplace))}>Save field</button>
             <div className="container">
                 <p>Title:</p>

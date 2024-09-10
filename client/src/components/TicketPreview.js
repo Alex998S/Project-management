@@ -45,14 +45,15 @@ function TicketPreview(props){
     }
 
     return(
-        <div className="container scrollable col-12">
-            <div className="add-ticket-form container border rounded scroll-size-70">
+        // <div className="container scrollable col-12">
+        <div>
+            <div className="container border rounded scroll-size-70 p-1">
                 <form>
                     {currentFieldTypes.map(element =>{
                         switch(element.inputType){
                             case "textArea":
                                 return(
-                                    <div className="border border-primary">
+                                    <div className="border border-primary m-3">
                                         <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                         <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <TextArea name={element.title} key={element.title} data={element} value=""/>
@@ -62,7 +63,7 @@ function TicketPreview(props){
                                 break;
                             case "dropdown":
                                 return(
-                                    <div className="border border-primary">
+                                    <div className="border border-primary m-3">
                                        <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                        <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users} dynamicFields={props.dynamicFields}/>
@@ -72,7 +73,7 @@ function TicketPreview(props){
                                 break;
                             case "smallTextArea":
                                 return(
-                                    <div className="border border-primary">
+                                    <div className="border border-primary m-3">
                                         <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                         <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <DatePicker name={element.title} data={element} key={element.title} value=""/>

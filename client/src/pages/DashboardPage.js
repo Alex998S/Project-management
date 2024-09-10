@@ -55,10 +55,7 @@ function DashboardPage(){
         return(
             <div className="main-container row border border-5">
                 <DashboardLeftMenu/>
-                <div className="right-side-window col-10 row">
-                    <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
-                </div>
-                
+                <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
             </div>
         )
     }

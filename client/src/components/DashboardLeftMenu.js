@@ -6,8 +6,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 function DashboardLeftMenu(){
     return(
-        <div className="container scrollDiv">
-            <div className="container">
+        <div className="container col-2 row">
+            <div className="container border">
                 <button className="btn btn-success float-end mb-3">A link</button>
             </div>
         </div>

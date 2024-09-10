@@ -117,12 +117,7 @@ function TicketListHolder({receivedWorkspace}){
     useEffect(()=>{
         let timer = setTimeout(()=>{
             ticketsFilteredBySearchKey =filterBySearchKey(allTickets, searchKey, "In Progress")
-
-            // inProgressTickets = filterBySearchKey(allTickets, searchKey, "In Progress")
-            // newTickets = filterBySearchKey(allTickets, searchKey, "New")
-            // QATickets = filterBySearchKey(allTickets, searchKey, "QA")
-            // doneTickets = filterBySearchKey(allTickets, searchKey, "Done")
-            // suspendedTickets = filterBySearchKey(allTickets, searchKey, "Suspended")
+            
             setFilteredTickets({
                 searchKey: searchKey,
                 ticketCount: ticketCount
@@ -173,56 +168,6 @@ function TicketListHolder({receivedWorkspace}){
                         </div>
                     )
                 })}
-                {/* <div className="row scrollable">
-                    <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
-                        <div className="container">
-                            <h3>New</h3>
-                        </div>
-                        <div className="container scrollDiv">
-                            <TicketList data={newTickets} count={newTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row scrollable">
-                    <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
-                        <div className="container">
-                            <h3>In progress</h3>
-                        </div>
-                        <div className="container scrollDiv">
-                            <TicketList data={inProgressTickets} count={inProgressTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row scrollable">
-                    <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
-                        <div className="container">
-                            <h3>QA</h3>
-                        </div>
-                        <div className="container scrollDiv">
-                            <TicketList data={QATickets} count={QATickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row scrollable">
-                    <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
-                        <div className="container">
-                            <h3>Done</h3>
-                        </div>
-                        <div className="container scrollDiv">
-                            <TicketList data={doneTickets} count={doneTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row scrollable">
-                    <div className="container parent-width-20 m-4 shadow bg-secondary-subtle">
-                        <div className="container">
-                            <h3>Suspended</h3>
-                        </div>
-                        <div className="container scrollDiv">
-                            <TicketList data={suspendedTickets} count={suspendedTickets.length} ticketModel={ticketModel} updateTicketToOpen={updateTicketToOpen} users={receivedWorkspace.users}/>
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </div>
         
