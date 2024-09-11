@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Ticket from "./Ticket";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 
 
 function TicketList(props){

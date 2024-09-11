@@ -1,6 +1,6 @@
 import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import axios from 'axios'
 import { useNavigate} from "react-router-dom";
 import {readCookie} from './AddTicket.js'

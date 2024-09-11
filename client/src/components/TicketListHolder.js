@@ -3,7 +3,7 @@ import {useSearchParams } from "react-router-dom";
 import axios, { all } from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import TicketList from "./TicketList.js";
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import TopNavigationBar from "./TopNavigationBar.js";
 import {Cookies} from 'react-cookie'
 
@@ -145,7 +145,7 @@ function TicketListHolder({receivedWorkspace}){
     
     return(
         <div className="container col-10 row">
-            <div className="container ticketHeader col-12">
+            <div className="container col-12">
                 <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen} dynamicFields={dynamicFields}/>
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>

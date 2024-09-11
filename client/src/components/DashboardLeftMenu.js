@@ -1,15 +1,17 @@
 import React, {setState, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 function DashboardLeftMenu(){
     return(
-        <div className="container col-2 row">
-            <div className="container border">
-                <button className="btn btn-success float-end mb-3">A link</button>
-            </div>
+        <div className="d-flex flex-column bg-primary dashboard-left-menu border border-black">
+            <button className="btn btn-success menu-item">Add user</button>
+            
+            <button className="btn btn-success menu-item">Users</button>
+            
+            <button className="btn btn-success menu-item">Customize tickets</button>
         </div>
     )
 }

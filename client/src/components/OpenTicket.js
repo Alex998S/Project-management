@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import Dropdown from "./Dropdown.js";
 import TextArea from "./TextArea.js";
 import SmallTextArea from './SmallTextArea.js'

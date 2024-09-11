@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OpenTicket from './OpenTicket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 
 function Ticket(props){
 

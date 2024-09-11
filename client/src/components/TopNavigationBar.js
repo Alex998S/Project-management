@@ -1,6 +1,6 @@
 import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import {AddTicket} from "./AddTicket";
 import OpenTicket from "./OpenTicket";
 
@@ -25,7 +25,7 @@ function TopNavigationBar(props){
     console.log("[TopNavigationBar]==props", props)
 
     return(
-        <div className="container mt-3">
+        <div className="container top-navigation-bar mt-3">
             <button type="button" className="btn btn-primary" onClick={setPressedState}>Create Ticket</button>
             <AddTicket props={pressed} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} showTheForm={showTheForm} ticketModel={props.ticketModel} dynamicFields={props.dynamicFields}/>
             <OpenTicket ticketToOpen={props.ticketToOpen} currentTickets={props.currentTickets} updateTicketCount={props.updateTicketCount} ticketModel={props.ticketModel} updateTicketToOpen={props.updateTicketToOpen} dynamicFields={props.dynamicFields}/>

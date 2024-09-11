@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 
 //let newField = {}
 let fieldToReplace = ""

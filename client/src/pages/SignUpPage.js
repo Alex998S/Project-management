@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001"

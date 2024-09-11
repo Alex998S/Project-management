@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import 'bootstrap/dist/css/bootstrap.css'
 
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import Dropdown from "./Dropdown.js";
 import TextArea from "./TextArea.js";
 import SmallTextArea from './SmallTextArea.js'

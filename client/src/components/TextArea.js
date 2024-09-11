@@ -1,6 +1,6 @@
 import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 
 function TextArea(props){
 

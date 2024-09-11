@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import { useNavigate} from "react-router-dom";
 import axios from 'axios'
 import WorkspaceSelection from "../components/WorkspaceSelection.js";

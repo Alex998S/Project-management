@@ -3,7 +3,7 @@ import {useSearchParams } from "react-router-dom";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import './DropdownCustomization.js'
 import DropdownCustomization from "./DropdownCustomization.js";
 import TextAreaCustomisation from "./TextAreaCustomisation.js"
@@ -70,16 +70,16 @@ function CreateTicketModel({receivedWorkspace}){
     console.log("[CreateTicketModel]===props", receivedWorkspace)
 
     return(
-        <div className="container col-10 row ticketPreview">
-            <div className="container ticketHeader col-12">
+        <div className="container d-flex flex-column ticketPreview bg-secondary">
+            <div className="container">
                 <h3>Here you select and customize every field</h3>
                 <button onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>Save model</button>
                 <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
                 <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
-                <div className="container">
-                    {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}
-                    <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users} dynamicFields={dynamicFields}/>
-                </div>
+            </div>
+            <div className="container">
+                {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}
+                <TicketPreview ticketModel={ticketModelClone} updateSelectedFieldType={updateSelectedFieldType} updateTicketModel={updateTicketModel} users={receivedWorkspace.users} dynamicFields={dynamicFields}/>
             </div>
         </div>
     )

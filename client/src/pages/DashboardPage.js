@@ -4,7 +4,7 @@ import {useSearchParams } from "react-router-dom";
 //import Ticket from './Ticket.js'
 import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap/dist/js/bootstrap.bundle'
-import '../stylesheets/ticket.sass'
+import '../stylesheets/main.sass'
 import CreateTicketModel from "../components/CreateTicketModel.js";
 import DashboardLeftMenu from "../components/DashboardLeftMenu.js";
 
@@ -53,7 +53,7 @@ function DashboardPage(){
     else{
         console.log("in dashboard page", receivedWorkspace)
         return(
-            <div className="main-container row border border-5">
+            <div className="main-container d-flex flex-row border border-5">
                 <DashboardLeftMenu/>
                 <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
             </div>
