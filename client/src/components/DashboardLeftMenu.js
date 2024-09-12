@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 function DashboardLeftMenu(){
     return(
-        <div className="d-flex flex-column bg-primary dashboard-left-menu border border-black">
+        <div className="d-flex flex-column dashboard-left-menu">
             <button className="btn btn-success menu-item">Add user</button>
             
             <button className="btn btn-success menu-item">Users</button>

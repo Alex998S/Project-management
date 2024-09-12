@@ -53,7 +53,7 @@ function DashboardPage(){
     else{
         console.log("in dashboard page", receivedWorkspace)
         return(
-            <div className="main-container d-flex flex-row border border-5">
+            <div className="main-container d-flex flex-row">
                 <DashboardLeftMenu/>
                 <CreateTicketModel receivedWorkspace={receivedWorkspace}/>
             </div>

@@ -70,7 +70,7 @@ function CreateTicketModel({receivedWorkspace}){
     console.log("[CreateTicketModel]===props", receivedWorkspace)
 
     return(
-        <div className="container d-flex flex-column ticketPreview bg-secondary">
+        <div className="d-flex flex-column dashboard-right-window">
             <div className="container">
                 <h3>Here you select and customize every field</h3>
                 <button onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>Save model</button>
