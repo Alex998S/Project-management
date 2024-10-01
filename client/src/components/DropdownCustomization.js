@@ -99,17 +99,6 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
         setCurrentField(newField)
     }
 
-    // const removeOption = (event) =>{
-    //     const optionToRemove = event.target.getAttribute('value')
-    //     const index = newField.options.findIndex(element => element === optionToRemove);
-
-    //     if (index !== -1) {
-    //         newField.options.splice(index, 1);
-    //     }
-        
-    //     setCurrentField(newField)
-    // }
-
     function removeOption(newField, optionToRemove){
         //const optionToRemove = event.target.getAttribute('value')
         const index = newField.options.findIndex(element => element === optionToRemove);
