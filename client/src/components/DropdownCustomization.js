@@ -81,7 +81,9 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
     }
 
     const updateFieldTitle = (event) =>{
+        newField.hardcodedTitle = newField.title
         newField.title = event.target.value
+        console.log("updateFieldTitle got colled, here the newField:", newField)
     }
 
     const updateOptionToAdd = (event) =>{
@@ -125,7 +127,7 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
         }else{
             newField.canBeRemoved = true
             newField.static = true
-            newField.hardcodedTitle = ""
+            newField.hardcodedTitle = newField.title
             newField.dynamic = false
             newField.modifiableOptions = true
             ticketModel.push(newField)

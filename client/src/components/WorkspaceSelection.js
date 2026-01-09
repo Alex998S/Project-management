@@ -31,9 +31,10 @@ function WorkspaceSelection({userID, workspaces}){
 
     createWorkspaceField = 
         <div className="mb-3">
-            <label for="create" className="form-label">Name</label>
-            <input className="form-control" id="create" name="add-workspace" value={newWorkspaceName} onChange={handleInputChange}></input>
-            <button type="button" onClick={()=>addWorkspace(newWorkspaceName, userID, goToPage)}>Add</button>
+            <input className="input-form" id="create" name="add-workspace" value={newWorkspaceName} onChange={handleInputChange} placeholder="Workspace name"></input>
+            <button type="button" className="workspace-button" onClick={()=>addWorkspace(newWorkspaceName, userID, goToPage)}>
+                <span>Add workspace</span>
+            </button>
         </div>
     
 
@@ -41,14 +42,21 @@ function WorkspaceSelection({userID, workspaces}){
     if(workspaces != undefined && workspaces.length !=0){
         console.log("show workspaces", workspaces)
         return(
-            <div className="container">
-                {workspaces.map(element =>{
-                    return(
-                        <button type="button" name="workspace" onClick={()=>goToPage(element._id)}>{element.name}</button>
-                    )
-                })}
-                <button type="button" onClick={()=>setShowWorkspaceInput(true)} name="add-workspace">Create new workspace</button>
-                {showWorkspaceInput ? createWorkspaceField: null}
+            <div className="available-workspaces  border border-primary rounded-1">
+                <h3 className="welcome-title">Available workspaces</h3>
+                <div className="available-workspaces-container">
+                    {workspaces.map(element =>{
+                        return(
+                            <button type="button" className="workspace-button" name="workspace" onClick={()=>goToPage(element._id)}>
+                                <span>{element.name}</span>
+                            </button>
+                        )
+                    })}
+                    <button type="button" className="workspace-button" onClick={()=>setShowWorkspaceInput(true)} name="add-workspace">
+                        <span>Create new workspace</span>
+                    </button>
+                    {showWorkspaceInput ? createWorkspaceField: null}
+                </div>
             </div>
         )
     }

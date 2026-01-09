@@ -2,14 +2,14 @@ import React, {useState, setState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../stylesheets/main.sass'
 
-function TextArea(props){
+function TextArea({element}){
 
-    console.log("Text area", props)
+    console.log("Text area", element)
 
     return(
         <div className="col-12">
-            <h4>{props.name}</h4>
-            <textarea name={props.name} className="form-control" aria-label="With textarea" defaultValue={props.value}></textarea>
+            <h4>{element.title}</h4>
+            <textarea name={element.title} className="form-control" aria-label="With textarea" defaultValue={element.value}></textarea>
         </div>
     )
 }

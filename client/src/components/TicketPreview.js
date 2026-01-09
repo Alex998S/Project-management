@@ -56,7 +56,7 @@ function TicketPreview(props){
                                     <div className="border border-primary m-3">
                                         <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                         <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
-                                        <TextArea name={element.title} key={element.title} data={element} value=""/>
+                                        <TextArea element={element} value=""/>
                                     </div>
                                     
                                 )

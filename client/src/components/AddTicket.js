@@ -101,7 +101,7 @@ function AddTicket(props){
                                 switch(element.inputType){
                                     case "textArea":
                                         return(
-                                            <TextArea name={element.title} key={element.title} data={element} value=""/>
+                                            <TextArea element={element}/>
                                         )
                                         break;
                                     case "dropdown":

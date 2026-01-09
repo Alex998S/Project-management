@@ -18,10 +18,21 @@ function WelcomePage(){
     }
 
     return(
-        <div className="container">
-            <button className="btn btn-primary" onClick={navigateToSignIn}>Sing in</button>
-            <button className="btn btn-primary" onClick={navigateToSignUp}>Sign up</button>
+        <div className="welcome-background">
+            <div className="welcome-page-container border border-primary rounded-1">
+                <h1 className="welcome-title">Welcome!</h1>
+                <h1 className="welcome-title">Task & Progress Manager</h1>
+                <div className="welcome-button-container">
+                    <button className="auth-button" onClick={navigateToSignIn}>
+                    <span>Login</span>
+                    </button>
+                    <button className="auth-button" onClick={navigateToSignUp}>
+                        <span>Sign up</span>
+                    </button>
+                </div>
+            </div>
         </div>
+        
     )
 }
 

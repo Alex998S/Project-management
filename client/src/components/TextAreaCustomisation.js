@@ -11,6 +11,7 @@ function createNewTicketModel(ticketModel, newField, fieldToReplace){
     if(fieldToReplace !== ""){
         ticketModel.map(element=>{
             if(element.title === fieldToReplace){
+                element.hardcodedTitle = element.title
                 element.title = newField.title
                 element.inputType = newField.inputType
             }

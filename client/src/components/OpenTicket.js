@@ -68,7 +68,7 @@ function OpenTicket(props){
         function mergeTicketWithModel(ticketModel, ticketValues){
             ticketModel.map(element=>{
                 ticketValues.map(value =>{
-                    if(element.title == value.title){
+                    if(element.title == value.title || element.hardcodedTitle == value.hardcodedTitle){
                         element.value = value.value
                     }
                 })

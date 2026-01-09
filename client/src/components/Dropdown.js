@@ -6,6 +6,8 @@ import '../stylesheets/main.sass'
 
 function displayOptions(props, showList, setDropdownValue, setShowList, searchKey, handleChange){
 
+    console.log("[Dropdown] All props", props, showList, setDropdownValue, setShowList, searchKey, handleChange)
+
     let defaultOptions = []
 
     let options = []
@@ -35,7 +37,6 @@ function displayOptions(props, showList, setDropdownValue, setShowList, searchKe
         })
     }
 
-    console.log("options in dropdown", options)
 
     if(searchKey != ""){
         options.map(element=>{
@@ -48,8 +49,6 @@ function displayOptions(props, showList, setDropdownValue, setShowList, searchKe
     }else{
         filteredOptions = options
     }
-
-    console.log("in dropdown, filteredOptions", filteredOptions)
 
     return(
         <ul className={"dropdown-menu" + (showList ? ' show' : '')}>
