@@ -85,36 +85,40 @@ function AddTicket(props){
             postTicket(ticketValues, props, newCount, workspaceID)
         }
         return(
-            <div className="container scrollable">
-                <div className="add-ticket-form container border rounded scroll-size-70">
-                    <form onSubmit={handleSubmit}>
-                        <button className="btn btn-success float-end mb-3" type="submit">
-                            Save
-                        </button>
-                        <button className="btn btn-success float-end mb-3" onClick={()=>props.showTheForm(false)}>
-                            Close
-                        </button>
-                        {props.ticketModel.map(element =>{
-                            switch(element.inputType){
-                                case "textArea":
-                                    return(
-                                        <TextArea name={element.title} key={element.title} data={element} value=""/>
-                                    )
-                                    break;
-                                case "dropdown":
-                                    return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value="" dynamicFields={props.dynamicFields}/>
-                                    )
-                                    break;
-                                case "smallTextArea":
-                                    return(
-                                        <DatePicker name={element.title} data={element} key={element.title} value=""/>
-                                    )
-                                    break;
-                                default:
-                                    console.log("No match for input types")
-                            }
-                        })}
+            <div className="ticket-form scrollable border border-primary rounded-1">
+                <div className="container border rounded scroll-size-70">
+                    <form onSubmit={handleSubmit} className="d-flex flex-column">
+                        <div>
+                            <button className="btn btn-success float-end mb-3" type="submit">
+                                Save
+                            </button>
+                            <button className="btn btn-success float-end mb-3" onClick={()=>props.showTheForm(false)}>
+                                Close
+                            </button>
+                        </div>
+                        <div className="available-workspaces-container">
+                            {props.ticketModel.map(element =>{
+                                switch(element.inputType){
+                                    case "textArea":
+                                        return(
+                                            <TextArea name={element.title} key={element.title} data={element} value=""/>
+                                        )
+                                        break;
+                                    case "dropdown":
+                                        return(
+                                            <Dropdown name={element.title} data={element} key={element.title} value="" dynamicFields={props.dynamicFields}/>
+                                        )
+                                        break;
+                                    case "smallTextArea":
+                                        return(
+                                            <DatePicker name={element.title} data={element} key={element.title} value=""/>
+                                        )
+                                        break;
+                                    default:
+                                        console.log("No match for input types")
+                                }
+                            })}
+                        </div>
                     </form>
                 </div>
             </div>

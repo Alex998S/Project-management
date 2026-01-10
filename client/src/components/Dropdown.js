@@ -53,7 +53,7 @@ function displayOptions(props, showList, setDropdownValue, setShowList, searchKe
 
     return(
         <ul className={"dropdown-menu" + (showList ? ' show' : '')} >
-            <input type="text" className="dropdown-search" placeholder="Search..." value={searchKey} onChange={handleChange}></input>
+            <input type="text" className="input-form" placeholder="Search..." value={searchKey} onChange={handleChange}></input>
             {filteredOptions.map(element =>{
                 return(
                     <li><button type="button" key={element.displayName} onClick={()=>{setDropdownValue(element.displayName); setShowList(false)}} className="dropdown-item">{element.displayName}</button></li>
@@ -76,13 +76,13 @@ function Dropdown(props){
     }
 
     return(
-        <div className="mb-3">
-            <label className="form-label dropdown-title" id="basic-addon3" htmlFor={props.name}>{props.name}</label>
-            <div className="dropdown">
-                <input id={props.name} name={props.name} style={{display: "none"}} 
+        <div className="col d-flex flex-column m-3">
+            <label className="form-label dropdown-title d-flex justify-content-center" id="basic-addon3" htmlFor={props.name}>{props.name}</label>
+            <div className="dropdown justify-content-center">
+                <input className="input-form" id={props.name} name={props.name} style={{display: "none"}} 
                     value={dropdownValue}
                 />
-                <button name={props.name} key={props.name} onClick={()=>setShowList(dropdownVisible(showList))} className="btn btn-primary dropdown-toggle show my-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button name={props.name} key={props.name} onClick={()=>setShowList(dropdownVisible(showList))} className="input-dropdown border border-secondary-subtle rounded-1 justify-content-left" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {dropdownValue}
                 </button>
                 {displayOptions(props, showList, setDropdownValue, setShowList, searchKey, handleChange)}

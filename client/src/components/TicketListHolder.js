@@ -144,15 +144,14 @@ function TicketListHolder({receivedWorkspace}){
     }
     
     return(
-        <div className="container col-10 row">
-            <div className="container col-12">
+        <div className="container">
+            <div className="top-container">
                 <TopNavigationBar currentTickets={ticketCount} updateTicketCount={updateTicketCount} ticketModel={ticketModel} ticketToOpen={ticketToOpen} updateTicketToOpen={updateTicketToOpen} dynamicFields={dynamicFields}/>
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>
-                    <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                <div className="container search-bar-container mb-3">
+                    <input type="text" className="search-bar border border-primary rounded-1" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} value={searchKey}></input>
                 </div>
             </div>
-            <div className="ticket-list-holder col-12">
+            <div className="ticket-list-holder border border-primary rounded-1 mx-5">
                 {receivedWorkspace.ticketStateColumns.map(element=>{
                     let ticketsFilteredByStatus = filterTicketsByStatus(ticketsFilteredBySearchKey, element)
                     return(

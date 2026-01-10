@@ -65,30 +65,34 @@ function SignUpPage(){
     }
 
     return(
-        <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label for="first-name" className="form-label">First Name</label>
-                <input className="form-control" id="first-name" name="first_name"></input>
-            </div>
-            <div className="mb-3">
-                <label for="last-name" className="form-label">Last name</label>
-                <input className="form-control" id="last-name" name="last_name"></input>
-            </div>
-            <div className="mb-3">
-                <label for="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div className="mb-3">
-                <label for="password" name="password" className="form-label">Password</label>
-                <input type="password" className="form-control" id="password" name="password"></input>
-            </div>
-            <div className="mb-3">
-                        <label for="create" className="form-label">Set your workspace name</label>
-                        <input className="form-control" id="create" name="workSpaceName"></input>
+        <div className="container">
+            <div className="welcome-page-container border border-primary rounded-1">
+                <h3 className="login-title">Welcome!</h3>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <input className="input-form border border-primary rounded-1" id="first-name" name="first_name" placeholder="First Name"></input>
                     </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+                    <div className="mb-3">
+                        <input className="input-form border border-primary rounded-1" id="last-name" name="last_name" placeholder="Last name"></input>
+                    </div>
+                    <div className="mb-3">
+                        <input type="email" className="input-form border border-primary rounded-1" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"></input>
+                    </div>
+                    <div className="mb-3">
+                        <input type="password" className="input-form border border-primary rounded-1" id="password" name="password" placeholder="Password"></input>
+                    </div>
+                    <div className="mb-3">
+                                <input className="input-form border border-primary rounded-1" id="create" name="workSpaceName" placeholder="Set your workspace name"></input>
+                            </div>
+                    <div className="welcome-button-container">
+                        <button type="submit" className="auth-button">
+                            <span>Sign up</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+       
     )
 }
 

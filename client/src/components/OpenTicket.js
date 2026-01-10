@@ -106,37 +106,41 @@ function OpenTicket(props){
 
         return(
             <div className="container scrollable">
-                <div className="add-ticket-form container border rounded scroll-size-70">
-                    <form onSubmit={handleSubmit}>
-                        <button className="btn btn-success float-end mb-3" type="submit">
+                <div className="ticket-form container border rounded scroll-size-80">
+                    <form onSubmit={handleSubmit} className="d-flex flex-column">
+                        <div>
+                            <button className="btn btn-success float-end mb-3" type="submit">
                             Save
-                        </button>
-                        <button className="btn btn-success float-end mb-3" type="button" onClick={()=>{setTicketToOpen(""); props.updateTicketToOpen("")}}>
-                            Close
-                        </button>
-                        {ticketModelWithValues.map(element =>{
-                            switch(element.inputType){
-                                case "textArea":
-                                    return(
-                                        <TextArea name={element.title} key={element.title} data={element} value={element.value}/>
-                                    )
-                                    break;
-                                case "dropdown":
-                                    return(
-                                        <Dropdown name={element.title} data={element} key={element.title} value={element.value} dynamicFields={props.dynamicFields}/>
-                                    )
-                                    break;
-                                case "smallTextArea":
-                                    return(
-                                        <DatePicker name={element.title} data={element} key={element.title} value={element.value}/>
+                            </button>
+                            <button className="btn btn-success float-end mb-3" type="button" onClick={()=>{setTicketToOpen(""); props.updateTicketToOpen("")}}>
+                                Close
+                            </button>
+                        </div>
+                        <div className="available-workspaces-container">
+                            {ticketModelWithValues.map(element =>{
+                                switch(element.inputType){
+                                    case "textArea":
+                                        return(
+                                            <TextArea name={element.title} key={element.title} data={element} value={element.value}/>
+                                        )
+                                        break;
+                                    case "dropdown":
+                                        return(
+                                            <Dropdown name={element.title} data={element} key={element.title} value={element.value} dynamicFields={props.dynamicFields}/>
+                                        )
+                                        break;
+                                    case "smallTextArea":
+                                        return(
+                                            <DatePicker name={element.title} data={element} key={element.title} value={element.value}/>
 
-                                        // <SmallTextArea name={element.title} data={element} key={element.title} value={element.value}/>
-                                    )
-                                    break;
-                                default:
-                                    console.log("No match for input types")
-                            }
-                        })}
+                                            // <SmallTextArea name={element.title} data={element} key={element.title} value={element.value}/>
+                                        )
+                                        break;
+                                    default:
+                                        console.log("No match for input types")
+                                }
+                            })}
+                        </div>
                     </form>
                 </div>
             </div>
