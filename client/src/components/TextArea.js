@@ -8,8 +8,7 @@ function TextArea({element}){
 
     return(
         <div className="col-12">
-            <h4>{element.title}</h4>
-            <textarea name={element.title} className="form-control" aria-label="With textarea" defaultValue={element.value}></textarea>
+            <textarea name={element.title} className="input-form border border-bottom-1 rounded-1" aria-label="With textarea" defaultValue={element.value} placeholder={element.title}></textarea>
         </div>
     )
 }

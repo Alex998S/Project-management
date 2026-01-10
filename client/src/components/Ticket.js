@@ -17,13 +17,13 @@ function Ticket(props){
     console.log("[Ticket]==titleObject", titleObject)
 
     return(
-        <div className="container shadow bg-body-tertiary rounded border rounded" onClick={()=>props.updateTicketToOpen(props.data)}>
-            <div className="row back-color-magenta border rounded">
-                <h6>{typeObject.value}</h6>
+        <div className="container ticket bg-body-tertiary rounded  border border-primary rounded-1" onClick={()=>props.updateTicketToOpen(props.data)}>
+            <div className="row border border-bottom-1 rounded-1">
+                <h5>{titleObject.value}</h5>
             </div>
-            <div className="row">
+            <div className="row mt-2">
                 <div className="col-10">
-                    <p>{titleObject.value}</p>
+                    <h6>{typeObject.value}</h6>
                 </div>
                 <div className="col-2 container">
                     <i className="img-fluid fa-solid fa-user-tie fa-2xl"></i>

@@ -116,7 +116,7 @@ function OpenTicket(props){
                                 Save
                             </button>
                         </div>
-                        <div className="row row-cols-4 g-4">
+                        <div className="available-workspaces-container">
                             {ticketModelWithValues.map(element =>{
                                 switch(element.inputType){
                                     case "textArea":

@@ -85,18 +85,18 @@ function AddTicket(props){
             postTicket(ticketValues, props, newCount, workspaceID)
         }
         return(
-            <div className="container scrollable">
-                <div className="ticket-form container border rounded scroll-size-70">
+            <div className="ticket-form scrollable border border-primary rounded-1">
+                <div className="container border rounded scroll-size-70">
                     <form onSubmit={handleSubmit} className="d-flex flex-column">
                         <div className="">
                             <button className="btn btn-danger float-end m-3" onClick={()=>props.showTheForm(false)}>
-                                    Close
+                                Close
                             </button>
                             <button className="btn btn-success float-end m-3" type="submit">
                                 Save
                             </button>
                         </div>
-                        <div className="row row-cols-4 g-4">
+                        <div className="available-workspaces-container">
                             {props.ticketModel.map(element =>{
                                 switch(element.inputType){
                                     case "textArea":
