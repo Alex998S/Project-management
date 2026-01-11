@@ -1,5 +1,7 @@
 # Wep app for managing and tracking project tasks
 
+> [!NOTE]
+> The project is not finished yet; more features and polishing still need to be done. Currently, the main focus is on functionality. After most of the features are completed, I will redesign the UI.
 
 ## Main features
 - a workspace can be shared with multiple users
