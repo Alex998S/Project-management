@@ -10,6 +10,15 @@
 - search bar to quickly find specific tickets, searches for keywords in every field of the ticket
 
 
+##Screenshots
+
+Main page
+<img width="1759" height="739" alt="Screenshot 2026-01-11 151119" src="https://github.com/user-attachments/assets/2349bf9e-b74c-4aad-b6b6-b46dfe659658" />
+
+Ticket customization page
+<img width="1458" height="651" alt="Screenshot 2026-01-11 150326" src="https://github.com/user-attachments/assets/6e0205e8-4298-4798-89eb-a8916ff33cce" />
+
+
 ## Objects Utilized in the Project
 
 Users:
@@ -153,13 +162,7 @@ Workspaces:
 ```
 
 
-##Screenshots
 
-Main page
-<img width="1759" height="739" alt="Screenshot 2026-01-11 151119" src="https://github.com/user-attachments/assets/2349bf9e-b74c-4aad-b6b6-b46dfe659658" />
-
-Ticket customization page
-<img width="1458" height="651" alt="Screenshot 2026-01-11 150326" src="https://github.com/user-attachments/assets/6e0205e8-4298-4798-89eb-a8916ff33cce" />
 
 Example of adding a custom dropdown
 <img width="1453" height="477" alt="Screenshot 2026-01-11 150613" src="https://github.com/user-attachments/assets/9fc7a608-fe9a-443f-b377-0f11103a32d4" />
