@@ -19,12 +19,12 @@ function displayOptions(newField, dynamicFields, removeOption){
         console.log("[Dropdown]==options", options)
 
         return(
-            <div className="container">
+            <div className="container d-flex justify-content-left">
                 {options.map(element =>{
                     if(Object.hasOwn(element, '_id')){
                         console.log("with ID", element)
                         return(
-                            <div className="border" key={element._id}>
+                            <div className="d-flex justify-content-left mx-4 my-2 border-bottom" key={element._id}>
                                 <p>{`${element.first_name} ${element.last_name}`}</p>
                                 <button className="btn-close btn-sm" value={`${element.first_name} ${element.last_name}`} onClick={()=>removeOption(newField, `${element.first_name} ${element.last_name}`)}></button>
                             </div>
@@ -32,7 +32,7 @@ function displayOptions(newField, dynamicFields, removeOption){
                     }else{
                         console.log("without ID", element)
                         return(
-                            <div className="border" key={element}>
+                            <div className="d-flex justify-content-left mx-4 my-2 border-bottom" key={element}>
                                 <p>{element}</p>
                                 <button className="btn-close btn-sm" value={element} onClick={()=>removeOption(newField, element)}></button>
                             </div>
@@ -44,11 +44,11 @@ function displayOptions(newField, dynamicFields, removeOption){
         )
     }else{
         return(
-            <div className="">
+            <div className="container d-flex justify-content-left">
                 {newField.options.map(element =>{
                     return(
-                        <div className="border">
-                            <p>{element}</p>
+                        <div className="d-flex justify-content-left mx-4 my-2 border-bottom">
+                            <p className="mx-3">{element}</p>
                             <button className="btn-close btn-sm" value={element} onClick={()=>removeOption(newField, element)}></button>
                         </div>
                     )
@@ -149,16 +149,14 @@ function DropdownCustomization({ticketModel, updateTicketModel, selectedFieldTyp
         <div className="container mt-3">
         <button className="btn btn-success float-end mb-3" type="submit" value="submit" onClick={()=>updateTicketModel(createNewTicketModel(ticketModel, newField, fieldToReplace))}>Save field</button>
             <div className="container">
-                <p>Title:</p>
-                <textarea type="text" name="title" key={newField.title} className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" defaultValue={newField.title} onChange={updateFieldTitle}></textarea>
+                <textarea type="text" name="title" key={newField.title} className="input-form" id="basic-url" aria-describedby="basic-addon3 basic-addon4" defaultValue={newField.title} onChange={updateFieldTitle} placeholder="Add title"></textarea>
             </div>
             <div className="container">
-                <p>Add options</p>
-                <textarea type="text" className="form-control" defaultValue="" key="option" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateOptionToAdd}></textarea>
+                <textarea type="text" className="input-form" defaultValue="" key="option" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateOptionToAdd} placeholder="Add options"></textarea>
                 <button className="btn btn-primary float-end mb-3" type="submit" value="smallTextArea" onClick={()=>{addOption(newField)}}>Add</button>
             </div>
-            <div className="container">
-            <p>Options:</p>
+            <div className="container mt-4 mb-2">
+            <h6>Added options:</h6>
                 {displayOptions(newField, dynamicFields, removeOption)}
             </div>
         </div>

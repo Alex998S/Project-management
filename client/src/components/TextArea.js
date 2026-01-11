@@ -5,7 +5,7 @@ import '../stylesheets/main.sass'
 function TextArea(props){
 
     return(
-        <div>
+        <div className="container m-1">
             <textarea name={props.name} className="input-form border border-bottom-1 rounded-1" aria-label="With textarea" defaultValue={props.value} placeholder={props.name}></textarea>
         </div>
     )

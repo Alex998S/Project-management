@@ -71,11 +71,17 @@ function CreateTicketModel({receivedWorkspace}){
 
     return(
         <div className="d-flex flex-column dashboard-right-window">
-            <div className="container">
+            <div className="welcome-button-container">
                 <h3>Here you select and customize every field</h3>
-                <button onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>Save model</button>
-                <button value="dropdown" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>Add dropdown</button>
-                <button value="textArea" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>Add text input</button>
+                <button className="auth-button" onClick={()=>saveModel(ticketModel, setTicketModel, workspaceID)}>
+                    <span>Save model</span>
+                </button>
+                <button value="dropdown" className="auth-button" onClick={()=>setSelectedFieldType({inputType: "dropdown", title:""})}>
+                    <span>Add dropdown</span>
+                </button>
+                <button value="textArea" className="auth-button" onClick={()=>setSelectedFieldType({inputType: "textArea", title:""})}>
+                    <span>Add text input</span>
+                </button>
             </div>
             <div className="container">
                 {renderSelectedType(selectedFieldTypeClone, ticketModelClone, updateTicketModel, dynamicFields)}

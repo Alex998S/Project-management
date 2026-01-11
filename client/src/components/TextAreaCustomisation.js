@@ -19,6 +19,7 @@ function createNewTicketModel(ticketModel, newField, fieldToReplace){
     }else{
         newField.canBeRemoved = true
         newField.hardcodedTitle = ""
+        newField.inputType = "textArea"
         ticketModel.push(newField)
         return ticketModel
     }
@@ -42,11 +43,10 @@ function TextAreaCustomization({ticketModel, updateTicketModel, selectedFieldTyp
 
     return(
         <div className="container">
-            <p>Title:</p>
-            <textarea type="text" name="title" key={selectedFieldType.title} defaultValue={selectedFieldType.title} className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateFieldTitle}></textarea>
-            <p>Select input type</p>
+            <textarea type="text" name="title" key={selectedFieldType.title} defaultValue={selectedFieldType.title} className="input-form" id="basic-url" aria-describedby="basic-addon3 basic-addon4" onChange={updateFieldTitle} placeholder="Add field name"></textarea>
+            {/* <p>Select input type</p>
             <button className="btn btn-primary float-end mb-3" type="submit" value="smallTextArea" onClick={updateFieldType}>Small</button>
-            <button className="btn btn-primary float-end mb-3" type="submit" value="textArea" onClick={updateFieldType}>Large</button>
+            <button className="btn btn-primary float-end mb-3" type="submit" value="textArea" onClick={updateFieldType}>Large</button> */}
             <button className="btn btn-success float-end mb-3" type="submit" value="submit" onClick={()=>updateTicketModel(createNewTicketModel(ticketModel, newField, fieldToReplace))}>Save field</button>
         </div>
     )

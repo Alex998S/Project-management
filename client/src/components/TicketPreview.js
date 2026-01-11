@@ -53,7 +53,7 @@ function TicketPreview(props){
                         switch(element.inputType){
                             case "textArea":
                                 return(
-                                    <div className="border border-primary m-3">
+                                    <div className="border border-secondary-subtle m-3 rounded-1">
                                         <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                         <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <TextArea name={element.title} key={element.title} data={element} value=""/>
@@ -63,7 +63,7 @@ function TicketPreview(props){
                                 break;
                             case "dropdown":
                                 return(
-                                    <div className="border border-primary m-3">
+                                    <div className="border border-secondary-subtle rounded-1 m-3">
                                        <button value={element.title} type="button" className="btn btn-danger" aria-label="Close" onClick={handleDeleteField}>Delete</button>
                                        <button value={element.title} type="button" className="btn btn-warning" aria-label="Edit" onClick={handleEditField}>Edit</button>
                                         <Dropdown name={element.title} data={element} key={element.title} value="" users={props.users} dynamicFields={props.dynamicFields}/>
