@@ -18,6 +18,10 @@ Main page
 Ticket customization page
 <img width="1458" height="651" alt="Screenshot 2026-01-11 150326" src="https://github.com/user-attachments/assets/6e0205e8-4298-4798-89eb-a8916ff33cce" />
 
+Example of adding a custom dropdown
+<img width="1453" height="477" alt="Screenshot 2026-01-11 150613" src="https://github.com/user-attachments/assets/9fc7a608-fe9a-443f-b377-0f11103a32d4" />
+<img width="880" height="598" alt="Screenshot 2026-01-11 150931" src="https://github.com/user-attachments/assets/a9d13503-684e-485d-a92b-cbc628878fbe" />
+
 
 ## Objects Utilized in the Project
 
@@ -162,10 +166,5 @@ Workspaces:
 ```
 
 
-
-
-Example of adding a custom dropdown
-<img width="1453" height="477" alt="Screenshot 2026-01-11 150613" src="https://github.com/user-attachments/assets/9fc7a608-fe9a-443f-b377-0f11103a32d4" />
-<img width="880" height="598" alt="Screenshot 2026-01-11 150931" src="https://github.com/user-attachments/assets/a9d13503-684e-485d-a92b-cbc628878fbe" />
 
 
