@@ -6,7 +6,7 @@ import { authenticateToken } from '../server.js'
 const router = express()
 
 
-
+//get all tickets
 router.get("/", authenticateToken, async(req, res)=>{
     var workspaceID = new mongoose.mongo.ObjectId(req.query.workspace)
     try{
@@ -18,6 +18,7 @@ router.get("/", authenticateToken, async(req, res)=>{
     }
 })
 
+//create new ticket
 router.post(`/post-ticket`, authenticateToken, async(req,res)=>{
     var workspaceID = new mongoose.mongo.ObjectId(req.query.workspace)
     const ticket = new tickets({
@@ -36,6 +37,7 @@ router.post(`/post-ticket`, authenticateToken, async(req,res)=>{
     }
 })
 
+//update existing ticket
 router.put("/:id", authenticateToken, async (req, res)=>{
     try{
         const updatedTicket = await tickets.findByIdAndUpdate(req.params.id, {$set:{ticketValues:req.body.ticketValues}}, {new: true})
