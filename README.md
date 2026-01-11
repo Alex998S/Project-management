@@ -1,16 +1,16 @@
-#Wep app for managing and tracking project tasks
+# Wep app for managing and tracking project tasks
 
 
-##Main features
+## Main features
 - a workspace can be shared with multiple users
 - each user can have multiple workspaces for different projects
 - the ticket template can be modified by adding/removing fileds or updating existing fields
 - search bar to quickly find specific tickets, searches for keywords in every field of the ticket
 
 
-##JSON models used
+## Objects Utilized in the Project
 
-For users:
+Users:
 ```
 {
   "_id": {
@@ -41,6 +41,115 @@ For users:
   "__v": 0
 }
 ```
+Workspaces:
+```
+{
+  "_id": {
+    "$oid": "696381fd06b78f99b3807c8d"
+  },
+  "name": "First workspace",
+  "ticketModel": [
+    {
+      "inputType": "textArea",
+      "title": "Add title",
+      "canBeRemoved": false,
+      "hardcodedTitle": "title"
+    },
+    {
+      "inputType": "textArea",
+      "title": "Add description",
+      "canBeRemoved": false,
+      "hardcodedTitle": "description"
+    },
+    {
+      "inputType": "dropdown",
+      "title": "Type",
+      "canBeRemoved": false,
+      "static": true,
+      "hardcodedTitle": "issue_type",
+      "dynamic": false,
+      "modifiableOptions": true,
+      "options": [
+        "Maintenance",
+        "Request",
+        "Bug fix",
+        "Onboard",
+        "Daily",
+        "New script"
+      ]
+    },
+    {
+      "inputType": "dropdown",
+      "title": "Status",
+      "canBeRemoved": false,
+      "static": false,
+      "hardcodedTitle": "ticket_status",
+      "dynamic": true,
+      "modifiableOptions": false,
+      "options": "ticketStateColumns"
+    },
+    {
+      "inputType": "dropdown",
+      "title": "Users",
+      "canBeRemoved": false,
+      "static": false,
+      "hardcodedTitle": "users",
+      "dynamic": true,
+      "modifiableOptions": false,
+      "options": "users"
+    },
+    {
+      "inputType": "dropdown",
+      "title": "Custom dropdown",
+      "options": [
+        "First option",
+        "Random option",
+        "Last option"
+      ],
+      "canBeRemoved": true,
+      "static": true,
+      "hardcodedTitle": "",
+      "dynamic": false,
+      "modifiableOptions": true
+    }
+  ],
+  "ticketStateColumns": [
+    "New",
+    "In progress",
+    "QA",
+    "Done",
+    "Suspended"
+  ],
+  "owner": {
+    "$oid": "696381fd06b78f99b3807c8e"
+  },
+  "departaments": [],
+  "users": [
+    {
+      "_id": {
+        "$oid": "696381fd06b78f99b3807c8e"
+      },
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "johndoe@email.com",
+      "userLevel": "owner",
+      "departaments": []
+    },
+    {
+      "_id": {
+        "$oid": "6963834906b78f99b3807c96"
+      },
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "janedoe@email.com",
+      "userLevel": "basic",
+      "departaments": []
+    }
+  ],
+  "__v": 0
+}
+```
+
 
 ##Screenshots
 
